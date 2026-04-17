@@ -1,0 +1,77 @@
+# Provider 配置
+# 改一行配置就能换工具
+
+voiceover:
+  default: elevenlabs
+  providers:
+    elevenlabs:
+      strengths: [英文优秀, 音效API, 情感丰富]
+      voice_id: "XB0fDUnXU5powFXDhCwa"  # 默认女声
+      model: "eleven_turbo_v2_5"
+    minimax:
+      strengths: [全球第一, 中文极佳, 6秒克隆]
+      model: "speech-01-turbo"
+    index-tts:
+      strengths: [开源免费, 本地GPU]
+      repo: "IndexTeam/IndexTTS"
+
+image_to_video:
+  default: jimeng
+  providers:
+    jimeng:
+      strengths: [运镜控制好, 国内访问, 性价比高]
+      req_key: "jimeng_ti2v_v30_pro"
+      frames: 121  # 5秒 @24fps
+      aspect_ratio: "16:9"
+    runway:
+      strengths: [质量高, Gen-3 Alpha]
+      model: "gen3a_turbo"
+    seedance:
+      strengths: [质量极高, 2.0版本]
+      status: planned
+      note: "等 API 开放后替换"
+    luma:
+      strengths: [Dream Machine, 物理准确]
+      model: "dream-machine"
+
+image_generation:
+  default: midjourney
+  providers:
+    midjourney:
+      strengths: [艺术感强, 品牌调性好]
+    jimeng:
+      strengths: [国内访问, 与视频同生态]
+    stable_diffusion:
+      strengths: [开源, 本地可控]
+      model: "SDXL"
+
+composition:
+  default: remotion
+  providers:
+    remotion:
+      strengths: [React声明式, 精确控制, 可编程]
+      fps: 24
+      width: 1920
+      height: 1080
+    ffmpeg:
+      strengths: [轻量, 命令行, 快速拼接]
+      command: "ffmpeg"
+
+color_grading:
+  default: lut
+  providers:
+    lut:
+      strengths: [专业调色, 品牌一致性]
+      presets: ["Aesop", "Byredo", "LeLabo"]
+    manual:
+      strengths: [精细调整]
+
+music:
+  default: epidemic
+  providers:
+    epidemic:
+      strengths: [版权清晰, 商业可用]
+    suno:
+      strengths: [AI生成, 定制化]
+    artlist:
+      strengths: [高质量, 独立音乐]

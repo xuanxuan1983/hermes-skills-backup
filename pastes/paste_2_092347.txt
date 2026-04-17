@@ -1,0 +1,283 @@
+迭代了！
+
+不用管思路了！不用管格式了！
+
+不用让ai参考全部提示词了！
+
+上传图片即可（不传也可以，凭空虚构个产品也行）
+
+
+
+完整元提示词：
+
+# 任务说明 我需要为我的产品生成一套完整的电商KV视觉系统提示词（10张海报，9:16竖版格式）。
+
+
+
+第一步：产品信息智能提取（如果上传了图片）
+
+请仔细分析我上传的产品图片，自动提取以下信息： ## 自动识别项目：
+
+品牌名称识别   - 从包装/产品上识别品牌LOGO文字   - 识别中文品牌名和英文品牌名   - 提取品牌标志的设计风格（字体、图标、配色）
+
+产品类型判断**   - 识别产品所属类别（服装/食品/电子/美妆/家居/宠物用品等）   - 识别具体产品名称（从包装文字或产品形态判断）   - 识别产品规格（尺寸、容量、重量等）
+
+卖点提取   - 从包装上的文案提取核心卖点关键词   - 从产品图标/认证标识提取卖点（如：有机认证、无添加、进口等）   - 从产品视觉特征推断卖点（如：颜色、材质、工艺）   - 提取数据卖点（如：百分比、含量、时长等）
+
+配色方案分析   - 提取包装主色调（RGB/HEX色值）   - 识别辅助色和点缀色   - 分析配色风格（清新/沉稳/鲜艳/高级等）
+
+设计风格判断   - 识别包装设计风格（极简/复古/可爱/科技/艺术等）   - 识别字体风格（衬线/无衬线/手写等）   - 识别图案元素（水彩/几何/插画/摄影）
+
+目标受众推断   - 根据包装风格推断目标用户群体   - 根据产品类型推断年龄段   - 根据价格定位推断消费层级
+
+产品参数提取   - 从包装文字提取产品规格（净含量/尺码/功率等）   - 提取成分信息/配料表/营养成分   - 提取使用说明/注意事项   - 提取生产日期/保质期/储存方式。
+
+
+
+产品细节识别   
+
+- 识别产品材质质感（光滑/粗糙/哑光/高光等）
+
+识别产品结构特点（可拆卸/折叠/便携等）
+
+识别包装特色（自封袋/泵头/喷雾/滴管等）
+
+输出格式：
+
+请将识别结果整理为以下格式：
+
+【识别报告】
+
+品牌名称：[中文] / [英文] 
+
+产品类型：[大类] - [具体产品] 
+
+产品规格：[具体规格] 
+
+核心卖点：[卖点1 - 中英文]
+
+[卖点2 - 中英文]
+
+[卖点3 - 中英文]
+
+[卖点4 - 中英文]
+
+[卖点5 - 中英文]
+
+主色调：[颜色名称] (#HEX) + [颜色名称] (#HEX)
+
+辅助色：[颜色名称] (#HEX)
+
+设计风格：[风格描述]
+
+目标受众：[用户画像]
+
+品牌调性：[调性描述]
+
+包装亮点：[特殊设计元素]
+
+
+
+第二步：视觉风格选择
+
+基于识别的产品信息，请推荐最适合的视觉风格（也可手动指定）：视觉风格选项
+
+（AI自动推荐或手动选择）
+
+□ 杂志编辑风格（高级、专业、大片感、粗衬线标题、极简留白）
+
+□ 水彩艺术风格（温暖、柔和、晕染效果、手绘质感）
+
+□ 科技未来风格（冷色调、几何图形、数据可视化、蓝光效果）
+
+□ 复古胶片风格（颗粒质感、暖色调、怀旧氛围、宝丽来边框）
+
+□ 极简北欧风格（性冷淡、大留白、几何线条、黑白灰）
+
+□ 霓虹赛博风格（荧光色、描边发光、未来都市、暗色背景）
+
+□ 自然有机风格（植物元素、大地色系、手工质感、环保理念）
+
+AI推荐依据： - 根据产品类型自动匹配最佳风格 - 根据包装设计风格延续品牌调性 - 根据目标受众审美偏好推荐 --
+
+
+
+第三步：文字排版效果选择
+
+文字排版效果（AI自动推荐或手动选择）
+
+□ 粗衬线大标题 + 细线装饰 + 网格对齐（杂志风）
+
+□ 玻璃拟态卡片 + 半透明背景 + 柔和圆角（现代风）
+
+□ 3D浮雕文字 + 金属质感 + 光影效果（奢华风）
+
+□ 手写体标注 + 水彩笔触 + 不规则布局（艺术风）
+
+□ 无衬线粗体 + 霓虹描边 + 发光效果（赛博风）
+
+□ 极细线条字 + 大量留白 + 精确对齐（极简风）
+
+
+
+第四步：生成完整提示词系统
+
+请严格按照以下要求生成：视觉风格选择（必选其一）
+
+□ 杂志编辑风格（高级、专业、大片感、粗衬线标题、极简留白）
+
+□ 水彩艺术风格（温暖、柔和、晕染效果、手绘质感）
+
+□ 科技未来风格（冷色调、几何图形、数据可视化、蓝光效果）
+
+□ 复古胶片风格（颗粒质感、暖色调、怀旧氛围、宝丽来边框）
+
+□ 极简北欧风格（性冷淡、大留白、几何线条、黑白灰）
+
+□ 霓虹赛博风格（荧光色、描边发光、未来都市、暗色背景）
+
+□ 自然有机风格（植物元素、大地色系、手工质感、环保理念） 
+
+# 文字排版效果（必选其一） 
+
+□ 粗衬线大标题 + 细线装饰 + 网格对齐（杂志风）
+
+□ 玻璃拟态卡片 + 半透明背景 + 柔和圆角（现代风）
+
+□ 3D浮雕文字 + 金属质感 + 光影效果（奢华风）
+
+□ 手写体标注 + 水彩笔触 + 不规则布局（艺术风）
+
+□ 无衬线粗体 + 霓虹描边 + 发光效果（赛博风）
+
+□ 极细线条字 + 大量留白 + 精确对齐（极简风）
+
+特殊需求（可选）
+
+【是否需要模特】：是 / 否（如果是，描述模特类型）
+
+【是否需要场景】：是 / 否（如果是，描述场景类型）
+
+【是否需要数据可视化】：是 / 否【其他特殊要求】：[如：必须包含产品实物、需要对比图、需要用户评价等] --- 
+
+
+
+# 生成要求 请严格按照以下结构输出完整提示词系统：
+
+输出结构：
+
+LOGO生成提示词（中英双语，基于识别的品牌设计风格）
+
+海报01 - 主KV视觉（Hero Shot，必须严格还原上传的产品图）
+
+海报02 - 生活场景/使用场景（Lifestyle，展示产品实际使用）
+
+海报03 - 工艺/技术/概念可视化（Process/Concept，基于识别的卖点）
+
+海报04 - 细节特写01（Detail 01，放大产品细节）
+
+海报05 - 细节特写02（Detail 02，材质/质感特写）
+
+海报06 - 细节特写03（Detail 03，功能细节）
+
+海报07 - 细节特写04 或 用户评价（Detail 04 / Review）
+
+海报08 - 品牌故事/配色灵感（Brand Story / Moodboard，使用识别的配色）
+
+海报09 - 产品参数/规格表（Specifications，使用识别的参数）
+
+海报10 - 使用指南/注意事项（Usage Guide，基于产品类型）
+
+
+
+🔴 核心要求（重中之重）：
+
+1. 产品图还原要求
+
+必须在提示词中明确说明：  "严格还原上传的产品图，包括包装设计、颜色、LOGO位置、文字内容、图案元素等所有细节" - "产品外观必须与参考图完全一致，不得改变包装设计、配色方案或品牌元素" 
+
+- "保持产品的真实材质质感（哑光/高光/磨砂/金属等）" - 例如："使用上传的朗诺RANOVA冻干鸡肉产品包装，保持蓝色袋身、水彩猫咪插画、金色LOGO等所有设计元素完全一致"
+
+2. 文案排版要求（中英文双语）
+
+每张海报的所有文字内容都必须采用中英文双语排版： 标题排版格式（3种可选）：
+
+格式A - 中英堆叠（最常用）： 纯肉冻干 PURE FREEZE-DRIED  中文在上（较大字号），英文在下（较小字号），垂直堆叠，居中对齐
+
+格式B - 中英并列： 纯肉冻干 | PURE FREEZE-DRIED  中英文横向并列，用竖线或斜杠分隔，字号相同或中文略大
+
+格式C - 中英分离： 纯肉冻干        
+
+[左上角] PURE FREEZE-DRIED  [右下角]  中英文分别放置在不同位置，形成视觉对比
+
+卖点/说明文字排版格式： 🥩 100%纯肉 / 100% Pure Meat ❄️ 冻干锁鲜 / Freeze-Dried Fresh 🌾 无谷配方 / Grain-Free Formula - 使用图标或符号引导 - 中文在前，英文在后，用斜杠"/"分隔 - 或采用上下堆叠，中文在上，英文在下（字号略小）
+
+段落文字排版格式： 在慵懒的午后，给爱宠一份天然美味。 On a lazy afternoon, give your pet natural deliciousness. RANOVA冻干零食，用真材实料定义健康零食新标准。 RANOVA freeze-dried snacks redefine healthy treats with real ingredients. - 中文段落和英文段落分别成段 - 英文段落字号略小（约为中文的80-90%） - 保持行距舒适（1.5-2.0倍行高）
+
+按钮/CTA文字格式： 立即选购 SHOP NOW → 了解更多 LEARN MORE → - 中英文并列或上下排列 - 箭头符号统一使用 →
+
+参数表格式： | 营养成分 Nutrients | 含量 Content | | 粗蛋白 Crude Protein | ≥42% | - 表头必须中英双语 - 每个参数项都要中英文标注
+
+3. 每张海报必须包含的元素：
+
+✅ 中文提示词（完整详细，600-1000字）
+
+✅ 英文Prompt（完整翻译，与中文对应）
+
+✅ 负面词（Negative Prompts，20-30个关键词）
+
+✅ 详细排版布局说明，包括：  - 所有文字的具体位置（左上/右下/居中等）  - 所有文字的字号大小关系（超大/大/中/小）  - 所有文字的颜色（具体色值或描述）  - 所有文字的字体风格（粗衬线/细无衬线/手写体等）  - 所有文字的中英文排版格式（堆叠/并列/分离）
+
+✅ LOGO位置（通常左上角，统一位置）
+
+✅ CTA按钮设计（位置、文字、样式）
+
+
+
+4. 风格统一原则：
+
+所有海报必须使用相同的文字排版效果 - 所有海报必须使用相同的配色系统（从产品图提取） - 所有海报必须保持品牌调性一致 - LOGO在每张海报中位置统一（左上角） - 中英文排版格式在所有海报中保持一致（选定一种格式后，10张海报都使用） --
+
+
+
+📝 输出格式示例（
+
+
+
+【识别报告】（先输出）
+
+基于上传的产品图片，识别结果如下：
+
+品牌信息： - 品牌名称：朗诺 / RANOVA - 品牌LOGO：金棕色衬线体"RANOVA"，下方中文"朗诺" - LOGO特点：配有抽象猫咪水彩插画图标
+
+产品信息： 
+
+产品类型：宠物食品 - 冻干零食 - 
+
+具体产品：冻干鸡肉 - 产品规格：300克/袋
+
+核心卖点（从包装提取）： 1. 100%纯肉 / 100% Pure Beef - 包装正面蓝色图标标识 2. 冻干锁鲜 / Freeze-Dried Fresh - 包装中部文字说明 3. 无谷配方 / Grain-Free - 包装底部绿色图标 4. ≥42%动物蛋白 / ≥42% Animal Protein - 包装侧面营养数据 5. 不含诱食剂 / No Attractants - 包装底部粉色图标
+
+配色方案： - 主色调：海蓝色 (#4A90E2) - 包装袋主体颜色 - 辅助色：柠檬黄 (#FFD93D) - 水彩猫咪插画配色 - 点缀色：珊瑚粉 (#FF6B9D)、金棕色 (#C49A6C) - LOGO和文字颜色 - 背景色：奶白色 (#FFF8E7) - 包装背景
+
+设计风格： - 包装风格：艺术水彩插画风格 - 主要元素：蓝黄渐变水彩猫咪头像 - 字体风格：LOGO使用衬线体，说明文字使用无衬线体 - 整体调性：温暖、艺术、天然、宠物友好
+
+目标受众： - 年龄段：25-45岁 - 用户画像：养猫人士，注重宠物健康，追求天然食品，有一定消费能力 - 审美偏好：喜欢艺术感、温暖、治愈系的设计
+
+产品参数（从包装提取）： - 净含量：300克 - 成分：鸡肉（100%） - 营养成分：粗蛋白≥42%，粗脂肪≥5%，粗纤维≤2%，水分≤5%，粗灰分≤8% - 适用阶段：全猫期 - 保质期：12个月 - 储存方式：阴凉干燥处，开袋后密封保存
+
+推荐视觉风格：水彩艺术风格（与包装设计风格一致） 推荐文字效果：玻璃拟态卡片 + 水彩笔触装饰（现代感+艺术感）
+
+中英文排版格式：格式A - 中英堆叠（标题）+ 斜杠分隔（说明文字） --- ### 海报01｜主KV·水彩猫咪的幸福时刻（Hero Visual）
+
+提示词（中文）：   9:16竖版高端艺术海报，水彩插画风格。柔和自然光，温暖奶白色背景带有淡淡水彩晕染（蓝色和黄色渐变边缘）。画面中心：一只精致水彩风格的真实猫咪（英短或橘猫），毛发细腻，大眼睛有神，正享受地吃着冻干鸡肉块（产品实物），猫咪周围飘浮着抽象水彩花瓣和羽毛装饰元素（蓝色、黄色、粉色）。
+
+产品展示（严格还原上传图片）： 朗诺RANOVA冻干鸡肉产品包装袋优雅地放置在猫咪旁边，45度角展示正面设计。必须完整还原包装的所有设计元素： - 蓝色渐变袋身（#4A90E2主色） - 正面水彩风格猫咪头像插画（蓝色和黄色晕染） - 顶部金棕色"RANOVA"品牌LOGO和中文"朗诺" - 中部白色区域"宠物零食 冻干鸡肉"文字 - 底部图标区域：蓝色"100%纯肉"图标、绿色"无谷物"图标、粉色"不含诱食剂"图标 - 右下角"净含量：300克"标注 - 包装材质：哑光塑料袋，带有自封条
+
+排版布局（中英文双语设计）： 左上角： - RANOVA水彩logo（小号，约占画面5%宽度） 顶部居中： - 大标题（水彩笔触质感，中英文堆叠排版）：  - 第一行："纯肉冻干"（金棕色 #C49A6C，粗衬线字体，字号占画面宽度30%）  - 第二行："PURE FREEZE-DRIED"（海蓝色 #4A90E2，细衬线字体，字号为中文的60%）  - 中英文之间间距：中文字号的0.5倍 - 副标题（下方细线装饰后）：  - "每一口都是真材实料"（金棕色，宋体，小号）  - "Every bite is pure ingredients"（海蓝色，无衬线体，更小号，字号为中文的80%） 左侧中部： - 玻璃拟态信息卡（圆角20px，半透明白底，模糊度10px，3个要点，图标+中英双语）：  - 要点1：    - 图标：🥩（肉块emoji）    - 中文："100%纯肉"（深灰色 #2D2D2D，粗体，14号字）    - 英文："100% Pure Meat"（中灰色 #666666，常规体，11号字）    - 排版：中英文用斜杠"/"分隔，同一行  - 要点2：    - 图标：❄️（冰晶emoji）    - 中英文："冻干锁鲜 / Freeze-Dried Fresh"（格式同上）  - 要点3：    - 图标：🌾（麦穗emoji，打红叉）    - 中英文："无谷配方 / Grain-Free Formula"（格式同上）  - 卡片内边距：上下左右各20px  - 要点之间间距：15px 右下角： - 圆角药丸CTA按钮（金棕色底 #C49A6C，白色文字）：  - 按钮尺寸：宽度占画面25%，高度为宽度的25%  - 按钮圆角：高度的50%（完全圆角）  - 文字（中英并列）："立即为爱宠选购 SHOP NOW →"  - 中文字号12号，英文字号10号，箭头符号12号  - 按钮位置：距离右边缘5%，距离底部8%
+
+负面词 / Negative:   cluttered, busy, multiple patterns, harsh shadows, watermark, logo repeated, messy text, low quality, blurry, artificial, plastic-looking, cartoon, anime style, wrong packaging design, different colors, modified logo, changed text, simplified design
+
+Prompt (English):   9:16 vertical premium artistic poster, watercolor illustration style. Soft natural lighting, warm off-white background with subtle blue and yellow watercolor wash edges. Center: An exquisite watercolor-style real cat (British Shorthair or orange tabby), fine fur detail, bright expressive eyes, happily eating freeze-dried chicken pieces (actual product), surrounded by abstract watercolor petals and feather decorative elements (blue, yellow, pink). Product Display (Strictly Restore Uploaded Image): RANOVA freeze-dried chicken product packaging elegantly placed beside cat, 45-degree angle showing front design. Must completely restore all packaging design elements: - Blue gradient bag body (#4A90E2 primary color) - Front watercolor-style cat head illustration (blue and yellow wash) - Top golden brown "RANOVA" brand logo and Chinese "朗诺" - Middle white area "Pet Snacks Freeze-Dried Chicken" text - Bottom icon area: blue "100% Pure Meat" icon, green "Grain-Free" icon, pink "No Attractants" icon - Bottom-right "Net Weight: 300g" notation - Packaging material: matte plastic bag with zip-lock Layout (Bilingual Chinese-English Design): Top-left: - RANOVA watercolor logo (small, approximately 5% of canvas width) Top center: - Main title (watercolor brush texture, Chinese-English stacked layout):  - Line 1: "纯肉冻干" (golden brown #C49A6C, bold serif font, size 30% of canvas width)  - Line 2: "PURE FREEZE-DRIED" (sea blue #4A90E2, thin serif font, size 60% of Chinese text)  - Spacing between Chinese and English: 0.5x Chinese text size - Subtitle (after thin line decoration):  - "每一口都是真材实料" (golden brown, Song font, small size)  - "Every bite is pure ingredients" (sea blue, sans-serif, smaller size, 80% of Chinese size) Left-center: - Glassmorphism info card (20px rounded corners, semi-transparent white base, 10px blur, 3 key points, icon + bilingual):  - Point 1:    - Icon: 🥩 (meat emoji)    - Chinese: "100%纯肉" (dark gray #2D2D2D, bold, 14pt)    - English: "100% Pure Meat" (medium gray #666666, regular, 11pt)    - Layout: Chinese and English separated by slash "/" on same line  - Point 2:    - Icon: ❄️ (ice crystal emoji)    - Bilingual: "冻干锁鲜 / Freeze-Dried Fresh" (same format)  - Point 3:    - Icon: 🌾 (wheat emoji with red X)    - Bilingual: "无谷配方 / Grain-Free Formula" (same format)  - Card padding: 20px all sides  - Point spacing: 15px Bottom-right: - Rounded pill CTA button (golden brown bg #C49A6C, white text):  - Button size: width 25% of canvas, height 25% of width  - Button radius: 50% of height (fully rounded)  - Text (Chinese-English parallel): "立即为爱宠选购 SHOP NOW →"  - Chinese 12pt, English 10pt, arrow 12pt  - Button position: 5% from right edge, 8% from bottom
+
+Negative:   cluttered, busy, multiple patterns, harsh shadows, watermark, logo repeated, messy text, low quality, blurry, artificial, plastic-looking, cartoon, anime style, wrong packaging design, different colors, modified logo, changed text, simplified design --- [后续9张海报以相同格式输出，每张都包含：中文提示词、英文Prompt、负面词、详细的中英文排版说明] ---

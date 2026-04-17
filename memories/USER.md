@@ -1,0 +1,7 @@
+User is developing a multi-platform automated publishing system (WeChat, Weibo, Zhihu, etc.) for the medical beauty industry. Preference for CLI-based AI agents and Python-based automation. Currently working on a project involving 'GEO visibility reports' for medical beauty.
+§
+User is developing a multi-platform automated publishing system for the medical beauty industry. Environment: macOS, Python 3.9/3.10. Prefers 'python3' command. Project includes a Flask API server (api_server.py) and a management UI (web_interface.html/demo.html). Current focus: 'GEO visibility reports' for medical beauty.
+§
+User is developing a multi-platform automated publishing system for the medical beauty industry. Current focus: 'GEO visibility reports' (based on '医美行业GEO可见度报告_专业版.pdf'). System includes a specialized publisher (medical_beauty_publisher.py) and a dedicated dashboard (medical_beauty_dashboard.html). Preferred environment: macOS, Python 3.9 (python3). Key platforms: WeChat, Weibo, Zhihu, Xiaohongshu, Douyin.
+§
+Strong preference for precise aesthetic replication — when shown reference designs, expects exact visual recreation rather than creative interpretation. Values traditional Chinese wabi-sabi aesthetics: paper textures, generous white space, subtle typography. Working on personal IP branding systems.

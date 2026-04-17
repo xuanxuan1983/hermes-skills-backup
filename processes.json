@@ -1,0 +1,17 @@
+[
+  {
+    "session_id": "proc_bd3e87125019",
+    "command": "cd /Users/xuan/Desktop/medcxy-video && python3 -m http.server 8877 &\nsleep 2 && echo \"server running\"",
+    "pid": 63821,
+    "pid_scope": "host",
+    "cwd": "/Users/xuan",
+    "started_at": 1776400782.9705222,
+    "task_id": "20260417_104304_5625b0",
+    "session_key": "",
+    "watcher_platform": "",
+    "watcher_chat_id": "",
+    "watcher_thread_id": "",
+    "watcher_interval": 0,
+    "notify_on_complete": false
+  }
+]

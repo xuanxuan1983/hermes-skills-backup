@@ -1,0 +1,237 @@
+version: '3.8'
+
+# Hermes AI 消息平台集成 Docker Compose 配置
+# 支持多种消息平台的统一部署
+
+services:
+  # Hermes AI 核心服务
+  hermes-agent:
+    image: hermesagent/hermes:latest
+    container_name: hermes-agent
+    restart: unless-stopped
+    ports:
+      - "8000:8000"  # Gateway API 端口
+      - "8080:8080"  # Web Interface 端口
+    volumes:
+      - ./config:/root/.hermes
+      - ./data:/data
+      - ./logs:/logs
+    environment:
+      # 基础配置
+      - HERMES_LOG_LEVEL=INFO
+      - HERMES_GATEWAY_HOST=0.0.0.0
+      - HERMES_GATEWAY_PORT=8000
+      
+      # API 密钥 (从 .env 文件加载)
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      
+      # 飞书配置
+      - FEISHU_APP_ID=${FEISHU_APP_ID}
+      - FEISHU_APP_SECRET=${FEISHU_APP_SECRET}
+      - FEISHU_VERIFICATION_TOKEN=${FEISHU_VERIFICATION_TOKEN}
+      - FEISHU_ENCRYPT_KEY=${FEISHU_ENCRYPT_KEY}
+      
+      # 企业微信配置
+      - WECOM_CORP_ID=${WECOM_CORP_ID}
+      - WECOM_AGENT_ID=${WECOM_AGENT_ID}
+      - WECOM_AGENT_SECRET=${WECOM_AGENT_SECRET}
+      - WECOM_TOKEN=${WECOM_TOKEN}
+      - WECOM_ENCODING_AES_KEY=${WECOM_ENCODING_AES_KEY}
+      
+      # Telegram 配置
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_WEBHOOK_URL=${TELEGRAM_WEBHOOK_URL}
+      - TELEGRAM_ADMIN_IDS=${TELEGRAM_ADMIN_IDS}
+      
+      # Discord 配置
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+      - DISCORD_APPLICATION_ID=${DISCORD_APPLICATION_ID}
+      - DISCORD_GUILD_ID=${DISCORD_GUILD_ID}
+      
+      # 钉钉配置
+      - DINGTALK_APP_KEY=${DINGTALK_APP_KEY}
+      - DINGTALK_APP_SECRET=${DINGTALK_APP_SECRET}
+      - DINGTALK_AGENT_ID=${DINGTALK_AGENT_ID}
+      
+    networks:
+      - hermes-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.hermes.rule=Host(`hermes.${DOMAIN}`)"
+      - "traefik.http.routers.hermes.tls=true"
+      - "traefik.http.routers.hermes.tls.certresolver=letsencrypt"
+      - "traefik.http.services.hermes.loadbalancer.server.port=8000"
+
+  # Redis 缓存服务 (用于会话管理)
+  redis:
+    image: redis:7-alpine
+    container_name: hermes-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    networks:
+      - hermes-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # PostgreSQL 数据库 (用于持久化存储)
+  postgres:
+    image: postgres:15-alpine
+    container_name: hermes-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=hermes
+      - POSTGRES_USER=hermes
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
+    networks:
+      - hermes-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hermes -d hermes"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Nginx 反向代理
+  nginx:
+    image: nginx:alpine
+    container_name: hermes-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./nginx/logs:/var/log/nginx
+    depends_on:
+      - hermes-agent
+    networks:
+      - hermes-network
+
+  # 微信个人机器人 (可选)
+  wechat-bot:
+    build:
+      context: ./wechat-bot
+      dockerfile: Dockerfile
+    container_name: hermes-wechat-bot
+    restart: unless-stopped
+    volumes:
+      - ./wechat-bot/config:/app/config
+      - ./wechat-bot/data:/app/data
+    environment:
+      - HERMES_ENDPOINT=http://hermes-agent:8000
+      - WECHAT_AUTO_LOGIN=true
+    depends_on:
+      - hermes-agent
+    networks:
+      - hermes-network
+    profiles:
+      - wechat
+
+  # 监控服务 (可选)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: hermes-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    networks:
+      - hermes-network
+    profiles:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: hermes-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+    networks:
+      - hermes-network
+    profiles:
+      - monitoring
+
+volumes:
+  redis-data:
+  postgres-data:
+  prometheus-data:
+  grafana-data:
+
+networks:
+  hermes-network:
+    driver: bridge
+
+# 环境变量模板
+# 复制到 .env 文件并填入实际值
+#
+# # === 基础配置 ===
+# DOMAIN=your-domain.com
+# POSTGRES_PASSWORD=secure_password_here
+# GRAFANA_PASSWORD=admin_password_here
+#
+# # === API 密钥 ===
+# OPENROUTER_API_KEY=sk-or-xxxxx
+# OPENAI_API_KEY=sk-xxxxx
+#
+# # === 飞书配置 ===
+# FEISHU_APP_ID=cli_xxxxx
+# FEISHU_APP_SECRET=xxxxx
+# FEISHU_VERIFICATION_TOKEN=xxxxx
+# FEISHU_ENCRYPT_KEY=xxxxx
+#
+# # === 企业微信配置 ===
+# WECOM_CORP_ID=xxxxx
+# WECOM_AGENT_ID=xxxxx
+# WECOM_AGENT_SECRET=xxxxx
+# WECOM_TOKEN=xxxxx
+# WECOM_ENCODING_AES_KEY=xxxxx
+#
+# # === Telegram 配置 ===
+# TELEGRAM_BOT_TOKEN=xxxxx:xxxxx
+# TELEGRAM_WEBHOOK_URL=https://your-domain.com
+# TELEGRAM_ADMIN_IDS=123456789,987654321
+#
+# # === Discord 配置 ===
+# DISCORD_BOT_TOKEN=xxxxx
+# DISCORD_APPLICATION_ID=xxxxx
+# DISCORD_GUILD_ID=xxxxx
+#
+# # === 钉钉配置 ===
+# DINGTALK_APP_KEY=xxxxx
+# DINGTALK_APP_SECRET=xxxxx
+# DINGTALK_AGENT_ID=xxxxx

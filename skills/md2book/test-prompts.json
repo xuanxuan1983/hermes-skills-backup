@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1, 
+    "prompt": "我有一个 book.md 文件，想要转换成 PDF 电子书，使用极简主题",
+    "expected": "执行完整的 markdown 转 PDF 流程，包括检查输入、确认参数、执行转换、验证输出"
+  },
+  {
+    "id": 2,
+    "prompt": "将这个技术文档 docs/guide.md 导出为学术风格的 PDF，输出到 output/ 目录",
+    "expected": "处理相对路径，选择 academic 主题，指定输出目录，完成转换"
+  },
+  {
+    "id": 3,
+    "prompt": "md2book 转换失败了，显示中文是方框，怎么办？",
+    "expected": "提供字体问题的故障排查指导，包括检查字体安装、系统兼容性等"
+  }
+]

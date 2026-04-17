@@ -1,0 +1,1392 @@
+{
+  "skills_test_suite": [
+    {
+      "skill": "p12-profitability-confidence",
+      "version": "0.1.0",
+      "source_book": "《极简主义创业》 Sahil Lavignena",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "p12-trigger-01",
+          "type": "should_trigger",
+          "prompt": "有个VC一直在追我，说要投500万，我有点心动但又怕拿了钱之后身不由己",
+          "expected_behavior": "激活 p12-profitability-confidence，反问'你现在盈利了吗？'，评估融资时机和代价",
+          "notes": "正面场景：VC接触中考虑要不要拿钱"
+        },
+        {
+          "id": "p12-trigger-02",
+          "type": "should_trigger",
+          "prompt": "公司月收入20万了，我在想要不要趁现在多招点人加速扩张",
+          "expected_behavior": "激活 p12-profitability-confidence，引导思考增长vs盈利的权衡",
+          "notes": "正面场景：收入增长后考虑加速扩张"
+        },
+        {
+          "id": "p12-trigger-03",
+          "type": "should_trigger",
+          "prompt": "拿了投资之后反而感觉更累了，每天被投资人催着增长，这正常吗",
+          "expected_behavior": "激活 p12-profitability-confidence，分析融资引入外部压力的本质",
+          "notes": "正面场景：融资后感到压力增大"
+        },
+        {
+          "id": "p12-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "帮我查一下这个投资人的背景和过往案例",
+          "expected_behavior": "不应激活，不涉及融资时机判断，只是信息查询",
+          "notes": "诱饵：纯信息查询场景"
+        },
+        {
+          "id": "p12-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我想辞职全职创业，但还没想清楚要不要先融资",
+          "expected_behavior": "不应激活，还没验证需求就谈融资为时过早",
+          "notes": "诱饵：早期探索阶段谈融资"
+        },
+        {
+          "id": "p12-edge-01",
+          "type": "edge_case",
+          "prompt": "我有稳定客户每月给我带来被动收入，现在有人想投我，我该拿吗",
+          "expected_behavior": "边界模糊：已有盈利结构时融资可能有战略价值，需具体分析条款",
+          "notes": "边界：盈利状态下融资的判断"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "ce11-better-solution-distraction",
+      "version": "0.1.0",
+      "source_book": "《小而美》 萨希尔·拉文吉亚",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "ce11-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我在想要不要等学完Rust再开始做项目，感觉现在学的Python不够好",
+          "expected_behavior": "激活 ce11-better-solution-distraction，反问'谁在等你学完？'",
+          "notes": "正面场景：用学习逃避执行的典型表达"
+        },
+        {
+          "id": "ce11-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我们团队觉得应该把技术栈从Node.js换成Go，2年后JavaScript会过时",
+          "expected_behavior": "激活 ce11-better-solution-distraction，引导先验证客户而非技术选型",
+          "notes": "正面场景：用技术选型逃避客户验证"
+        },
+        {
+          "id": "ce11-trigger-03",
+          "type": "should_trigger",
+          "prompt": "我在做一个SaaS产品，等我想清楚最完美的方案再开始开发",
+          "expected_behavior": "激活 ce11-better-solution-distraction，质疑'想清楚'是否必要",
+          "notes": "正面场景：追求完美方案导致不开始"
+        },
+        {
+          "id": "ce11-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我们产品已经有500个付费客户了，现在讨论要不要重构技术架构",
+          "expected_behavior": "不应激活，已验证PMF后的技术架构讨论是合理的",
+          "notes": "诱饵：PMF验证后的技术讨论"
+        },
+        {
+          "id": "ce11-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "有个明确的技术债务问题导致我们系统经常崩溃，必须解决",
+          "expected_behavior": "不应激活，有明确技术债务问题需要解决是合理的",
+          "notes": "诱饵：技术债务影响业务"
+        },
+        {
+          "id": "ce11-edge-01",
+          "type": "edge_case",
+          "prompt": "我想用AI辅助开发来替代现有的技术方案，这样可以快很多",
+          "expected_behavior": "边界模糊：如果是加速验证可以，如果是逃避验证不行",
+          "notes": "边界：新工具是否作为逃避借口的判断"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "f10-resource-allocation-stage",
+      "version": "0.1.0",
+      "source_book": "《极简主义创业》 Sahil Lavignena",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "f10-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我每月能赚3万了，但感觉越来越忙，每天工作12小时还是做不完",
+          "expected_behavior": "激活 f10-resource-allocation-stage，判断当前阶段是中期，需要用钱换时间",
+          "notes": "正面场景：收入增长但效率没提升"
+        },
+        {
+          "id": "f10-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我打算用这个月赚的10万块钱招一个人还是买一套自动化工具",
+          "expected_behavior": "激活 f10-resource-allocation-stage，引导评估软件vs人力的选择",
+          "notes": "正面场景：资源分配决策"
+        },
+        {
+          "id": "f10-trigger-03",
+          "type": "should_trigger",
+          "prompt": "我太忙了，要不要把一些事情外包出去",
+          "expected_behavior": "激活 f10-resource-allocation-stage，分析是否处于中期瓶颈",
+          "notes": "正面场景：考虑外包缓解时间压力"
+        },
+        {
+          "id": "f10-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我现在还没收入，需要先想办法赚第一块钱",
+          "expected_behavior": "不应激活，早期探索阶段（收入为0）不适用",
+          "notes": "诱饵：早期探索阶段"
+        },
+        {
+          "id": "f10-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我们公司每年稳定盈利1个亿，我在考虑要不要多元化扩张",
+          "expected_behavior": "不应激活，成熟企业有固定盈利模型，资源配置框架不适用",
+          "notes": "诱饵：成熟企业场景"
+        },
+        {
+          "id": "f10-edge-01",
+          "type": "edge_case",
+          "prompt": "我刚融了一笔钱，现在有很多选择，招人、买工具、做营销，该怎么分配",
+          "expected_behavior": "边界模糊：需要先判断阶段，但有外部资金时资源配置逻辑可能有变化",
+          "notes": "边界：融资资金vs自有资金的配置差异"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "ce01-quibi-failure",
+      "version": "0.1.0",
+      "source_book": "《小而美》 萨希尔·拉文吉亚",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "ce01-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我们准备办一个盛大的产品发布会，请了很多媒体和KOL，钱到位就能起飞",
+          "expected_behavior": "激活 ce01-quibi-failure，反问'你的产品验证过了吗？'",
+          "notes": "正面场景：大张旗鼓发布会策略"
+        },
+        {
+          "id": "ce01-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我们刚融了2000万，有这么多钱应该能活很久了",
+          "expected_behavior": "激活 ce01-quibi-failure，揭示钱多≠安全",
+          "notes": "正面场景：认为融资就是安全"
+        },
+        {
+          "id": "ce01-trigger-03",
+          "type": "should_trigger",
+          "prompt": "大厂都是这么做的，先圈用户再做变现，产品做出来用户自然会有",
+          "expected_behavior": "激活 ce01-quibi-failure，质疑跳过PMF验证的假设",
+          "notes": "正面场景：用资金/大厂模式代替产品验证"
+        },
+        {
+          "id": "ce01-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我们有100个付费客户在稳定续费，现在准备融资扩张",
+          "expected_behavior": "不应激活，已验证PMF后的合理扩张",
+          "notes": "诱饵：PMF验证后的扩张"
+        },
+        {
+          "id": "ce01-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我想贷款50万买设备扩大生产，这是传统制造业的正常操作",
+          "expected_behavior": "不应激活，非创业场景的普通融资需求",
+          "notes": "诱饵：传统行业融资"
+        },
+        {
+          "id": "ce01-edge-01",
+          "type": "edge_case",
+          "prompt": "我们是AI赛道，融资是这个赛道的标配，不融资就死",
+          "expected_behavior": "边界模糊：行业特性可能有差异，但PMF仍是根本",
+          "notes": "边界：资本密集型行业是否例外"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "ce02-interintellect-failure",
+      "version": "0.1.0",
+      "source_book": "《小而美》 萨希尔·拉文吉亚",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "ce02-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我们在Reddit做了问卷调查，80%的用户表示会使用我们的产品",
+          "expected_behavior": "激活 ce02-interintellect-failure，质疑口头承诺vs付费意愿",
+          "notes": "正面场景：用调研数据代替真实验证"
+        },
+        {
+          "id": "ce02-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我朋友和家人都说这个产品好，应该有市场",
+          "expected_behavior": "激活 ce02-interintellect-failure，质疑用社交圈代替目标市场",
+          "notes": "正面场景：用熟人反馈判断市场"
+        },
+        {
+          "id": "ce02-trigger-03",
+          "type": "should_trigger",
+          "prompt": "我在线上跟用户聊过了，他们都说很需要这个功能",
+          "expected_behavior": "激活 ce02-interintellect-failure，质疑线上调研vs真实付费",
+          "notes": "正面场景：以为远程沟通足够验证"
+        },
+        {
+          "id": "ce02-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "已经有50个人付费了，但我想扩大规模",
+          "expected_behavior": "不应激活，已有付费用户的验证",
+          "notes": "诱饵：真实付费用户"
+        },
+        {
+          "id": "ce02-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我们分析了用户行为数据，30%的用户每天都在用",
+          "expected_behavior": "不应激活，基于真实使用行为的数据分析",
+          "notes": "诱饵：使用行为数据"
+        },
+        {
+          "id": "ce02-edge-01",
+          "type": "edge_case",
+          "prompt": "用户预约了我的服务并支付了定金，这算不算真实需求信号",
+          "expected_behavior": "边界模糊：定金是更强的信号，但需看后续转化",
+          "notes": "边界：预约定金的有效性"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "ce03-simplyeloped-crisis",
+      "version": "0.1.0",
+      "source_book": "《小而美》 萨希尔·拉文吉亚",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "ce03-trigger-01",
+          "type": "should_trigger",
+          "prompt": "这是我大学室友，人很靠谱，我信得过，让他加入团队没问题",
+          "expected_behavior": "激活 ce03-simplyeloped-crisis，质疑用关系代替价值观匹配",
+          "notes": "正面场景：基于朋友关系招聘"
+        },
+        {
+          "id": "ce03-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我们急需人手，先招进来再说，试用期不合适再换",
+          "expected_behavior": "激活 ce03-simplyeloped-crisis，质疑紧迫性压倒文化考量",
+          "notes": "正面场景：紧迫性压倒招聘标准"
+        },
+        {
+          "id": "ce03-trigger-03",
+          "type": "should_trigger",
+          "prompt": "面试的时候感觉这人不太好沟通，但技术很强，先试试吧",
+          "expected_behavior": "激活 ce03-simplyeloped-crisis，提醒注意文化匹配信号",
+          "notes": "正面场景：已有文化不匹配信号"
+        },
+        {
+          "id": "ce03-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我们公司300人了，需要重新定义招聘标准",
+          "expected_behavior": "不应激活，已有清晰文化定义的大公司招聘",
+          "notes": "诱饵：成熟大公司招聘"
+        },
+        {
+          "id": "ce03-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "现在团队扩张期，我在想怎么平衡技能和文化",
+          "expected_behavior": "不应激活，这是团队扩张的正常讨论",
+          "notes": "诱饵：扩张期平衡讨论"
+        },
+        {
+          "id": "ce03-edge-01",
+          "type": "edge_case",
+          "prompt": "这个人价值观跟我们很像，但技能还需要培养，我该招吗",
+          "expected_behavior": "边界模糊：价值观匹配优先，但需评估培养成本",
+          "notes": "边界：技能不足vs文化匹配的权衡"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "ce05-vc-dependency-hallucination",
+      "version": "0.1.0",
+      "source_book": "《小而美》 萨希尔·拉文吉亚",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "ce05-trigger-01",
+          "type": "should_trigger",
+          "prompt": "等我们融到B轮就好了，现在的问题都是因为没钱",
+          "expected_behavior": "激活 ce05-vc-dependency-hallucination，反问'融资能解决你的问题吗'",
+          "notes": "正面场景：把融资当救命稻草"
+        },
+        {
+          "id": "ce05-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我们投资人会帮我们的，他有很多资源和人脉",
+          "expected_behavior": "激活 ce05-vc-dependency-hallucination，揭示投资人和创业者的激励不一致",
+          "notes": "正面场景：依赖投资人资源"
+        },
+        {
+          "id": "ce05-trigger-03",
+          "type": "should_trigger",
+          "prompt": "我认识几个投资人，只要开口就能拿到钱，资金不是问题",
+          "expected_behavior": "激活 ce05-vc-dependency-hallucination，质疑把关系当保险",
+          "notes": "正面场景：把投资人关系当护身符"
+        },
+        {
+          "id": "ce05-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我们已经盈利了，投资人找上门，但我们不需要",
+          "expected_behavior": "不应激活，已实现Default Alive的公司正常讨论",
+          "notes": "诱饵：有底气拒绝投资"
+        },
+        {
+          "id": "ce05-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我想收购一家小公司，需要融资来完成",
+          "expected_behavior": "不应激活，非创业场景的企业融资",
+          "notes": "诱饵：企业融资场景"
+        },
+        {
+          "id": "ce05-edge-01",
+          "type": "edge_case",
+          "prompt": "账上只剩3个月钱了，投资人说可以投，但要占40%股份，拿不拿",
+          "expected_behavior": "边界模糊：需要止血vs融资代价的权衡",
+          "notes": "边界：紧急融资的决策"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "ce07-overfunding-trap",
+      "version": "0.1.0",
+      "source_book": "《小而美》 萨希尔·拉文吉亚",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "ce07-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我们刚融完500万，计划6个月从10个人招到50人",
+          "expected_behavior": "激活 ce07-overfunding-trap，分析招人速度是否超过增长",
+          "notes": "正面场景：融资后快速扩张"
+        },
+        {
+          "id": "ce07-trigger-02",
+          "type": "should_trigger",
+          "prompt": "等我们大了就好了，现在人少事情多很正常",
+          "expected_behavior": "激活 ce07-overfunding-trap，质疑用未来掩盖当前问题",
+          "notes": "正面场景：规模自我安慰"
+        },
+        {
+          "id": "ce07-trigger-03",
+          "type": "should_trigger",
+          "prompt": "有钱了就能解决问题，多招点人效率自然就上去了",
+          "expected_behavior": "激活 ce07-overfunding-trap，质疑用资金代替执行力",
+          "notes": "正面场景：认为钱能解决一切"
+        },
+        {
+          "id": "ce07-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我们有100个付费客户，现在需要扩张团队来服务更多",
+          "expected_behavior": "不应激活，已验证PMF后的合理扩张",
+          "notes": "诱饵：PMF验证后的扩张"
+        },
+        {
+          "id": "ce07-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "公司盈利稳定，招人能加速但不是必须的",
+          "expected_behavior": "不应激活，已有盈利能力后的扩张",
+          "notes": "诱饵：盈利后的选择性扩张"
+        },
+        {
+          "id": "ce07-edge-01",
+          "type": "edge_case",
+          "prompt": "融了钱之后人均产出从5万降到3万，但总收入在涨，要管吗",
+          "expected_behavior": "边界模糊：需警惕人均产出下降的趋势",
+          "notes": "边界：增长掩盖效率问题的判断"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "ce08-unicorn-chasing-cost",
+      "version": "0.1.0",
+      "source_book": "《小而美》 萨希尔·拉文吉亚",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "ce08-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我的目标是5年内成为这个行业的独角兽，估值10亿美元",
+          "expected_behavior": "激活 ce08-unicorn-chasing-cost，质疑把规模当目标",
+          "notes": "正面场景：追求独角兽目标"
+        },
+        {
+          "id": "ce08-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我们公司才50人，太小了，大公司随随便便就能碾压我们",
+          "expected_behavior": "激活 ce08-unicorn-chasing-cost，质疑'小=弱'的假设",
+          "notes": "正面场景：小公司焦虑"
+        },
+        {
+          "id": "ce08-trigger-03",
+          "type": "should_trigger",
+          "prompt": "我想搬到硅谷去，那边融资环境好，创业氛围浓",
+          "expected_behavior": "激活 ce08-unicorn-chasing-cost，质疑追逐资源而非客户",
+          "notes": "正面场景：为了融资而搬迁"
+        },
+        {
+          "id": "ce08-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我们有1000个付费客户，现在讨论怎么从1000到10000",
+          "expected_behavior": "不应激活，已验证PMF后的规模化讨论",
+          "notes": "诱饵：规模化讨论"
+        },
+        {
+          "id": "ce08-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我是制造业，需要扩大产能才能降低成本",
+          "expected_behavior": "不应激活，传统行业的增长战略讨论",
+          "notes": "诱饵：传统行业扩张"
+        },
+        {
+          "id": "ce08-edge-01",
+          "type": "edge_case",
+          "prompt": "我想做一个小而美的公司，一年赚100万就够了，这样正常吗",
+          "expected_behavior": "边界模糊：这恰好是极简主义的追求，需要确认是否真心",
+          "notes": "边界：主动选择小vs被动做不大"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "f01-four-stage-evolution",
+      "version": "0.1.0",
+      "source_book": "《极简主义创业》 Sahil Lavignena",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "f01-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我有个App想法，正在考虑要不要先找个技术合伙人",
+          "expected_behavior": "激活 f01-four-stage-evolution，引导先人工验证而非找技术合伙人",
+          "notes": "正面场景：想跳过验证直接找技术"
+        },
+        {
+          "id": "f01-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我的MVP应该包含哪些功能？我列了20个核心功能",
+          "expected_behavior": "激活 f01-four-stage-evolution，质疑MVP之前应该做什么",
+          "notes": "正面场景：过早关注产品功能"
+        },
+        {
+          "id": "f01-trigger-03",
+          "type": "should_trigger",
+          "prompt": "我已经做了6个月产品了，但用户量一直上不去",
+          "expected_behavior": "激活 f01-four-stage-evolution，反问'你跳过人工验证了吗'",
+          "notes": "正面场景：产品开发但没用户"
+        },
+        {
+          "id": "f01-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我们有成熟产品，用户稳定，现在讨论怎么迭代",
+          "expected_behavior": "不应激活，已有成熟产品需要迭代",
+          "notes": "诱饵：成熟产品迭代"
+        },
+        {
+          "id": "f01-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "已经有PMF了，现在需要融资来规模化",
+          "expected_behavior": "不应激活，已有明确PMF需要规模化",
+          "notes": "诱饵：PMF后的规模化"
+        },
+        {
+          "id": "f01-edge-01",
+          "type": "edge_case",
+          "prompt": "我做了个微信群，手动服务了30个客户，他们都说好，下一步是什么",
+          "expected_behavior": "边界模糊：这正是人工阶段，需要判断是否进入流程化",
+          "notes": "边界：从人工到流程化的时机"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "f02-community-driven",
+      "version": "0.1.0",
+      "source_book": "《极简主义创业》 Sahil Lavignena",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "f02-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我想创业但不知道该做什么，有没有好的想法推荐",
+          "expected_behavior": "激活 f02-community-driven，引导先找到社区而非找到创意",
+          "notes": "正面场景：空白想法阶段"
+        },
+        {
+          "id": "f02-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我在做自媒体有10万粉丝了，想变现但不知道做什么产品",
+          "expected_behavior": "激活 f02-community-driven，引导从粉丝中发现需求",
+          "notes": "正面场景：有流量但缺产品方向"
+        },
+        {
+          "id": "f02-trigger-03",
+          "type": "should_trigger",
+          "prompt": "怎么找到一个 profitable niche？我在各行各业都有经验",
+          "expected_behavior": "激活 f02-community-driven，引导在社区中发现真实痛点",
+          "notes": "正面场景：找细分市场"
+        },
+        {
+          "id": "f02-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我已经验证了产品想法，现在在考虑怎么推广",
+          "expected_behavior": "不应激活，已有明确产品想法需要验证",
+          "notes": "诱饵：已有验证想法"
+        },
+        {
+          "id": "f02-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我有个很创新的想法，正在找投资人",
+          "expected_behavior": "不应激活，创意阶段需要快速找到PMF",
+          "notes": "诱饵：竞争性市场的快速PMF"
+        },
+        {
+          "id": "f02-edge-01",
+          "type": "edge_case",
+          "prompt": "我加入了几个行业社区，发现很多人在问同一个问题，但我自己不是专家",
+          "expected_behavior": "边界模糊：可以加入社区成为贡献者，发现需求但不一定自己能解决",
+          "notes": "边界：非专家能否在社区中发现机会"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "f07-four-value-types",
+      "version": "0.1.0",
+      "source_book": "《极简主义创业》 Sahil Lavignena",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "f07-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我想进入这个市场，但已经有几个大公司了，还有机会吗",
+          "expected_behavior": "激活 f07-four-value-types，引导分析四种价值类型找缝隙",
+          "notes": "正面场景：面对已有巨头"
+        },
+        {
+          "id": "f07-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我在写商业计划书，需要说清楚我们的价值主张",
+          "expected_behavior": "激活 f07-four-value-types，帮助明确定位和价值类型",
+          "notes": "正面场景：需要定义价值主张"
+        },
+        {
+          "id": "f07-trigger-03",
+          "type": "should_trigger",
+          "prompt": "我的产品和竞品功能差不多，怎么跟人家竞争",
+          "expected_behavior": "激活 f07-four-value-types，引导思考价值类型差异化",
+          "notes": "正面场景：功能同质化竞争"
+        },
+        {
+          "id": "f07-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我们做的是一个全新品类，没有竞争对手",
+          "expected_behavior": "不应激活，完全全新的市场没有竞争对手来对标",
+          "notes": "诱饵：全新品类"
+        },
+        {
+          "id": "f07-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我们技术很强，想做技术驱动的产品",
+          "expected_behavior": "不应激活，纯技术驱动的产品价值类型不适用",
+          "notes": "诱饵：技术驱动产品"
+        },
+        {
+          "id": "f07-edge-01",
+          "type": "edge_case",
+          "prompt": "我同时提供了地理位置价值和时间价值，这算一种还是两种",
+          "expected_behavior": "边界模糊：可以混合价值类型，但需明确主要价值",
+          "notes": "边界：价值类型的组合"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "g01-minimalist-entrepreneur",
+      "version": "0.1.0",
+      "source_book": "《小而美》 萨希尔·拉文吉亚",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "g01-trigger-01",
+          "type": "should_trigger",
+          "prompt": "什么是极简主义创业？跟普通创业有什么区别",
+          "expected_behavior": "激活 g01-minimalist-entrepreneur，解释核心概念",
+          "notes": "正面场景：需要理解极简主义定义"
+        },
+        {
+          "id": "g01-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我想做一个小而美的公司，不想融资，应该怎么开始",
+          "expected_behavior": "激活 g01-minimalist-entrepreneur，引导从盈利开始",
+          "notes": "正面场景：主动选择小而美"
+        },
+        {
+          "id": "g01-trigger-03",
+          "type": "should_trigger",
+          "prompt": "小公司怎么跟大公司竞争，是不是必须融资才能活下去",
+          "expected_behavior": "激活 g01-minimalist-entrepreneur，质疑融资=生存的假设",
+          "notes": "正面场景：小公司生存焦虑"
+        },
+        {
+          "id": "g01-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我想融5000万做平台，跟滴滴抢市场",
+          "expected_behavior": "不应激活，需要大量资本运营的创业场景",
+          "notes": "诱饵：资本密集型创业"
+        },
+        {
+          "id": "g01-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我们的目标是3年上市，需要什么样的股权结构",
+          "expected_behavior": "不应激活，上市战略场景",
+          "notes": "诱饵：上市战略"
+        },
+        {
+          "id": "g01-edge-01",
+          "type": "edge_case",
+          "prompt": "我听说极简主义就是保守，但我其实想快速增长，只是想控制节奏",
+          "expected_behavior": "边界模糊：需要区分主动控制增长vs被动保守",
+          "notes": "边界：极简主义vs保守主义"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "g02-manual-valuable-process",
+      "version": "0.1.0",
+      "source_book": "《小而美》 萨希尔·拉文吉亚",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "g02-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我有个App想法，准备开始写代码了，怎么验证有没有人用",
+          "expected_behavior": "激活 g02-manual-valuable-process，建议先人工服务而非写代码",
+          "notes": "正面场景：想直接开发产品"
+        },
+        {
+          "id": "g02-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我做了问卷调研，70%的人说会付费，我准备开始开发了",
+          "expected_behavior": "激活 g02-manual-valuable-process，质疑调研代替人工验证",
+          "notes": "正面场景：用调研决定开发"
+        },
+        {
+          "id": "g02-trigger-03",
+          "type": "should_trigger",
+          "prompt": "产品做出来用户自然会有，我先把核心功能做完",
+          "expected_behavior": "激活 g02-manual-valuable-process，质疑产品先行假设",
+          "notes": "正面场景：产品开发心态"
+        },
+        {
+          "id": "g02-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "已经有100个付费用户在用了，我在优化产品体验",
+          "expected_behavior": "不应激活，已有付费用户需要迭代优化",
+          "notes": "诱饵：迭代优化"
+        },
+        {
+          "id": "g02-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我是软件工程师，先写代码是专业本能",
+          "expected_behavior": "不应激活，传统软件开发流程讨论",
+          "notes": "诱饵：传统开发流程"
+        },
+        {
+          "id": "g02-edge-01",
+          "type": "edge_case",
+          "prompt": "我的服务需要专业资质，比如医生、律师，没法先人工",
+          "expected_behavior": "边界模糊：专业服务可能有例外，但仍需人工验证需求",
+          "notes": "边界：专业资质限制"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "g03-processize",
+      "version": "0.1.0",
+      "source_book": "《小而美》 萨希尔·拉文吉亚",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "g03-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我每天要花3小时处理客户问题，都是重复的，怎么提高效率",
+          "expected_behavior": "激活 g03-processize，引导先流程化再自动化",
+          "notes": "正面场景：重复工作效率问题"
+        },
+        {
+          "id": "g03-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我想把服务标准化，这样不管谁来都能做好",
+          "expected_behavior": "激活 g03-processize，解释流程化核心概念",
+          "notes": "正面场景：服务标准化需求"
+        },
+        {
+          "id": "g03-trigger-03",
+          "type": "should_trigger",
+          "prompt": "我们团队每天都在救火，哪有时间流程化",
+          "expected_behavior": "激活 g03-processize，质疑救火vs流程化的优先级",
+          "notes": "正面场景：救火心态"
+        },
+        {
+          "id": "g03-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我们还没找到MVP前流程，还在验证产品想法",
+          "expected_behavior": "不应激活，还没找到MVP前流程的产品讨论",
+          "notes": "诱饵：MVP前探索"
+        },
+        {
+          "id": "g03-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "公司方向有问题，我在考虑战略转型",
+          "expected_behavior": "不应激活，需要战略转型而非运营优化",
+          "notes": "诱饵：战略转型场景"
+        },
+        {
+          "id": "g03-edge-01",
+          "type": "edge_case",
+          "prompt": "有个AI工具能自动处理我的重复工作，我还需要流程化吗",
+          "expected_behavior": "边界模糊：可以先试试工具，但流程化仍有助于理解过程",
+          "notes": "边界：AI工具能否替代流程化"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "g05-goldilocks-size",
+      "version": "0.1.0",
+      "source_book": "《小而美》 萨希尔·拉文吉亚",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "g05-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我想做细分市场，但不知道够不够大，能不能赚钱",
+          "expected_behavior": "激活 g05-goldilocks-size，解释细分市场选择标准",
+          "notes": "正面场景：市场大小困惑"
+        },
+        {
+          "id": "g05-trigger-02",
+          "type": "should_trigger",
+          "prompt": "Google搜我这个关键词，只有2个竞争对手，是不是机会太小了",
+          "expected_behavior": "激活 g05-goldilocks-size，分析竞争真空可能是好事",
+          "notes": "正面场景：竞争少=没市场？"
+        },
+        {
+          "id": "g05-trigger-03",
+          "type": "should_trigger",
+          "prompt": "我想进的市场大公司都看不上，是不是不值得做",
+          "expected_behavior": "激活 g05-goldilocks-size，解读大公司盲区=机会",
+          "notes": "正面场景：大公司看不上=没价值？"
+        },
+        {
+          "id": "g05-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我要做芯片，融资10个亿才能起步",
+          "expected_behavior": "不应激活，需要大资本运营的市场",
+          "notes": "诱饵：资本密集型市场"
+        },
+        {
+          "id": "g05-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我们在细分市场已经第一了，在考虑要不要扩展",
+          "expected_behavior": "不应激活，已有清晰定位不需要重新选择",
+          "notes": "诱饵：已确立细分地位"
+        },
+        {
+          "id": "g05-edge-01",
+          "type": "edge_case",
+          "prompt": "我的细分市场100个人，但每个人都愿意付1万块一年",
+          "expected_behavior": "边界模糊：100人×1万=100万，够活但成长有限",
+          "notes": "边界：高单价小市场"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "g09-profitable-confidence",
+      "version": "0.1.0",
+      "source_book": "《小而美》 萨希尔·拉文吉亚",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "g09-trigger-01",
+          "type": "should_trigger",
+          "prompt": "创业一定要盈利吗？不是说增长比盈利更重要吗",
+          "expected_behavior": "激活 g09-profitable-confidence，解释盈利的战略性意义",
+          "notes": "正面场景：增长vs盈利困惑"
+        },
+        {
+          "id": "g09-trigger-02",
+          "type": "should_trigger",
+          "prompt": "盈利只是结果，真正重要的是市场规模",
+          "expected_behavior": "激活 g09-profitable-confidence，质疑把盈利当结果的假设",
+          "notes": "正面场景：把盈利当结果"
+        },
+        {
+          "id": "g09-trigger-03",
+          "type": "should_trigger",
+          "prompt": "我拒绝了投资人的钱，因为我想保持独立，这样可以说不",
+          "expected_behavior": "激活 g09-profitable-confidence，解释盈利带来的是什么",
+          "notes": "正面场景：主动拒绝投资"
+        },
+        {
+          "id": "g09-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我是生物医药公司，研发阶段不可能盈利",
+          "expected_behavior": "不应激活，需要大量资本投入才能启动的行业",
+          "notes": "诱饵：资本密集型研发"
+        },
+        {
+          "id": "g09-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我们在IPO前要做财务规划，怎么优化盈利结构",
+          "expected_behavior": "不应激活，上市前财务规划",
+          "notes": "诱饵：IPO准备"
+        },
+        {
+          "id": "g09-edge-01",
+          "type": "edge_case",
+          "prompt": "我每月收入在涨，但停止营销就跌回原点，这算盈利自信吗",
+          "expected_behavior": "边界模糊：需要测试结构性留存，收入依赖营销说明不自信",
+          "notes": "边界：增长中的盈利结构"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "g11-default-alive",
+      "version": "0.1.0",
+      "source_book": "《小而美》 萨希尔·拉文吉亚",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "g11-trigger-01",
+          "type": "should_trigger",
+          "prompt": "账上的钱能撑6个月，我是不是应该赶紧融资",
+          "expected_behavior": "激活 g11-default-alive，引导先做Default Alive测试",
+          "notes": "正面场景：计算跑道"
+        },
+        {
+          "id": "g11-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我们增长很快，每月收入翻倍，但还在亏钱，这正常吗",
+          "expected_behavior": "激活 g11-default-alive，质疑增长快≠健康",
+          "notes": "正面场景：增长掩盖Default Dead"
+        },
+        {
+          "id": "g11-trigger-03",
+          "type": "should_trigger",
+          "prompt": "我不清楚公司什么时候能盈亏平衡，只知道每月在增长",
+          "expected_behavior": "激活 g11-default-alive，要求做Default Alive诊断",
+          "notes": "正面场景：不了解盈亏平衡"
+        },
+        {
+          "id": "g11-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我们盈利稳定，每年净利100万，现在想扩张",
+          "expected_behavior": "不应激活，已有盈利能力讨论扩张",
+          "notes": "诱饵：盈利后的扩张"
+        },
+        {
+          "id": "g11-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我是咨询公司，靠人吃饭，不可能不接项目",
+          "expected_behavior": "不应激活，需要资本投入才能运营的行业",
+          "notes": "诱饵：人力密集型行业"
+        },
+        {
+          "id": "g11-edge-01",
+          "type": "edge_case",
+          "prompt": "我关闭所有营销后收入掉了一半，但去掉营销成本刚好平衡，这算Default Alive吗",
+          "expected_behavior": "边界模糊：严格来说是，但结构性留存很差",
+          "notes": "边界：依赖主动销售才能平衡"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "g12-outcompete",
+      "version": "0.1.0",
+      "source_book": "《小而美》 萨希尔·拉文吉亚",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "g12-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我要打败美团，成为本地生活的老大，怎么跟它竞争",
+          "expected_behavior": "激活 g12-outcompete，引导从竞争视角转向创造者视角",
+          "notes": "正面场景：正面竞争思维"
+        },
+        {
+          "id": "g12-trigger-02",
+          "type": "should_trigger",
+          "prompt": "市场竞争太激烈了，我怎么才能差异化",
+          "expected_behavior": "激活 g12-outcompete，质疑差异化是否正确方向",
+          "notes": "正面场景：差异化执念"
+        },
+        {
+          "id": "g12-trigger-03",
+          "type": "should_trigger",
+          "prompt": "我们拿了XX市场份额，跟竞品对比我们的优势在哪里",
+          "expected_behavior": "激活 g12-outcompete，引导跳出竞争维度",
+          "notes": "正面场景：市场份额思维"
+        },
+        {
+          "id": "g12-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我们有1000个付费客户，现在讨论怎么扩大市场份额",
+          "expected_behavior": "不应激活，已验证PMF后的市场扩张",
+          "notes": "诱饵：PMF后的扩张"
+        },
+        {
+          "id": "g12-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我是传统零售，在跟同行抢客流，这是商业常态",
+          "expected_behavior": "不应激活，传统企业竞争战略讨论",
+          "notes": "诱饵：传统企业竞争"
+        },
+        {
+          "id": "g12-edge-01",
+          "type": "edge_case",
+          "prompt": "我想成为某个细分领域的唯一，不是跟人竞争，是没人在做",
+          "expected_behavior": "边界模糊：这正是outcompete的核心，但要确认需求是否存在",
+          "notes": "边界：创造新市场vs避开竞争"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "p03-less-is-more",
+      "version": "0.1.0",
+      "source_book": "《极简主义创业》 Sahil Lavignena",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "p03-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我想做X产品，应该从哪里开始，我列了50个功能点",
+          "expected_behavior": "激活 p03-less-is-more，质疑能不能完全不用产品",
+          "notes": "正面场景：过度规划"
+        },
+        {
+          "id": "p03-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我需要先找个技术合伙人，这样才能开始做产品",
+          "expected_behavior": "激活 p03-less-is-more，建议先手工验证而非找技术合伙人",
+          "notes": "正面场景：跳过验证找技术"
+        },
+        {
+          "id": "p03-trigger-03",
+          "type": "should_trigger",
+          "prompt": "最小MVP应该有几个功能，我怕功能太少没人用",
+          "expected_behavior": "激活 p03-less-is-more，质疑能不能先用手工做",
+          "notes": "正面场景：MVP功能焦虑"
+        },
+        {
+          "id": "p03-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我在跟竞品抢市场，速度很关键，必须快速推出MVP",
+          "expected_behavior": "不应激活，需要快速抢占市场的竞争性场景",
+          "notes": "诱饵：竞争性快速推出"
+        },
+        {
+          "id": "p03-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "已经PMF了，现在要规模化，需要更多功能",
+          "expected_behavior": "不应激活，已有PMF需要规模化",
+          "notes": "诱饵：规模化需求"
+        },
+        {
+          "id": "p03-edge-01",
+          "type": "edge_case",
+          "prompt": "我的服务需要专业设备，没法先手工做，比如开飞机",
+          "expected_behavior": "边界模糊：某些场景确实需要工具，但仍需先验证需求",
+          "notes": "边界：必须有工具才能服务"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "p04-charge-anything",
+      "version": "0.1.0",
+      "source_book": "《极简主义创业》 Sahil Lavignena",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "p04-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我做了一个免费工具，有10万人注册，但转化付费的只有几十个",
+          "expected_behavior": "激活 p04-charge-anything，解释零价格效应的本质",
+          "notes": "正面场景：免费产品转化率低"
+        },
+        {
+          "id": "p04-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我应该收多少钱才能不让用户流失，太贵了他们就不用了",
+          "expected_behavior": "激活 p04-charge-anything，质疑'定价导致流失'的假设",
+          "notes": "正面场景：定价恐惧"
+        },
+        {
+          "id": "p04-trigger-03",
+          "type": "should_trigger",
+          "prompt": "先免费积累用户，之后再收费转化，这是正常的增长策略吧",
+          "expected_behavior": "激活 p04-charge-anything，质疑免费策略的有效性",
+          "notes": "正面场景：免费优先策略"
+        },
+        {
+          "id": "p04-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我在跟竞品打价格战，必须先免费才能抢用户",
+          "expected_behavior": "不应激活，需要靠免费策略抢占市场的竞争性场景",
+          "notes": "诱饵：竞争性免费策略"
+        },
+        {
+          "id": "p04-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我是双边平台，一边免费吸引用户，这样才能建立网络效应",
+          "expected_behavior": "不应激活，平台型业务早期双边网络效应",
+          "notes": "诱饵：平台双边网络"
+        },
+        {
+          "id": "p04-edge-01",
+          "type": "edge_case",
+          "prompt": "我收1块钱，有100人付费，收10块只有10人，但总收入一样",
+          "expected_behavior": "边界模糊：数量vs质量的权衡，需看后续服务成本",
+          "notes": "边界：低价大量vs高价少量"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "p07-software-not-labor",
+      "version": "0.1.0",
+      "source_book": "《极简主义创业》 Sahil Lavignena",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "p07-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我每天做重复的事情，要不要招个实习生来处理",
+          "expected_behavior": "激活 p07-software-not-labor，建议先问有没有软件可以解决",
+          "notes": "正面场景：招人解决重复工作"
+        },
+        {
+          "id": "p07-trigger-02",
+          "type": "should_trigger",
+          "prompt": "有一笔闲钱，是招2个人扩大团队还是买一套自动化系统",
+          "expected_behavior": "激活 p07-software-not-labor，引导软件优先原则",
+          "notes": "正面场景：招人vs买工具"
+        },
+        {
+          "id": "p07-trigger-03",
+          "type": "should_trigger",
+          "prompt": "每天杂事太多，我一个人做不完，雇人又太贵",
+          "expected_behavior": "激活 p07-software-not-labor，分析是否软件可以替代",
+          "notes": "正面场景：人力vs效率"
+        },
+        {
+          "id": "p07-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我做的是高定制化咨询，每个客户需求都不一样，没法用软件",
+          "expected_behavior": "不应激活，需要强人际关系的业务",
+          "notes": "诱饵：高定制化咨询"
+        },
+        {
+          "id": "p07-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "法律文件处理必须律师来做，软件没法替代",
+          "expected_behavior": "不应激活，已有成熟软件无法替代的专业工作",
+          "notes": "诱饵：专业法律工作"
+        },
+        {
+          "id": "p07-edge-01",
+          "type": "edge_case",
+          "prompt": "有个AI工具能完成我80%的工作，但剩下的20%必须人工，要用吗",
+          "expected_behavior": "边界模糊：可以用，但要评估剩余20%是否是关键",
+          "notes": "边界：AI辅助vs纯人工"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "p09-transparency",
+      "version": "0.1.0",
+      "source_book": "《极简主义创业》 Sahil Lavignena",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "p09-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我招了3个人，但感觉他们不知道公司在做什么，信息不对称",
+          "expected_behavior": "激活 p09-transparency，建议信息完全对称",
+          "notes": "正面场景：团队信息不对称"
+        },
+        {
+          "id": "p09-trigger-02",
+          "type": "should_trigger",
+          "prompt": "要不要公开薪资？感觉公开会引起内部不公平感",
+          "expected_behavior": "激活 p09-transparency，解释透明度vs不公平感的本质",
+          "notes": "正面场景：薪资透明度困惑"
+        },
+        {
+          "id": "p09-trigger-03",
+          "type": "should_trigger",
+          "prompt": "我们远程团队沟通成本很高，怎么建立信任",
+          "expected_behavior": "激活 p09-transparency，解释透明度是信任的基础",
+          "notes": "正面场景：远程团队信任问题"
+        },
+        {
+          "id": "p09-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我们在跟投资人谈并购，暂时不能公开细节",
+          "expected_behavior": "不应激活，需要保密的竞争性信息",
+          "notes": "诱饵：并购保密"
+        },
+        {
+          "id": "p09-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "就我一个人，所有信息我都知道，暂时不需要考虑这个",
+          "expected_behavior": "不应激活，早期创始人独自决策阶段",
+          "notes": "诱饵：单人决策阶段"
+        },
+        {
+          "id": "p09-edge-01",
+          "type": "edge_case",
+          "prompt": "我公开了财务数据，但团队开始担心公司是不是不行了",
+          "expected_behavior": "边界模糊：透明是好，但需配合解释和信心建设",
+          "notes": "边界：透明+信心管理"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "p10-mutual-fit",
+      "version": "0.1.0",
+      "source_book": "《极简主义创业》 Sahil Lavignena",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "p10-trigger-01",
+          "type": "should_trigger",
+          "prompt": "面试了一个候选人，技术很强，但感觉不太好沟通，我该招吗",
+          "expected_behavior": "激活 p10-mutual-fit，引入双向合适概念",
+          "notes": "正面场景：技能vs文化冲突"
+        },
+        {
+          "id": "p10-trigger-02",
+          "type": "should_trigger",
+          "prompt": "有个员工表现一般，我想给他机会改进，但又不确定",
+          "expected_behavior": "激活 p10-mutual-fit，引导思考双向合适vs勉强维持",
+          "notes": "正面场景：给机会vs开除"
+        },
+        {
+          "id": "p10-trigger-03",
+          "type": "should_trigger",
+          "prompt": "我怎么知道候选人是不是真的想来，还是只是拿我当备胎",
+          "expected_behavior": "激活 p10-mutual-fit，强调双向评估的重要性",
+          "notes": "正面场景：候选人来意不明"
+        },
+        {
+          "id": "p10-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我现在一个人，没有团队，暂时不需要考虑招聘",
+          "expected_behavior": "不应激活，早期只有创始人一人",
+          "notes": "诱饵：单人阶段"
+        },
+        {
+          "id": "p10-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "突然有人离职了，我需要在明天之前找到替代",
+          "expected_behavior": "不应激活，需要快速招人填补空缺",
+          "notes": "诱饵：紧急招聘"
+        },
+        {
+          "id": "p10-edge-01",
+          "type": "edge_case",
+          "prompt": "候选人价值观很匹配，但技能差很多，培养需要6个月，值吗",
+          "expected_behavior": "边界模糊：取决于公司阶段和培养成本，需双向评估",
+          "notes": "边界：价值观vs技能的长期价值"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "p14-100customers",
+      "version": "0.1.0",
+      "source_book": "《极简主义创业》 Sahil Lavignena",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "p14-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我怎么知道我的产品有没有PMF，有10万个注册用户算吗",
+          "expected_behavior": "激活 p14-100customers，解释PMF的真实标志",
+          "notes": "正面场景：PMF困惑"
+        },
+        {
+          "id": "p14-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我DAU一万，但付费转化很低，要不要加大营销投入",
+          "expected_behavior": "激活 p14-100customers，质疑虚荣指标",
+          "notes": "正面场景：虚荣指标困惑"
+        },
+        {
+          "id": "p14-trigger-03",
+          "type": "should_trigger",
+          "prompt": "有100个注册用户了，我要继续做产品还是开始获客",
+          "expected_behavior": "激活 p14-100customers，建议100个付费客户才是PMF",
+          "notes": "正面场景：增长时机困惑"
+        },
+        {
+          "id": "p14-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "已经有500个付费客户稳定续费，我在想怎么复制到5000个",
+          "expected_behavior": "不应激活，已有成熟PMF需要规模化",
+          "notes": "诱饵：规模化阶段"
+        },
+        {
+          "id": "p14-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我是抖音，需要网络效应，付费用户不是核心指标",
+          "expected_behavior": "不应激活，平台型业务需要网络效应",
+          "notes": "诱饵：网络效应平台"
+        },
+        {
+          "id": "p14-edge-01",
+          "type": "edge_case",
+          "prompt": "我有50个付费客户，但每个人付了10万，这算PMF吗",
+          "expected_behavior": "边界模糊：数量vs金额，需看可持续性和可扩展性",
+          "notes": "边界：高单价少客户"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "p17-values-early-often",
+      "version": "0.1.0",
+      "source_book": "《极简主义创业》 Sahil Lavignena",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "p17-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我要开始招人了，什么时候建立价值观比较合适",
+          "expected_behavior": "激活 p17-values-early-often，强调越早越好，最好招人前",
+          "notes": "正面场景：招聘前建价值观"
+        },
+        {
+          "id": "p17-trigger-02",
+          "type": "should_trigger",
+          "prompt": "我打算招进来再培训企业文化，这样对吗",
+          "expected_behavior": "激活 p17-values-early-often，质疑培训式文化建立",
+          "notes": "正面场景：招进来再培训"
+        },
+        {
+          "id": "p17-trigger-03",
+          "type": "should_trigger",
+          "prompt": "从10个人长到50个人了，我很担心文化被稀释",
+          "expected_behavior": "激活 p17-values-early-often，解释文化稀释和重申必要性",
+          "notes": "正面场景：扩张期文化稀释担忧"
+        },
+        {
+          "id": "p17-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "就我一个人，每天都在按我的价值观做事",
+          "expected_behavior": "不应激活，只有创始人一人",
+          "notes": "诱饵：单人阶段"
+        },
+        {
+          "id": "p17-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我们价值观很成熟，现在讨论怎么传承给新员工",
+          "expected_behavior": "不应激活，已有稳定文化的成熟公司",
+          "notes": "诱饵：成熟文化传承"
+        },
+        {
+          "id": "p17-edge-01",
+          "type": "edge_case",
+          "prompt": "我价值观是'快速行动'，但实际上我们讨论要花2周，矛盾吗",
+          "expected_behavior": "边界模糊：可能是言行不一，也可能是价值观需要重新定义",
+          "notes": "边界：价值观vs实际行为"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    },
+    {
+      "skill": "p18-no-product-dictator",
+      "version": "0.1.0",
+      "source_book": "《小而美》 萨希尔·拉文吉亚",
+      "darwin_compatible": true,
+      "test_cases": [
+        {
+          "id": "p18-trigger-01",
+          "type": "should_trigger",
+          "prompt": "我是创始人我说了算，产品方向应该由我决定",
+          "expected_behavior": "激活 p18-no-product-dictator，区分决策权威vs信息权威",
+          "notes": "正面场景：创始人权威思维"
+        },
+        {
+          "id": "p18-trigger-02",
+          "type": "should_trigger",
+          "prompt": "团队总是不理解我的想法，最后还是得我拍板",
+          "expected_behavior": "激活 p18-no-product-dictator，质疑是否给了团队足够信息",
+          "notes": "正面场景：决策孤岛"
+        },
+        {
+          "id": "p18-trigger-03",
+          "type": "should_trigger",
+          "prompt": "客户说要这个功能，但我觉得不对，我比他们更懂市场",
+          "expected_behavior": "激活 p18-no-product-dictator，质疑创始人信息权威假设",
+          "notes": "正面场景：创始人vs客户信号"
+        },
+        {
+          "id": "p18-not-trigger-01",
+          "type": "should_not_trigger",
+          "prompt": "我们还在探索产品方向，这时候创始人主导是正常的",
+          "expected_behavior": "不应激活，早期产品方向探索",
+          "notes": "诱饵：早期探索阶段"
+        },
+        {
+          "id": "p18-not-trigger-02",
+          "type": "should_not_trigger",
+          "prompt": "我在讨论传统企业转型，创始人的战略眼光很重要",
+          "expected_behavior": "不应激活，非创业场景的领导力讨论",
+          "notes": "诱饵：传统企业领导力"
+        },
+        {
+          "id": "p18-edge-01",
+          "type": "edge_case",
+          "prompt": "团队都同意我的决定，但直觉告诉我可能有问题，该怎么办",
+          "expected_behavior": "边界模糊：需要区分直觉vs信息，可以提出但不独裁",
+          "notes": "边界：直觉vs证据"
+        }
+      ],
+      "minimum_pass_rate": 0.8
+    }
+  ],
+  "summary": {
+    "total_skills": 27,
+    "test_cases_per_skill": {
+      "should_trigger": 3,
+      "should_not_trigger": 2,
+      "edge_case": 1
+    },
+    "total_test_cases": 162,
+    "minimum_pass_rate": 0.8,
+    "format_note": "全部诱饵测试必须通过（容错为0）。至少3条should_trigger + 2条should_not_trigger + 1条edge_case。"
+  }
+}

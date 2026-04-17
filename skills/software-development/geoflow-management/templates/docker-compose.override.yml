@@ -1,0 +1,99 @@
+# GEOFlow Docker Compose 自定义配置
+# 用于开发环境或特定部署需求
+
+version: '3.8'
+
+services:
+  geoflow_app:
+    # 自定义端口映射
+    ports:
+      - "8080:80"  # 自定义端口
+    # 挂载开发目录
+    volumes:
+      - ./custom_plugins:/var/www/html/plugins
+      - ./custom_themes:/var/www/html/themes
+    # 环境变量
+    environment:
+      - PHP_INI_SCAN_DIR=/usr/local/etc/php/conf.d:/usr/local/etc/php-fpm.d
+      - UPLOAD_MAX_FILESIZE=50M
+      - POST_MAX_SIZE=50M
+    # 开发模式配置
+    command: >
+      sh -c "
+        php-fpm -D &&
+        nginx -g 'daemon off;'
+      "
+  
+  geoflow_db:
+    # 数据库调优配置
+    command: >
+      postgres -c shared_preload_libraries=pg_stat_statements 
+               -c pg_stat_statements.track=all 
+               -c max_connections=200
+               -c shared_buffers=256MB
+               -c effective_cache_size=1GB
+    # 持久化数据
+    volumes:
+      - geoflow_postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    # 健康检查
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-geoflow}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  # Redis 缓存服务（可选）
+  geoflow_redis:
+    image: redis:7-alpine
+    container_name: geoflow_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - geoflow_redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+  
+  # 任务队列处理器（可选）
+  geoflow_worker:
+    build: .
+    container_name: geoflow_worker
+    restart: unless-stopped
+    depends_on:
+      - geoflow_db
+      - geoflow_redis
+    volumes:
+      - ./:/var/www/html
+    environment:
+      - WORKER_MODE=true
+    command: php bin/queue_worker.php
+  
+  # Nginx 反向代理（生产环境）
+  geoflow_nginx:
+    image: nginx:alpine
+    container_name: geoflow_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./logs/nginx:/var/log/nginx
+    depends_on:
+      - geoflow_app
+
+volumes:
+  geoflow_postgres_data:
+    driver: local
+  geoflow_redis_data:
+    driver: local
+
+networks:
+  default:
+    name: geoflow_network
