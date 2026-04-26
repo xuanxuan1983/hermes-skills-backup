@@ -105,3 +105,21 @@ BAOYU_CHROME_PROFILE_DIR=~/Library/Application\ Support/baoyu-skills/chrome-prof
 - 纽约客模板：`~/.hermes/skills/productivity/wechat-magazine-article/references/article_template_v18.html`
 - 博客Token：`qm_8uXMYOrTzQxFF6I0QAUV_YXKrzchqyBT`
 - 账号：zxy-growth（陈萱宜的增长实验室）
+
+## 踩坑记录
+
+- **微信发布优先用 API 方式**：`wechat-api.ts` 比浏览器方式更稳定
+- **微信封面图必须通过 API 上传**：不能用外链，必须先上传获取 media_id
+- **Chrome debug port 超时**：先 `pkill -f "remote-debugging-port"` 再重试
+- **博客封面上传可能403**：先用外链 URL，事后手动后台替换
+
+## 换电脑恢复
+
+需要手动重新配置：
+- API keys（不在 GitHub 里）
+- OpenCLI + Chrome 扩展
+- Chrome profile 登录状态（微博/X）
+- 博客 Admin 密码
+
+已备份（git clone 即可恢复）：
+- `~/.hermes/skills/` 全部
