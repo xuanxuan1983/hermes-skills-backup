@@ -1,0 +1,20 @@
+{
+  "name": "paper-to-popsci",
+  "version": "1.0.0",
+  "description": "将学术论文（PDF）转化为通俗易懂的科普文章。自动提取论文中的文本和关键图表，重写为2000-3500字的图文并茂科普文章，适用于图书推广、公众号文章等场景。",
+  "author": {
+    "name": "Moyunshou"
+  },
+  "license": "MIT",
+  "keywords": [
+    "paper",
+    "research",
+    "popsci",
+    "science-communication",
+    "academic-writing",
+    "article-writing",
+    "PDF",
+    "content-creation",
+    "chinese-writing"
+  ]
+}

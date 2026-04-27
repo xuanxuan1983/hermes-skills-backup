@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  :root {
+    --accent: {{ACCENT}};
+    --accent-light: {{ACCENT_LIGHT}};
+    --accent-dark: {{ACCENT_DARK}};
+    --text: #111827;
+    --text-2: #4B5563;
+    --text-3: #9CA3AF;
+    --bg: #FFFFFF;
+    --card: #FFFFFF;
+    --border: #E5E7EB;
+    --canvas: #F3F4F6;
+    --font: -apple-system, 'PingFang SC', 'Hiragino Sans GB', system-ui, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 1080px;
+    background: var(--canvas);
+  }
+
+  .infograph {
+    width: 1080px;
+    background: var(--canvas);
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, var(--bg) 60%, var(--accent-light) 100%);
+    padding: 64px 72px 56px;
+    border-bottom: 3px solid var(--accent);
+  }
+
+  .header h1 {
+    font: 700 54px/1.25 var(--font);
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+
+  .header .subtitle {
+    font: 400 22px/1.6 var(--font);
+    color: var(--text-2);
+  }
+
+  /* ── Grid ── */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 24px 40px;
+  }
+
+  /* ── Module ── */
+  .module {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 28px 28px 24px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .module.span-2 {
+    grid-column: span 2;
+  }
+
+  .module-title {
+    font: 600 15px/1 var(--font);
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .module-title::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ── Highlight Module ── */
+  .module.mod-highlight {
+    background: var(--accent-light);
+    border: 1px solid var(--accent-light);
+    border-left: 1px solid var(--accent-light);
+    text-align: center;
+    padding: 32px 48px;
+  }
+
+  .module.mod-highlight .insight {
+    font: 500 24px/1.65 var(--font);
+    color: var(--text);
+  }
+
+  /* ── Dark Module ── */
+  .module.mod-dark {
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+    border-left: 3px solid var(--accent-dark);
+  }
+
+  .module.mod-dark .module-title {
+    color: rgba(255,255,255,0.5);
+  }
+
+  .module.mod-dark .module-title::before {
+    background: rgba(255,255,255,0.4);
+  }
+
+  .module.mod-dark p,
+  .module.mod-dark li,
+  .module.mod-dark .step-text,
+  .module.mod-dark .insight {
+    color: rgba(255,255,255,0.92);
+  }
+
+  .module.mod-dark strong {
+    color: #FFFFFF;
+  }
+
+  .module.mod-dark .step-num {
+    color: rgba(255,255,255,0.4);
+  }
+
+  .module.mod-dark .check-list li {
+    border-bottom-color: rgba(255,255,255,0.08);
+  }
+
+  .module.mod-dark .check-list li::before {
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ── Typography ── */
+  .module p {
+    font: 400 18px/1.7 var(--font);
+    color: var(--text-2);
+    margin-bottom: 8px;
+  }
+
+  .module p:last-child { margin-bottom: 0; }
+
+  .module strong {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  /* ── Stat ── */
+  .stat-row {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 16px;
+  }
+
+  .stat-number {
+    font: 700 48px/1.1 var(--font);
+    color: var(--accent);
+    letter-spacing: -0.03em;
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 4px;
+  }
+
+  .stat-label {
+    font: 400 14px/1.5 var(--font);
+    color: var(--text-3);
+    margin-top: 6px;
+  }
+
+  /* ── Check List ── */
+  .check-list {
+    list-style: none;
+  }
+
+  .check-list li {
+    font: 400 18px/1.6 var(--font);
+    color: var(--text-2);
+    padding: 9px 0 9px 24px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .check-list li:last-child { border-bottom: none; }
+
+  .check-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 14px;
+  }
+
+  .check-list li strong {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  /* ── Steps ── */
+  .step-item {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .step-item:last-child { border-bottom: none; }
+
+  .step-num {
+    font: 600 13px/1 var(--font);
+    color: var(--accent);
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-text {
+    font: 400 18px/1.6 var(--font);
+    color: var(--text-2);
+  }
+
+  .step-text strong {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  /* ── Table ── */
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    font: 400 17px/1.5 var(--font);
+  }
+
+  .info-table th {
+    font-weight: 600;
+    color: var(--text);
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--text);
+    font-size: 15px;
+  }
+
+  .info-table td {
+    padding: 10px 12px;
+    color: var(--text-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .info-table tr:last-child td { border-bottom: none; }
+
+  /* ── Tags ── */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    display: inline-block;
+    font: 500 14px/1 var(--font);
+    padding: 7px 14px;
+    border-radius: 6px;
+    background: var(--canvas);
+    color: var(--text-2);
+    border: 1px solid var(--border);
+  }
+
+  /* ── Compare ── */
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .compare-item {
+    padding: 16px;
+    border-radius: 8px;
+    background: var(--canvas);
+    border-left: 3px solid var(--accent);
+  }
+
+  .compare-item .compare-label {
+    font: 600 16px/1.4 var(--font);
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .compare-item p { font-size: 16px; }
+
+  /* ── Footer ── */
+  .footer {
+    display: flex;
+    align-items: center;
+    padding: 20px 40px 32px;
+  }
+
+  .footer .author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .footer .avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .footer .author-name {
+    font: 400 14px/1.5 var(--font);
+    color: var(--text-3);
+  }
+</style>
+</head>
+<body>
+  <div class="infograph">
+    <div class="header">
+      <h1>{{TITLE}}</h1>
+      <p class="subtitle">{{SUBTITLE}}</p>
+    </div>
+    <div class="grid">
+      {{GRID_HTML}}
+    </div>
+    <div class="footer">
+      <div class="author">
+        <img class="avatar" src="file:///Users/lijigang/.claude/skills/ljg-infograph/assets/logo.png" alt="">
+        <span class="author-name">{{SOURCE}}</span>
+      </div>
+    </div>
+  </div>
+<script>
+(function(){
+  var grid = document.querySelector('.grid');
+  if (!grid) return;
+  var modules = Array.from(grid.children);
+  var col = 0;
+  modules.forEach(function(m){ col += m.classList.contains('span-2') ? 2 : 1; });
+  var last = modules[modules.length - 1];
+  if (col % 2 === 1 && last && !last.classList.contains('span-2')) {
+    last.classList.add('span-2');
+  }
+})();
+</script>
+</body>
+</html>

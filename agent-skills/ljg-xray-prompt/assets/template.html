@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>LJG Xray Prompt Analysis</title>
+<style>
+  /* 引入复古等宽字体 */
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+
+  body {
+    background-color: {{COLOR_BG}};
+    color: {{COLOR_MAIN}};
+    font-family: 'Fira Code', 'Courier New', monospace;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+    margin: 0;
+    /* 细微的 CRT 扫描线背景 */
+    background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+  }
+
+  .card {
+    border: 4px double {{COLOR_MAIN}};
+    padding: 25px;
+    max-width: 900px; /* 足够宽以容纳 ASCII 图 */
+    width: 100%;
+    box-shadow: 0 0 20px {{COLOR_DIM}}, inset 0 0 20px {{COLOR_DIM}};
+    background: rgba(0,0,0,0.6);
+    position: relative;
+  }
+
+  /* 文字发光效果 */
+  .card, pre {
+    text-shadow: 0 0 2px {{COLOR_DIM}};
+  }
+
+  .header {
+    border-bottom: 2px dashed {{COLOR_MAIN}};
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .grid-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .field-box {
+    border: 1px solid {{COLOR_DIM}};
+    padding: 12px;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .field-label {
+    font-weight: bold;
+    border-bottom: 1px solid {{COLOR_DIM}};
+    margin-bottom: 8px;
+    display: inline-block;
+    padding-right: 10px;
+  }
+
+  /* 核心 ASCII 容器 */
+  .visual-section {
+    border: 2px solid {{COLOR_MAIN}};
+    padding: 20px;
+    margin-top: 20px;
+    background: {{COLOR_BG}};
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  pre {
+    margin: 0;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.2;
+    white-space: pre; /* 保持 ASCII 格式 */
+    color: {{COLOR_MAIN}};
+  }
+
+  .footer {
+    text-align: right;
+    margin-top: 15px;
+    font-size: 0.75em;
+    opacity: 0.7;
+    border-top: 1px dotted {{COLOR_DIM}};
+    padding-top: 5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="header">
+    >> SYSTEM: PROMPT_GRAVITY_ANALYZER<br>
+    >> STATUS: ONLINE<br>
+    >> THEME: {{THEME_NAME}}
+  </div>
+
+  <div style="margin-bottom: 20px; padding: 10px; border: 1px solid {{COLOR_DIM}};">
+    <strong>[Ω FORMULA KERNEL]</strong><br>
+    Output = Project [ A + M * V ]
+  </div>
+
+  <div class="grid-section">
+    <div class="field-box">
+      <div class="field-label">> ANCHOR (A) [Initial State]</div>
+      <div>{{ANCHOR}}</div>
+    </div>
+    <div class="field-box">
+      <div class="field-label">> VECTOR (V) [Direction/Intent]</div>
+      <div>{{VECTOR}}</div>
+    </div>
+    <div class="field-box">
+      <div class="field-label">> MATRIX (M) [Topological Logic]</div>
+      <div>{{MATRIX}}</div>
+    </div>
+  </div>
+
+  <div class="visual-section">
+    <div style="margin-bottom: 10px; font-weight: bold; border-bottom: 1px dashed {{COLOR_MAIN}};">
+      >> TOPOLOGICAL_VISUALIZATION_RENDER
+    </div>
+    <pre>
+{{TOPOLOGY_ASCII}}
+    </pre>
+  </div>
+  
+  <div class="footer">
+    Rendered by lijigang | Structure: ASCII_High_Fidelity
+  </div>
+</div>
+
+</body>
+</html>
