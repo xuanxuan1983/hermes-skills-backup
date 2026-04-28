@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天新福医美产品上市规划</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; }
+
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    user-select: none;
+  }
+
+  /* ---------- SLIDE SYSTEM ---------- */
+  .slides { width: 100%; height: 100%; position: relative; }
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    padding: 56px 80px 80px;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+
+  /* ---------- SLIDE THEMES ---------- */
+  .slide-cover {
+    background: #0a0a0a;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .slide-cover h1 {
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .slide-cover .tagline {
+    font-size: 22px;
+    color: #999;
+    margin-bottom: 8px;
+  }
+  .slide-cover .author {
+    font-size: 16px;
+    color: #666;
+    margin-top: 40px;
+  }
+  .slide-cover .accent-line {
+    width: 80px;
+    height: 4px;
+    background: #d4a843;
+    margin: 32px 0;
+  }
+
+  .slide-dark { background: #0f0f0f; }
+  .slide-white { background: #fafaf8; color: #1a1a1a; }
+  .slide-white h2 { color: #1a1a1a; }
+
+  /* ---------- TYPOGRAPHY ---------- */
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #d4a843;
+    display: inline-block;
+    padding-bottom: 12px;
+  }
+  .slide-white h2 { border-bottom-color: #1a1a1a; }
+
+  h3 { font-size: 20px; font-weight: 700; margin: 28px 0 14px; color: #d4a843; }
+  .slide-white h3 { color: #b07d2e; }
+
+  p, li { font-size: 18px; line-height: 1.8; }
+
+  /* ---------- GRID ---------- */
+  .grid { display: grid; gap: 20px; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  /* ---------- CARDS ---------- */
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 24px;
+  }
+  .card-num {
+    font-size: 48px;
+    font-weight: 900;
+    color: #d4a843;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .card-label { font-size: 14px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+  .card-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .card-body { font-size: 14px; color: #aaa; line-height: 1.6; }
+
+  .slide-white .card {
+    background: rgba(0,0,0,0.04);
+    border-color: rgba(0,0,0,0.1);
+  }
+
+  /* ---------- TABLES ---------- */
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th {
+    background: rgba(212,168,67,0.15);
+    color: #d4a843;
+    text-align: left;
+    padding: 10px 14px;
+    border: 1px solid rgba(212,168,67,0.2);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  td {
+    padding: 9px 14px;
+    border: 1px solid rgba(255,255,255,0.07);
+    vertical-align: top;
+    font-size: 14px;
+  }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .slide-white td { border-color: rgba(0,0,0,0.08); }
+  .slide-white tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+
+  /* ---------- BIG QUOTE ---------- */
+  .big-quote {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #d4a843;
+    text-align: center;
+    padding: 40px 60px;
+    border-top: 2px solid rgba(212,168,67,0.3);
+    border-bottom: 2px solid rgba(212,168,67,0.3);
+    margin: 20px 0;
+  }
+
+  /* ---------- COMPETITOR CARDS ---------- */
+  .competitor {
+    border-radius: 8px;
+    padding: 20px;
+    border-left: 4px solid;
+  }
+  .competitor-guanzhu { border-color: #4a90d9; background: rgba(74,144,217,0.08); }
+  .competitor-fuman { border-color: #52c41a; background: rgba(82,196,26,0.08); }
+  .competitor-jiamo { border-color: #fa8c16; background: rgba(250,140,22,0.08); }
+  .competitor-aibairui { border-color: #722ed1; background: rgba(114,46,209,0.08); }
+  .competitor-zongzu { border-color: #e34d4d; background: rgba(227,77,77,0.08); }
+
+  .competitor-name { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .competitor-source { font-size: 12px; color: #888; margin-bottom: 10px; }
+  .competitor-body { font-size: 13px; line-height: 1.6; color: #bbb; }
+  .competitor-tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 3px; margin-top: 8px; }
+  .competitor-tag.r { background: rgba(227,77,77,0.15); color: #ff7875; }
+  .competitor-tag.g { background: rgba(82,196,26,0.15); color: #73d13d; }
+  .competitor-tag.b { background: rgba(74,144,217,0.15); color: #69c0ff; }
+
+  /* ---------- HIGHLIGHT ---------- */
+  .highlight-box {
+    background: rgba(212,168,67,0.1);
+    border: 1px solid rgba(212,168,67,0.25);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .slide-white .highlight-box {
+    background: rgba(212,168,67,0.08);
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline { display: flex; gap: 24px; margin-top: 20px; }
+  .timeline-item {
+    flex: 1;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 0; right: 0;
+    height: 3px;
+    background: #d4a843;
+    border-radius: 3px 3px 0 0;
+  }
+  .timeline-phase { font-size: 12px; color: #d4a843; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .timeline-time { font-size: 13px; color: #888; margin-bottom: 10px; }
+  .timeline-content { font-size: 13px; color: #aaa; line-height: 1.6; }
+  .timeline-goal { font-size: 13px; color: #d4a843; font-weight: 700; margin-top: 8px; }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 100;
+    background: rgba(20,20,20,0.9);
+    backdrop-filter: blur(10px);
+    padding: 10px 24px;
+    border-radius: 40px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .nav button {
+    background: rgba(255,255,255,0.08);
+    border: none;
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .nav button:hover { background: rgba(255,255,255,0.15); }
+  .nav .counter {
+    font-size: 13px;
+    color: #888;
+    min-width: 50px;
+    text-align: center;
+  }
+  .nav .dots { display: flex; gap: 6px; }
+  .nav .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav .dot.active { background: #d4a843; width: 20px; border-radius: 3px; }
+
+  /* progress bar */
+  .progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: #d4a843;
+    transition: width 0.3s ease;
+    z-index: 101;
+  }
+
+  /* section label */
+  .section-label {
+    position: absolute;
+    top: 20px;
+    right: 28px;
+    font-size: 11px;
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* two-col layout */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .full { flex: 1; }
+
+  /* price highlight */
+  .price-big {
+    font-size: 56px;
+    font-weight: 900;
+    color: #d4a843;
+    line-height: 1;
+  }
+  .price-unit { font-size: 16px; color: #888; }
+
+  /* logo text */
+  .logo-text {
+    font-size: 13px;
+    color: #555;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  /* scrollable content */
+  .scroll-content { overflow-y: auto; max-height: calc(100vh - 160px); padding-right: 8px; }
+
+  @media (max-width: 768px) {
+    .slide { padding: 40px 32px 100px; }
+    .slide-cover h1 { font-size: 36px; }
+    .grid-2, .grid-3, .grid-4, .two-col { grid-template-columns: 1fr; }
+    .nav { bottom: 16px; padding: 8px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="slides" id="slides">
+
+  <!-- ===== SLIDE 1: COVER ===== -->
+  <div class="slide slide-cover active" data-slide="1">
+    <div class="logo-text">Tianxinfu Medical Aesthetics</div>
+    <div class="accent-line"></div>
+    <h1>天新福医美<br>产品上市规划</h1>
+    <p class="tagline">胶原蛋白植入剂 · 品牌战略 · 销售路径 · 团队规划</p>
+    <p class="author">陈萱宜 &nbsp;|&nbsp; 2026年4月</p>
+    <div style="position:absolute;bottom:80px;right:80px;text-align:right;">
+      <div style="font-size:120px;font-weight:900;color:rgba(212,168,67,0.08);line-height:1;">40亿</div>
+      <div style="font-size:14px;color:#555;margin-top:4px;">胶原市场 2025年</div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 2: MARKET ===== -->
+  <div class="slide slide-dark" data-slide="2">
+    <span class="section-label">行业判断</span>
+    <h2>胶原赛道的关键窗口期</h2>
+    <div class="grid grid-4" style="margin-bottom:32px;">
+      <div class="card">
+        <div class="card-num">300亿</div>
+        <div class="card-label">注射填充市场</div>
+        <div class="card-body" style="margin-top:8px;">中国医美注射填充市场（2025年）</div>
+      </div>
+      <div class="card">
+        <div class="card-num">40亿</div>
+        <div class="card-label">胶原细分市场</div>
+        <div class="card-body" style="margin-top:8px;">≈12%占比，年增速28%</div>
+      </div>
+      <div class="card">
+        <div class="card-num">17张</div>
+        <div class="card-label">国内III类注册证</div>
+        <div class="card-body" style="margin-top:8px;">2022年4张 → 2025年17张</div>
+      </div>
+      <div class="card">
+        <div class="card-num">28%</div>
+        <div class="card-label">年增速</div>
+        <div class="card-body" style="margin-top:8px;">高于HA（约18%）</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <strong>核心判断：</strong>胶原赛道整体仍处于早期教育阶段，<strong>没有任何品牌真正建立起医生使用习惯</strong>。艾尔建用了16年把HA做成行业标准——胶原赛道目前没有这样的玩家。<strong>这是留给天新福的窗口，预计有效期3-4年（2026-2029）。</strong>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 3: COMPETITORS ===== -->
+  <div class="slide slide-dark" data-slide="3">
+    <span class="section-label">竞品矩阵</span>
+    <h2>竞争格局与差异化机会</h2>
+    <div class="two-col">
+      <div>
+        <div class="competitor competitor-guanzhu" style="margin-bottom:16px;">
+          <div class="competitor-name">双美·肤柔美</div>
+          <div class="competitor-source">猪皮SPF · GA交联</div>
+          <div class="competitor-body">台资头部，渠道最深；但猪皮过敏率高于牛跟腱，DNA残留指标靠后</div>
+          <span class="competitor-tag r">弱点：猪皮来源</span>
+        </div>
+        <div class="competitor competitor-fuman" style="margin-bottom:16px;">
+          <div class="competitor-name">弗缦</div>
+          <div class="competitor-source">牛皮（小黄牛）</div>
+          <div class="competitor-body">学术路线；但含Ⅲ型胶原比例较高（≈20-30%），Ⅰ型纯度不如牛跟腱</div>
+          <span class="competitor-tag r">弱点：牛皮Ⅲ型比例高</span>
+        </div>
+        <div class="competitor competitor-jiamo">
+          <div class="competitor-name">胶幂</div>
+          <div class="competitor-source">猪源胶原 · 开票价≤¥1000</div>
+          <div class="competitor-body">价格破坏者，走量逻辑，DNA残留指标最高，正在拉低品类价格锚点</div>
+          <span class="competitor-tag r">弱点：安全性</span>
+        </div>
+      </div>
+      <div>
+        <div class="competitor competitor-aibairui" style="margin-bottom:16px;">
+          <div class="competitor-name">艾佰瑞（2025新证）</div>
+          <div class="competitor-source">猪皮 · 无交联</div>
+          <div class="competitor-body">学术叙事积极，但销量尚未起量；非当前主要威胁</div>
+          <span class="competitor-tag b">观望</span>
+        </div>
+        <div class="competitor competitor-zongzu" style="margin-bottom:16px;">
+          <div class="competitor-name">崇山/妃泰（2025新证）</div>
+          <div class="competitor-source">牛跟腱 · 无化学交联 · 区块链溯源</div>
+          <div class="competitor-body">走天然路线，保留三螺旋结构，刺激自体胶原再生；专利至2041年</div>
+          <span class="competitor-tag b">差异化路线，非直接竞争</span>
+        </div>
+        <div class="competitor" style="border-color:#888;background:rgba(136,136,136,0.08);margin-bottom:16px;">
+          <div class="competitor-name">重组胶原（锦波/巨子）</div>
+          <div class="competitor-source">人源化重组</div>
+          <div class="competitor-body">消费者叙事强；但三螺旋结构缺失，12个月以上维持数据空白</div>
+          <span class="competitor-tag g">护城河：长维持数据</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 4: DIFFERENTIATION ===== -->
+  <div class="slide slide-white" data-slide="4">
+    <span class="section-label" style="color:#ccc;">差异化定位</span>
+    <h2>天新福的五维竞争优势</h2>
+    <div class="grid grid-3" style="margin-bottom:28px;">
+      <div class="card">
+        <div style="font-size:32px;margin-bottom:12px;">🦴</div>
+        <div class="card-title">来源 · 牛跟腱</div>
+        <div class="card-body">I型胶原纯度最高，同源性98%，优于猪皮（92-94%）和牛皮。几乎纯I型胶原组成，杂蛋白残留少。</div>
+      </div>
+      <div class="card">
+        <div style="font-size:32px;margin-bottom:12px;">⚗️</div>
+        <div class="card-title">交联 · EDC/NHS</div>
+        <div class="card-body">EDC/NHS可控交联，零钙化、零细胞毒。对比GA交联（双美）：细胞存活率仅59%，第2周钙化。</div>
+      </div>
+      <div class="card">
+        <div style="font-size:32px;margin-bottom:12px;">📜</div>
+        <div class="card-title">专利 · 至2044年</div>
+        <div class="card-body">CN117899268B，三档可控交联专利保护。与崇山（至2041年）同期，构筑技术护城河。</div>
+      </div>
+    </div>
+    <div class="grid grid-2">
+      <div class="card">
+        <div style="font-size:32px;margin-bottom:12px;">📏</div>
+        <div class="card-title">规格 · 四规格最全</div>
+        <div class="card-body">0.5 / 1.0 / 1.5 / 2.0 ml，四规格分层注射设计。艾佰瑞仅2规格，妃泰仅1规格——天新福可实现精细分层，竞品无法复制。</div>
+      </div>
+      <div class="card">
+        <div style="font-size:32px;margin-bottom:12px;">🏥</div>
+        <div class="card-title">团队 · 外科基因</div>
+        <div class="card-body">手足外科+神经外科背景：解剖精度、组织修复视角、学术发表能力均属稀缺，是竞品短期内无法复制的资产。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 5: BRAND ===== -->
+  <div class="slide slide-dark" data-slide="5">
+    <span class="section-label">品牌定位</span>
+    <h2>一句话定位</h2>
+    <div class="big-quote">天新福——胶原重建，不是填充</div>
+    <div class="two-col" style="margin-top:32px;">
+      <div>
+        <h3>认知差异</h3>
+        <p>填充是借来的效果，胶原重建是真正的生长。天新福选用牛跟腱I型胶原三螺旋结构，以EDC/NHS安全交联，让皮肤在降解过程中同步新生——从"打完等它消"到"打完越来越好"。</p>
+      </div>
+      <div>
+        <h3>团队升维</h3>
+        <p>天新福不是"又一家医美胶原品牌"，是<strong>外科组织修复技术的医美转化</strong>。面向医生用"手术室级别的层次精准"做培训旗帜；面向消费者用"真正懂修复的人做的胶原"建立信任壁垒。</p>
+      </div>
+    </div>
+    <div style="margin-top:32px;padding:20px;background:rgba(212,168,67,0.08);border-radius:8px;border:1px solid rgba(212,168,67,0.2);">
+      <strong>品牌主张：</strong>以牛跟腱为原料，用可控交联还原皮肤本态
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 6: PRODUCT ===== -->
+  <div class="slide slide-white" data-slide="6">
+    <span class="section-label" style="color:#ccc;">产品规划</span>
+    <h2>两款产品 · 双引擎体系</h2>
+    <div class="two-col" style="margin-bottom:24px;">
+      <div>
+        <div style="background:rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.1);border-radius:8px;padding:20px;margin-bottom:16px;">
+          <div style="font-size:12px;color:#b07d2e;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">🚪 破门产品</div>
+          <div style="font-size:22px;font-weight:800;margin-bottom:8px;">植入剂 · DF系列</div>
+          <div style="font-size:13px;color:#666;margin-bottom:12px;">预计拿证：<strong>2026年9月</strong></div>
+          <table style="font-size:13px;">
+            <tr><td style="border:none;padding:4px 0;color:#888;">适应症</td><td style="border:none;padding:4px 0;">改善面部细纹 + 改善面部平滑度</td></tr>
+            <tr><td style="border:none;padding:4px 0;color:#888;">规格</td><td style="border:none;padding:4px 0;">0.5 / 1.0 / 1.5 / 2.0 ml</td></tr>
+            <tr><td style="border:none;padding:4px 0;color:#888;">零售价</td><td style="border:none;padding:4px 0;">0.5ml ¥2800-3200 · 1.0ml ¥4500-5200</td></tr>
+          </table>
+        </div>
+        <div style="font-size:13px;color:#666;line-height:1.7;">
+          <strong>四规格分层逻辑：</strong><br>
+          浅层(0.5ml)→眼周细纹 · 中层(1.0ml)→泪沟面颊 ·<br>
+          深层(1.5ml)→颞部额头 · 超深层(2.0ml)→下颌轮廓
+        </div>
+      </div>
+      <div>
+        <div style="background:rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.1);border-radius:8px;padding:20px;margin-bottom:16px;">
+          <div style="font-size:12px;color:#b07d2e;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">🏗️ 建壁垒</div>
+          <div style="font-size:22px;font-weight:800;margin-bottom:8px;">填充剂 · XL系列</div>
+          <div style="font-size:13px;color:#666;margin-bottom:12px;">预计拿证：<strong>2027年Q2-Q3</strong></div>
+          <table style="font-size:13px;">
+            <tr><td style="border:none;padding:4px 0;color:#888;">适应症</td><td style="border:none;padding:4px 0;">鼻唇沟+面部皱纹填充（待确认）</td></tr>
+            <tr><td style="border:none;padding:4px 0;color:#888;">规格</td><td style="border:none;padding:4px 0;">1.0 / 1.5 ml</td></tr>
+            <tr><td style="border:none;padding:4px 0;color:#888;">交联度</td><td style="border:none;padding:4px 0;">EDC/NHS 30-50%，支撑力+柔软度平衡</td></tr>
+            <tr><td style="border:none;padding:4px 0;color:#888;">零售价</td><td style="border:none;padding:4px 0;">1.0ml ¥5800-6500</td></tr>
+          </table>
+        </div>
+        <div style="font-size:13px;color:#666;line-height:1.7;">
+          <strong>疗程逻辑：</strong>DF(基础期)→XL(精准填充)→维持期(6-9月复打)<br>
+          完整疗程客单价：¥12000-18000（vs 单次¥6000-8000）
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 7: SALES STRATEGY ===== -->
+  <div class="slide slide-dark" data-slide="7">
+    <span class="section-label">销售打法</span>
+    <h2>三阶段打法</h2>
+    <div class="timeline" style="margin-bottom:28px;">
+      <div class="timeline-item">
+        <div class="timeline-phase">Phase 1</div>
+        <div class="timeline-time">2026年9月 - 2027年3月</div>
+        <div class="timeline-content">
+          · KOL学术首发会（1场全国+3场卫星）<br>
+          · 15家A类标杆中心锁定<br>
+          · "胶原+HA联合疗程"切入HA医生群体<br>
+          · 不打竞品绑定的医生，打增量市场
+        </div>
+        <div class="timeline-goal">目标：15A+40B类机构 · ≥2000万</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-phase">Phase 2</div>
+        <div class="timeline-time">2027年Q2 - Q4</div>
+        <div class="timeline-content">
+          · 第二款交联产品上市<br>
+          · "天新福认证医生"三级培训体系<br>
+          · 完整疗程方案发布<br>
+          · 原料溯源码 + AGEs质控透明化
+        </div>
+        <div class="timeline-goal">客单价¥8000→¥16000-20000 · 认证医生500人</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-phase">Phase 3</div>
+        <div class="timeline-time">2028年</div>
+        <div class="timeline-content">
+          · 第三款（中效）拿证<br>
+          · "天新福年卡"打包定价<br>
+          · 天新福学苑正式运营<br>
+          · 学术发表（瘢痕/妊娠纹真实世界数据）
+        </div>
+        <div class="timeline-goal">年回款≥2.5亿 · 胶原TOP3品牌</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <strong>艾尔建MD Codes™护城河逻辑：</strong>医生掌握后，换产品意味着放弃全部学习投入。天新福的同样逻辑：<strong>四规格分层注射方案的剂量设计，用其他品牌单一规格直接失效——让医生对天新福的依赖来自方法论，不是品牌。</strong>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 8: TEAM ===== -->
+  <div class="slide slide-white" data-slide="8">
+    <span class="section-label" style="color:#ccc;">人员规划</span>
+    <h2>团队搭建路径</h2>
+    <div class="two-col">
+      <div>
+        <h3 style="color:#b07d2e;">Phase 1 · 2026年9月（25人核心团队）</h3>
+        <table style="font-size:13px;">
+          <tr><th>岗位</th><th>人数</th><th>职责</th></tr>
+          <tr><td>市场总监</td><td>1</td><td>战略、品牌、竞品、KOL</td></tr>
+          <tr><td>医学培训经理（MMgr）</td><td>1-2</td><td>分层注射规范、培训课程、医学策略</td></tr>
+          <tr><td>学术推广经理（MAM）</td><td>3</td><td>KOL维护、学术内容、培训落地</td></tr>
+          <tr><td>大区销售经理</td><td>3</td><td>华北/华东/华南，A类账户</td></tr>
+          <tr><td>地区销售代表</td><td>12</td><td>B/C类机构开发</td></tr>
+          <tr><td>医学信息经理（MIM）</td><td>1</td><td>不良事件、临床数据</td></tr>
+          <tr><td>市场/商务/培训专员</td><td>7</td><td>内容、BD、认证管理</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3 style="color:#b07d2e;">扩张路径</h3>
+        <div style="margin-bottom:20px;">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;">
+            <div style="font-size:28px;font-weight:900;color:#b07d2e;">25人</div>
+            <div><div style="font-size:14px;font-weight:700;">Phase 1 · 2026.9</div><div style="font-size:12px;color:#888;">核心团队组建完成</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;">
+            <div style="font-size:28px;font-weight:900;color:#b07d2e;">40-50人</div>
+            <div><div style="font-size:14px;font-weight:700;">Phase 2 · 2027</div><div style="font-size:12px;color:#888;">新增华中/西南大区 + 天新福学苑团队</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div style="font-size:28px;font-weight:900;color:#b07d2e;">60-80人</div>
+            <div><div style="font-size:14px;font-weight:700;">Phase 3 · 2028</div><div style="font-size:12px;color:#888;">CS团队 + 医学事务(MA)</div></div>
+          </div>
+        </div>
+        <div style="font-size:13px;color:#666;line-height:1.7;background:rgba(0,0,0,0.04);padding:14px;border-radius:6px;">
+          <strong>招募策略：</strong>招有大区销售经验的医美老兵，不要求有胶原经验。有机构关系的人三个月内可上手产品知识；有胶原经验的人不一定有机构关系。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 9: BUDGET ===== -->
+  <div class="slide slide-dark" data-slide="9">
+    <span class="section-label">费用预估</span>
+    <h2>预算与收入目标</h2>
+    <div class="two-col">
+      <div>
+        <h3>2026年（9月启动，约4个月）</h3>
+        <table style="font-size:13px;">
+          <tr><th>费用项目</th><th>金额（万元）</th></tr>
+          <tr><td>人员薪酬（25人×4个月）</td><td>400-500</td></tr>
+          <tr><td>上市学术发布会</td><td>80-120</td></tr>
+          <tr><td>标杆机构支持（10家）</td><td>50-80</td></tr>
+          <tr><td>医生培训（首期认证班×3场）</td><td>30-50</td></tr>
+          <tr><td>内容营销（小红书/抖音）</td><td>30-50</td></tr>
+          <tr><td>销售物料+展会</td><td>20-30</td></tr>
+          <tr style="background:rgba(212,168,67,0.1);"><td><strong>合计</strong></td><td><strong>610-830万</strong></td></tr>
+        </table>
+        <div style="margin-top:16px;font-size:13px;color:#888;line-height:1.7;">
+          <strong>收入目标：</strong>≥2000万元（4个月）<br>
+          前提：标杆锁定+旺季集中发力
+        </div>
+      </div>
+      <div>
+        <h3>2027年（全年度）</h3>
+        <table style="font-size:13px;">
+          <tr><th>费用项目</th><th>金额（万元）</th></tr>
+          <tr><td>人员薪酬（40人×12个月）</td><td>2000-2500</td></tr>
+          <tr><td>第二款上市学术活动</td><td>200-300</td></tr>
+          <tr><td>天新福学苑建设</td><td>100-150</td></tr>
+          <tr><td>数字化患者运营</td><td>80-120</td></tr>
+          <tr><td>机构渠道支持</td><td>150-200</td></tr>
+          <tr><td>品牌建设（行业报告+媒体）</td><td>50-80</td></tr>
+          <tr style="background:rgba(212,168,67,0.1);"><td><strong>合计</strong></td><td><strong>2580-3350万</strong></td></tr>
+        </table>
+        <div style="margin-top:16px;font-size:13px;color:#888;line-height:1.7;">
+          <strong>收入目标：</strong>≥1.2亿元（全年）<br>
+          实现整体盈亏平衡
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 10: KPI ===== -->
+  <div class="slide slide-white" data-slide="10">
+    <span class="section-label" style="color:#ccc;">核心KPI</span>
+    <h2>三年目标</h2>
+    <div class="grid grid-3" style="margin-bottom:28px;">
+      <div class="card" style="text-align:center;">
+        <div style="font-size:48px;font-weight:900;color:#b07d2e;margin-bottom:8px;">2000万</div>
+        <div style="font-size:13px;color:#888;margin-bottom:6px;">2026年Q4（4个月）</div>
+        <div style="font-size:14px;font-weight:700;">销售额目标</div>
+        <div style="font-size:12px;color:#888;margin-top:6px;">15A+40B类机构</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:48px;font-weight:900;color:#b07d2e;margin-bottom:8px;">1.2亿</div>
+        <div style="font-size:13px;color:#888;margin-bottom:6px;">2027年（全年度）</div>
+        <div style="font-size:14px;font-weight:700;">销售额目标</div>
+        <div style="font-size:12px;color:#888;margin-top:6px;">两款产品+疗程体系</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:48px;font-weight:900;color:#b07d2e;margin-bottom:8px;">2.5亿</div>
+        <div style="font-size:13px;color:#888;margin-bottom:6px;">2028年（全年度）</div>
+        <div style="font-size:14px;font-weight:700;">销售额目标</div>
+        <div style="font-size:12px;color:#888;margin-top:6px;">三款产品+年卡+学苑</div>
+      </div>
+    </div>
+    <table style="font-size:13px;">
+      <tr><th>指标</th><th>2026年Q4</th><th>2027年</th><th>2028年</th></tr>
+      <tr><td>销售额</td><td>≥2000万</td><td>≥1.2亿</td><td>≥2.5亿</td></tr>
+      <tr><td>A类合作机构</td><td>15家</td><td>40家</td><td>80家</td></tr>
+      <tr><td>认证医生数</td><td>100人</td><td>500人</td><td>1500人</td></tr>
+      <tr><td>平均客单价</td><td>¥6000-8000</td><td>¥12000-16000</td><td>¥20000+</td></tr>
+      <tr><td>机构复购率</td><td>—</td><td>≥60%</td><td>≥75%</td></tr>
+      <tr><td>品牌提及率</td><td>—</td><td>胶原TOP3</td><td>品类首提</td></tr>
+    </table>
+  </div>
+
+  <!-- ===== SLIDE 11: RISK ===== -->
+  <div class="slide slide-dark" data-slide="11">
+    <span class="section-label">风险预判</span>
+    <h2>风险与应对策略</h2>
+    <div class="grid grid-2" style="gap:16px;">
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+          <span style="background:rgba(227,77,77,0.2);color:#ff7875;font-size:11px;padding:3px 8px;border-radius:3px;font-weight:700;">高概率</span>
+          <span style="background:rgba(227,77,77,0.2);color:#ff7875;font-size:11px;padding:3px 8px;border-radius:3px;font-weight:700;">高影响</span>
+        </div>
+        <div class="card-title">第二款拿证延期</div>
+        <div class="card-body">应对：让第一款独立站稳，不依赖第二款话术；提前完成申报材料准备。</div>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+          <span style="background:rgba(227,77,77,0.2);color:#ff7875;font-size:11px;padding:3px 8px;border-radius:3px;font-weight:700;">高概率</span>
+          <span style="background:rgba(250,140,22,0.2);color:#ffc069;font-size:11px;padding:3px 8px;border-radius:3px;font-weight:700;">中影响</span>
+        </div>
+        <div class="card-title">竞品快速铺货抢占渠道</div>
+        <div class="card-body">应对：差异化叙事+标杆机构深度绑定；速度上以"标杆深度"对抗"渠道广度"。</div>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+          <span style="background:rgba(250,140,22,0.2);color:#ffc069;font-size:11px;padding:3px 8px;border-radius:3px;font-weight:700;">中概率</span>
+          <span style="background:rgba(250,140,22,0.2);color:#ffc069;font-size:11px;padding:3px 8px;border-radius:3px;font-weight:700;">中影响</span>
+        </div>
+        <div class="card-title">重组胶原价格战</div>
+        <div class="card-body">应对：坚守"动物源三螺旋完整+长维持数据"叙事。重组产品12个月随访数据空白是天然护城河。</div>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+          <span style="background:rgba(250,140,22,0.2);color:#ffc069;font-size:11px;padding:3px 8px;border-radius:3px;font-weight:700;">中概率</span>
+          <span style="background:rgba(227,77,77,0.2);color:#ff7875;font-size:11px;padding:3px 8px;border-radius:3px;font-weight:700;">高影响</span>
+        </div>
+        <div class="card-title">头部机构被竞品独家锁定</div>
+        <div class="card-body">应对："胶原+HA叠加"定位——机构无需选边站，天新福是HA的升级搭档，不是替代者。</div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:20px;">
+      <strong>临床不良事件（低概率/极高影响）：</strong>上市同步发布注射规范SOP；MIM专职跟进不良事件上报；参保产品责任险。
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 12: CLOSING ===== -->
+  <div class="slide slide-cover" data-slide="12" style="justify-content:center;align-items:center;text-align:center;">
+    <div style="max-width:700px;">
+      <div class="logo-text" style="margin-bottom:24px;">Tianxinfu Medical Aesthetics</div>
+      <div style="font-size:80px;margin-bottom:24px;">💎</div>
+      <div style="font-size:44px;font-weight:800;line-height:1.3;margin-bottom:32px;letter-spacing:2px;">
+        我来，是雕玉的。
+      </div>
+      <div style="font-size:18px;color:#888;line-height:1.8;margin-bottom:48px;">
+        天新福——外科组织修复技术的医美转化<br>
+        胶原重建，不是填充
+      </div>
+      <div style="display:flex;gap:40px;justify-content:center;color:#555;font-size:13px;">
+        <div>
+          <div style="font-size:28px;font-weight:900;color:#d4a843;">1.2亿</div>
+          <div>2027年目标</div>
+        </div>
+        <div>
+          <div style="font-size:28px;font-weight:900;color:#d4a843;">500人</div>
+          <div>认证医生</div>
+        </div>
+        <div>
+          <div style="font-size:28px;font-weight:900;color:#d4a843;">TOP3</div>
+          <div>胶原赛道品牌</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== NAVIGATION ===== -->
+<div class="nav">
+  <button onclick="prevSlide()">◀</button>
+  <div class="dots" id="dots"></div>
+  <span class="counter" id="counter">1 / 12</span>
+  <button onclick="nextSlide()">▶</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsEl = document.getElementById('dots');
+  const counterEl = document.getElementById('counter');
+  const progressEl = document.getElementById('progress');
+  let current = 0;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function update() {
+    slides.forEach((s, i) => s.classList.toggle('active', i === current));
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    counterEl.textContent = `${current + 1} / ${slides.length}`;
+    progressEl.style.width = `${((current + 1) / slides.length) * 100}%`;
+  }
+
+  function nextSlide() {
+    if (current < slides.length - 1) { current++; update(); }
+  }
+  function prevSlide() {
+    if (current > 0) { current--; update(); }
+  }
+  function goTo(i) { current = i; update(); }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevSlide(); }
+  });
+
+  // Touch swipe
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const dx = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 50) { dx > 0 ? nextSlide() : prevSlide(); }
+  });
+</script>
+</body>
+</html>
