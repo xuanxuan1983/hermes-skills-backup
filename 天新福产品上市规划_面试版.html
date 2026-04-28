@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天新福医美产品上市规划</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #1a1a1a;
+    background: #f8f7f4;
+  }
+  .page {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 60px 72px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+  @media print {
+    body { background: #fff; }
+    .page { box-shadow: none; padding: 40px 48px; margin: 0; }
+  }
+
+  /* 封面 */
+  .cover {
+    text-align: center;
+    padding: 80px 0 60px;
+    border-bottom: 2px solid #1a1a1a;
+    margin-bottom: 48px;
+  }
+  .cover h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .cover .sub {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .cover .name {
+    font-size: 15px;
+    color: #333;
+    font-weight: 600;
+    margin-top: 24px;
+  }
+
+  /* 章节标题 */
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 48px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid #1a1a1a;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  h2 .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 13px;
+    border-radius: 50%;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* 小标题 */
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #333;
+    margin-top: 24px;
+    margin-bottom: 10px;
+  }
+
+  /* 表格 */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13.5px;
+  }
+  th {
+    background: #f2f2f0;
+    text-align: left;
+    padding: 9px 12px;
+    border: 1px solid #ddd;
+    font-weight: 700;
+    color: #333;
+  }
+  td {
+    padding: 9px 12px;
+    border: 1px solid #ddd;
+    vertical-align: top;
+    color: #333;
+  }
+  tr:nth-child(even) td { background: #fafaf8; }
+  td strong { color: #1a1a1a; }
+
+  /* 列表 */
+  ul { padding-left: 20px; margin: 10px 0; }
+  li { margin-bottom: 5px; color: #333; }
+  li strong { color: #1a1a1a; }
+
+  /* 重点框 */
+  .box {
+    border-radius: 3px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .box-gray { background: #f5f5f3; border-left: 4px solid #999; }
+  .box-red { background: #fff5f5; border-left: 4px solid #c0392b; }
+  .box-blue { background: #f0f5ff; border-left: 4px solid #2f54eb; }
+  .box-yellow { background: #fffbf0; border-left: 4px solid #d48806; }
+  .box-green { background: #f0fff4; border-left: 4px solid #389e0d; }
+
+  /* 金句 */
+  .quote {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    padding: 24px 32px;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    margin: 32px 0;
+    letter-spacing: 1px;
+  }
+
+  /* 数字高亮 */
+  .num-big {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1a1a1a;
+    font-family: "DIN Alternate", "Helvetica Neue", sans-serif;
+  }
+  .num-mid {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .tag-b { background: #f0f5ff; color: #2f54eb; }
+  .tag-r { background: #fff0f0; color: #c0392b; }
+  .tag-g { background: #f0fff4; color: #389e0d; }
+  .tag-y { background: #fffbf0; color: #d48806; }
+
+  /* 分割线 */
+  hr { border: none; border-top: 1px solid #e5e5e5; margin: 36px 0; }
+
+  /* 结尾页 */
+  .end-page {
+    text-align: center;
+    padding: 80px 0 40px;
+    border-top: 2px solid #1a1a1a;
+    margin-top: 48px;
+  }
+  .end-page p { font-size: 22px; font-weight: 700; letter-spacing: 2px; color: #1a1a1a; margin-bottom: 12px; }
+  .end-page .small { font-size: 13px; color: #888; font-weight: 400; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ===================== 封面 ===================== -->
+<div class="cover">
+  <h1>天新福医美产品上市规划</h1>
+  <p class="sub">胶原蛋白植入剂 · 品牌战略 · 销售路径 · 团队规划</p>
+  <p class="sub">2026年4月</p>
+  <p class="name">陈萱宜</p>
+</div>
+
+<!-- ===================== 开场白 ===================== -->
+<div class="quote">
+  中国胶原注射市场2025年约40亿元，年增速28%<br>
+  赛道尚无真正壁垒——这是16年前的HA，这是天新福唯一的机会窗口
+</div>
+
+<!-- ===================== 一、行业判断 ===================== -->
+<h2><span class="num">1</span>行业判断：为什么现在是关键窗口期</h2>
+
+<h3>市场规模</h3>
+<table>
+  <tr><th>指标</th><th>数据</th><th>说明</th></tr>
+  <tr><td>中国注射填充市场规模</td><td class="num-big">300亿</td><td>2025年</td></tr>
+  <tr><td>胶原占比</td><td>~12%（≈36亿）</td><td>处于品类教育完成后的加速渗透期</td></tr>
+  <tr><td>胶原年增速</td><td class="num-big">28%</td><td>高于HA（约18%）</td></tr>
+  <tr><td>国内持证产品</td><td class="num-big">17张</td><td>2022年4张 → 2025年17张，竞争从蓝海进入早期红海</td></tr>
+</table>
+
+<h3>竞争格局现状</h3>
+<div class="box box-gray">
+  <strong>核心判断：</strong>胶原赛道整体仍处于早期教育阶段，<strong>没有任何品牌真正建立起医生使用习惯</strong>。即使头部玩家（双美/弗缦）也尚未形成强品牌忠诚度；艾佰瑞2025年新证销量尚未起量；胶幂以低价走量正在拉低品类价格锚点。
+</div>
+
+<h3>竞品矩阵</h3>
+<table>
+  <tr><th>品牌</th><th>来源</th><th>真实状态</th><th>天新福机会</th></tr>
+  <tr>
+    <td><strong>双美·肤柔美</strong></td>
+    <td>猪皮SPF</td>
+    <td>台资头部，渠道最深；但猪皮过敏率高于牛跟腱，DNA残留指标靠后</td>
+    <td>"牛跟腱 vs 猪皮"差异化叙事</td>
+  </tr>
+  <tr>
+    <td><strong>弗缦</strong></td>
+    <td>牛皮（小黄牛）</td>
+    <td>学术路线；但含Ⅲ型胶原比例较高（≈20-30%），Ⅰ型纯度不如牛跟腱</td>
+    <td>"同样是牛，我们用的是跟腱而不是皮"</td>
+  </tr>
+  <tr>
+    <td><strong>胶幂</strong></td>
+    <td>猪源胶原</td>
+    <td>价格破坏者，开票价≤¥1000；DNA残留指标最高</td>
+    <td>坚决不跟价，用安全性差异化</td>
+  </tr>
+  <tr>
+    <td><strong>艾佰瑞</strong></td>
+    <td>猪皮（2025新证）</td>
+    <td>学术叙事积极，但销量尚未起量</td>
+    <td>非主要威胁；借力胶原品类教育红利</td>
+  </tr>
+  <tr>
+    <td><strong>重组胶原</strong></td>
+    <td>人源化重组</td>
+    <td>消费者叙事强；但三螺旋结构缺失，12个月以上维持数据空白</td>
+    <td>"动物源三螺旋完整+长维持"叙事壁垒</td>
+  </tr>
+</table>
+
+<h3>天新福的差异化定位</h3>
+<table>
+  <tr><th>维度</th><th>天新福</th><th>竞品参照</th></tr>
+  <tr><td><strong>来源</strong></td><td>牛跟腱 I 型胶原，三螺旋完整，同源性98%</td><td>猪皮（艾佰瑞/双美）、牛皮（弗缦）</td></tr>
+  <tr><td><strong>交联</strong></td><td>EDC/NHS可控交联，零钙化、零细胞毒</td><td>GA交联（双美，细胞存活率仅59%）</td></tr>
+  <tr><td><strong>专利</strong></td><td>CN117899268B，至2044年</td><td>崇山/妃泰无专利壁垒</td></tr>
+  <tr><td><strong>规格</strong></td><td>0.5/1.0/1.5/2.0ml，四规格最全</td><td>竞品多为1-2个规格</td></tr>
+  <tr><td><strong>团队</strong></td><td>手足外科+神经外科，解剖精度+学术能力</td><td>纯市场/医美背景（难以复制）</td></tr>
+</table>
+
+<!-- ===================== 二、市场定位 ===================== -->
+<h2><span class="num">2</span>市场定位</h2>
+
+<h3>目标人群</h3>
+<table>
+  <tr><th>维度</th><th>定位</th></tr>
+  <tr><td>年龄</td><td>30-55岁，城市中产女性</td></tr>
+  <tr><td>收入</td><td>家庭年收入≥30万元</td></tr>
+  <tr><td>特征</td><td>已有注射经验（HA或肉毒素），寻求升级选择</td></tr>
+  <tr><td>需求</td><td>效果自然、维持更长、皮肤真正改善</td></tr>
+  <tr><td>市场规模</td><td>2026年胶原市场≈40亿元，目标2年内占≥8%（约3.2亿/年）</td></tr>
+</table>
+
+<h3>机构分层</h3>
+<table>
+  <tr><th>类型</th><th>占比</th><th>目标</th><th>策略</th></tr>
+  <tr>
+    <td><strong>A类</strong>（战略账户）</td>
+    <td>20%数量→50%销售</td>
+    <td>三甲医院整外/皮肤科 + 头部私立连锁TOP20</td>
+    <td>标杆中心 + 学术首发 + 联合临床</td>
+  </tr>
+  <tr>
+    <td><strong>B类</strong>（规模账户）</td>
+    <td>40%数量→35%销售</td>
+    <td>区域头部单体机构</td>
+    <td>疗程绑定 + 培训认证</td>
+  </tr>
+  <tr>
+    <td><strong>C类</strong>（渗透账户）</td>
+    <td>40%数量→15%销售</td>
+    <td>中型美容/皮肤科诊所</td>
+    <td>标准定价 + 线上内容赋能</td>
+  </tr>
+</table>
+
+<!-- ===================== 三、品牌定位 ===================== -->
+<h2><span class="num">3</span>品牌定位</h2>
+
+<div class="box box-yellow" style="text-align:center; font-size:16px;">
+  <strong style="font-size:18px;">一句话定位：</strong><br>
+  <strong class="num-big">天新福——胶原重建，不是填充</strong>
+</div>
+
+<table>
+  <tr><th>维度</th><th>内容</th></tr>
+  <tr><td><strong>品牌主张</strong></td><td>以牛跟腱为原料，用可控交联还原皮肤本态</td></tr>
+  <tr><td><strong>认知差异</strong></td><td>填充是借来的效果，胶原重建是真正的生长。天新福选用牛跟腱I型胶原三螺旋结构，以EDC/NHS安全交联，让皮肤在降解过程中同步新生</td></tr>
+  <tr><td><strong>团队升维</strong></td><td>天新福是"外科组织修复技术的医美转化"——面向医生用"手术室级别的层次精准"做培训旗帜；面向消费者用"真正懂修复的人做的胶原"建立信任壁垒</td></tr>
+</table>
+
+<!-- ===================== 四、产品规划 ===================== -->
+<h2><span class="num">4</span>产品规划</h2>
+
+<h3>两款产品双引擎</h3>
+<table>
+  <tr><th>产品</th><th>代号</th><th>预计拿证</th><th>适应症</th><th>规格</th><th>战略角色</th><th>建议零售价</th></tr>
+  <tr>
+    <td><strong>植入剂（第一款）</strong></td>
+    <td>DF系列</td>
+    <td><strong>2026年9月</strong></td>
+    <td>改善面部细纹 + 改善面部平滑度</td>
+    <td>0.5/1.0/1.5/2.0ml</td>
+    <td>🚪破门产品，快速建网</td>
+    <td>0.5ml: ¥2800-3200<br>1.0ml: ¥4500-5200</td>
+  </tr>
+  <tr>
+    <td><strong>填充剂（第二款）</strong></td>
+    <td>XL系列</td>
+    <td><strong>2027年Q2-Q3</strong></td>
+    <td>鼻唇沟+面部皱纹填充（待确认）</td>
+    <td>1.0/1.5ml</td>
+    <td>🏗️建壁垒，疗程体系闭环</td>
+    <td>1.0ml: ¥5800-6500</td>
+  </tr>
+</table>
+
+<h3>上市时间轴</h3>
+<table>
+  <tr><th>阶段</th><th>时间</th><th>核心动作</th></tr>
+  <tr><td><strong>建网络</strong></td><td>2026年Q3-Q4</td><td>拿证+学术首发 → 15家A类标杆锁定 → B类40家签约</td></tr>
+  <tr><td><strong>建体系</strong></td><td>2027年Q1-Q2</td><td>第二款申报 → 培训认证体系启动 → 疗程方案发布</td></tr>
+  <tr><td><strong>建壁垒</strong></td><td>2027年Q3-Q4</td><td>第二款上市 → 学术发表 → 真实世界数据积累</td></tr>
+  <tr><td><strong>规模扩张</strong></td><td>2028年</td><td>年卡产品 → 天新福学苑运营 → 生态合作</td></tr>
+</table>
+
+<h3>四规格分层注射逻辑（核心差异化）</h3>
+<table>
+  <tr><th>层次</th><th>适应症</th><th>推荐规格</th><th>竞品无法实现的理由</th></tr>
+  <tr><td>浅层（皮下）</td><td>眼周细纹、颈纹</td><td><strong>0.5ml</strong></td><td rowspan="4">艾佰瑞仅2规格，妃泰仅1规格，无法实现精细分层设计</td></tr>
+  <tr><td>中层（脂肪层）</td><td>泪沟、面颊凹陷</td><td><strong>1.0ml</strong></td></tr>
+  <tr><td>深层（骨膜上）</td><td>颞部凹陷、额头塑形</td><td><strong>1.5ml</strong></td></tr>
+  <tr><td>超深层（骨膜）</td><td>下颌缘、颧弓提升</td><td><strong>2.0ml</strong></td></tr>
+</table>
+
+<!-- ===================== 五、销售打法 ===================== -->
+<h2><span class="num">5</span>销售打法</h2>
+
+<h3>核心策略：不让机构压货，帮机构动销</h3>
+<div class="box box-green">
+  天新福不靠压货赚钱，靠机构动销后的疗程复购赚钱。第一批产品零风险进入，机构卖不出去我们承担损失，卖好了我们一起增长。
+</div>
+
+<h3>三阶段打法</h3>
+<table>
+  <tr><th>阶段</th><th>时间</th><th>核心打法</th><th>目标</th></tr>
+  <tr>
+    <td><strong>Phase 1</strong></td><td>2026年9月-2027年3月</td>
+    <td>
+      <strong>①学术KOL首发会</strong>（1场全国会+3场卫星会）<br>
+      <strong>②15家A类标杆中心</strong>（首批进货10%赠品支持）<br>
+      <strong>③"胶原+HA联合疗程"切入</strong>（不争竞品医生，争HA医生）
+    </td>
+    <td>15家A类 + 40家B类<br>销售≥2000万元</td>
+  </tr>
+  <tr>
+    <td><strong>Phase 2</strong></td><td>2027年Q2-Q4</td>
+    <td>
+      <strong>①第二款上市 → 完整疗程体系</strong><br>
+      <strong>②"天新福认证医生"三级培训体系</strong><br>
+      <strong>③原料溯源码 + AGEs质控透明化</strong>
+    </td>
+    <td>客单价从¥8000→¥16000-20000<br>认证医生500人</td>
+  </tr>
+  <tr>
+    <td><strong>Phase 3</strong></td><td>2028年</td>
+    <td>
+      <strong>①第三款（中效）拿证</strong><br>
+      <strong>②"天新福年卡"打包定价</strong><br>
+      <strong>③天新福学苑，年培训医生1000人次</strong>
+    </td>
+    <td>年回款≥2.5亿元<br>胶原赛道TOP3品牌</td>
+  </tr>
+</table>
+
+<h3>对标艾尔建MD Codes™的飞轮逻辑</h3>
+<div class="box box-blue">
+  <strong>艾尔建护城河的核心：</strong>医生掌握MD Codes™后，换产品意味着放弃全部学习投入。<br><br>
+  <strong>天新福的同样逻辑：</strong>天新福四规格分层注射方案的剂量设计，基于四规格的精准容量——用其他品牌单一规格，方案直接失效。<strong>让医生对天新福的依赖，不是来自品牌，而是来自学会了就回不去的方法论。</strong>
+</div>
+
+<!-- ===================== 六、人员规划 ===================== -->
+<h2><span class="num">6</span>人员规划</h2>
+
+<h3>2026年启动团队（25人）</h3>
+<table>
+  <tr><th>岗位</th><th>人数</th><th>核心职责</th><th>优先级</th></tr>
+  <tr><td>市场总监（候选人角色）</td><td>1</td><td>战略定位、品牌叙事、竞品应对、KOL关系</td><td><span class="tag tag-b">核心</span></td></tr>
+  <tr><td>医学培训经理（MMgr）</td><td>1-2</td><td>制定分层注射规范、上台示教、制定医学策略、设计培训课程框架</td><td><span class="tag tag-b">核心</span></td></tr>
+  <tr><td>学术推广经理（MAM）</td><td>3</td><td>KOL维护、学术内容、医生培训落地执行</td><td><span class="tag tag-b">核心</span></td></tr>
+  <tr><td>大区销售经理</td><td>3</td><td>华北/华东/华南，A类账户管理</td><td><span class="tag tag-b">核心</span></td></tr>
+  <tr><td>地区销售代表</td><td>12</td><td>B/C类机构开发、日常拜访</td><td><span class="tag tag-y">重要</span></td></tr>
+  <tr><td>市场专员（内容+活动）</td><td>2</td><td>小红书/抖音科普、会议执行</td><td><span class="tag tag-y">重要</span></td></tr>
+  <tr><td>医学信息经理（MIM）</td><td>1</td><td>不良事件、临床数据、学术支撑</td><td><span class="tag tag-b">核心</span></td></tr>
+  <tr><td>商务拓展 + 培训专员</td><td>3</td><td>渠道商谈判、认证管理</td><td><span class="tag tag-y">重要</span></td></tr>
+</table>
+
+<h3>团队扩张路径</h3>
+<table>
+  <tr><th>阶段</th><th>时间</th><th>人数</th><th>新增岗位</th></tr>
+  <tr><td>Phase 1</td><td>2026年9月</td><td>25人</td><td>核心团队</td></tr>
+  <tr><td>Phase 2</td><td>2027年</td><td>40-50人</td><td>华中/西南大区 + 天新福学苑团队 + 数字营销</td></tr>
+  <tr><td>Phase 3</td><td>2028年</td><td>60-80人</td><td>客户成功(CS)团队 + 医学事务(MA)</td></tr>
+</table>
+
+<!-- ===================== 七、费用预估 ===================== -->
+<h2><span class="num">7</span>费用预估</h2>
+
+<h3>2026年（9月启动，约4个月）</h3>
+<table>
+  <tr><th>费用项目</th><th>金额（万元）</th><th>说明</th></tr>
+  <tr><td>人员薪酬（25人×4个月）</td><td>400-500</td><td>含销售提成，按平均月薪40-50K</td></tr>
+  <tr><td>上市学术发布会</td><td>80-120</td><td>全国学术会+3场卫星会</td></tr>
+  <tr><td>标杆机构支持（10家）</td><td>50-80</td><td>赠品/折扣+装修物料+联合推广</td></tr>
+  <tr><td>医生培训（首期认证班×3场）</td><td>30-50</td><td>场地+讲师+培训材料</td></tr>
+  <tr><td>内容营销（小红书/抖音）</td><td>30-50</td><td>KOL科普内容合作</td></tr>
+  <tr><td>销售物料+展会</td><td>20-30</td><td>话术手册、产品图册</td></tr>
+  <tr style="background:#f0fff4">
+    <td><strong>合计</strong></td><td><strong>610-830万</strong></td><td>4个月有效运营期</td>
+  </tr>
+</table>
+
+<h3>2027年（全年度）</h3>
+<table>
+  <tr><th>费用项目</th><th>金额（万元）</th><th>说明</th></tr>
+  <tr><td>人员薪酬（40人×12个月）</td><td>2000-2500</td><td>团队扩张至40人</td></tr>
+  <tr><td>第二款上市学术活动</td><td>200-300</td><td>交联专利研讨会+全国巡讲6城</td></tr>
+  <tr><td>天新福学苑建设</td><td>100-150</td><td>轻量化版，非重资产</td></tr>
+  <tr><td>数字化患者运营</td><td>80-120</td><td>小程序开发+内容矩阵</td></tr>
+  <tr><td>机构渠道支持</td><td>150-200</td><td>B类机构首年进入支持</td></tr>
+  <tr><td>品牌建设（行业报告+媒体）</td><td>50-80</td><td>发布年度趋势报告</td></tr>
+  <tr style="background:#f0fff4">
+    <td><strong>合计</strong></td><td><strong>2580-3350万</strong></td><td>2027年全年</td>
+  </tr>
+</table>
+
+<h3>收入目标</h3>
+<table>
+  <tr><th>情景</th><th>2026年Q4（4个月）</th><th>2027年</th><th>2028年</th></tr>
+  <tr style="background:#f0fff4">
+    <td><strong>目标</strong></td><td><strong>≥2000万元</strong></td><td><strong>≥1.2亿元</strong></td><td><strong>≥2.5亿元</strong></td>
+  </tr>
+  <tr>
+    <td>前提条件</td>
+    <td>标杆锁定+旺季集中发力</td>
+    <td>第一款稳定+第二款上市</td>
+    <td>三款产品+年卡+学苑</td>
+  </tr>
+</table>
+
+<!-- ===================== 八、核心KPI ===================== -->
+<h2><span class="num">8</span>核心KPI</h2>
+<table>
+  <tr><th>指标</th><th>2026年Q4</th><th>2027年</th><th>2028年</th></tr>
+  <tr><td>销售额</td><td>≥2000万</td><td>≥1.2亿</td><td>≥2.5亿</td></tr>
+  <tr><td>A类合作机构</td><td>15家</td><td>40家</td><td>80家</td></tr>
+  <tr><td>认证医生数</td><td>100人</td><td>500人</td><td>1500人</td></tr>
+  <tr><td>平均客单价</td><td>¥6000-8000</td><td>¥12000-16000</td><td>¥20000+</td></tr>
+  <tr><td>机构复购率</td><td>—</td><td>≥60%</td><td>≥75%</td></tr>
+  <tr><td>品牌提及率</td><td>—</td><td>胶原TOP3</td><td>"牛跟腱胶原"品类首提</td></tr>
+</table>
+
+<!-- ===================== 九、风险预判 ===================== -->
+<h2><span class="num">9</span>风险预判与应对</h2>
+<table>
+  <tr><th>风险</th><th>概率</th><th>应对</th></tr>
+  <tr>
+    <td>第二款拿证延期</td>
+    <td><span class="tag tag-r">高</span></td>
+    <td>让第一款独立站稳，不依赖第二款；提前完成申报材料</td>
+  </tr>
+  <tr>
+    <td>竞品快速铺货抢占渠道</td>
+    <td><span class="tag tag-r">高</span></td>
+    <td>差异化叙事+标杆机构深度绑定</td>
+  </tr>
+  <tr>
+    <td>重组胶原价格战</td>
+    <td><span class="tag tag-y">中</span></td>
+    <td>坚守"动物源三螺旋+长维持"叙事，不参与价格战</td>
+  </tr>
+  <tr>
+    <td>头部机构被竞品独家锁定</td>
+    <td><span class="tag tag-y">中</span></td>
+    <td>"胶原+HA叠加"定位，机构无需选边站</td>
+  </tr>
+  <tr>
+    <td>临床不良事件</td>
+    <td><span class="tag tag-g">低</span></td>
+    <td>上市同步发布注射SOP；MIM专职跟进</td>
+  </tr>
+</table>
+
+<!-- ===================== 结尾 ===================== -->
+<div class="end-page">
+  <p>我来，是雕玉的。</p>
+  <p class="small">天新福——外科组织修复技术的医美转化</p>
+</div>
+
+</div>
+</body>
+</html>
