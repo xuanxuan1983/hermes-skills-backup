@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天新福医美产品上市规划 · 陈萱宜 · 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a0a0b;
+    --ink-rgb:10,10,11;
+    --paper:#f1efea;
+    --paper-rgb:241,239,234;
+    --paper-tint:#e8e5de;
+    --ink-tint:#18181a;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+    --serif-en:"Playfair Display","Source Serif 4",Georgia,serif;
+    --serif-body-en:"Source Serif 4",Georgia,serif;
+    --serif-zh:"Noto Serif SC",source-han-serif-sc,serif;
+    --sans-zh:"Noto Sans SC",source-han-sans-sc,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var(--paper);font-family:var(--sans-zh);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+  canvas.bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block;transition:opacity 1.2s ease}
+  canvas#bg-light{opacity:0}
+  canvas#bg-dark{opacity:1}
+  body.light-bg canvas#bg-light{opacity:1}
+  body.light-bg canvas#bg-dark{opacity:0}
+
+  #deck{position:fixed;inset:0;width:10000vw;height:100vh;display:flex;flex-wrap:nowrap;transition:transform .9s cubic-bezier(.77,0,.175,1);z-index:10;will-change:transform}
+  .slide{width:100vw;height:100vh;flex:0 0 100vw;position:relative;padding:6vh 6vw 10vh 6vw;display:flex;flex-direction:column;overflow:hidden}
+  .slide.light{color:var(--ink)}
+  .slide.dark{color:var(--paper)}
+
+  .slide::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;transition:background .7s ease}
+  .slide.light::before{background:rgba(var(--paper-rgb),.78);backdrop-filter:blur(3px)}
+  .slide.dark::before{background:rgba(var(--ink-rgb),.78);backdrop-filter:blur(3px)}
+  .slide.hero.light::before{background:rgba(var(--paper-rgb),.16);backdrop-filter:none}
+  .slide.hero.dark::before{background:rgba(var(--ink-rgb),.12);backdrop-filter:none}
+  .slide.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none}
+  .slide.hero.light::after{background:linear-gradient(180deg,rgba(var(--paper-rgb),.28) 0%,rgba(var(--paper-rgb),0) 14%,rgba(var(--paper-rgb),0) 86%,rgba(var(--paper-rgb),.28) 100%)}
+  .slide.hero.dark::after{background:linear-gradient(180deg,rgba(var(--ink-rgb),.32) 0%,rgba(var(--ink-rgb),0) 14%,rgba(var(--ink-rgb),0) 86%,rgba(var(--ink-rgb),.32) 100%)}
+
+  .chrome{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.7}
+  .chrome .left,.chrome .right{display:flex;gap:2.4em;align-items:center}
+  .chrome .sep{width:40px;height:1px;background:currentColor;opacity:.4}
+  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+  .foot .title{font-family:var(--serif-zh);font-weight:400;letter-spacing:.05em;text-transform:none;opacity:.75;font-size:13px}
+
+  .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;padding:6px 14px;border:1px solid currentColor;opacity:.85}
+  .rule{width:100%;height:1px;background:currentColor;opacity:.25;margin:3vh 0}
+  .rule.v{width:1px;height:100%;margin:0}
+
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-bottom:2.6vh}
+  .display{font-family:var(--serif-en);font-weight:700;font-size:11vw;line-height:.92;letter-spacing:-.025em}
+  .display-zh{font-family:var(--serif-zh);font-weight:700;font-size:7.8vw;line-height:1.04;letter-spacing:-.005em}
+  .h1-zh{font-family:var(--serif-zh);font-weight:700;font-size:4.6vw;line-height:1.12;letter-spacing:-.005em}
+  .h2-zh{font-family:var(--serif-zh);font-weight:600;font-size:3.2vw;line-height:1.2;letter-spacing:0}
+  .h3-zh{font-family:var(--serif-zh);font-weight:500;font-size:1.9vw;line-height:1.35}
+  .body-zh{font-family:var(--sans-zh);font-weight:400;font-size:max(15px,1.22vw);line-height:1.75;opacity:.82;letter-spacing:.01em}
+  .body-serif{font-family:var(--serif-zh);font-weight:400;font-size:max(15px,1.3vw);line-height:1.65;opacity:.88}
+  .lead{font-family:var(--serif-zh);font-weight:400;font-size:1.9vw;line-height:1.4;opacity:.85}
+  .meta{font-family:var(--mono);font-size:max(11px,.88vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+  .big-num{font-family:var(--serif-en);font-weight:800;font-size:10vw;line-height:.85;letter-spacing:-.03em;font-feature-settings:"tnum"}
+  .mid-num{font-family:var(--serif-en);font-weight:700;font-size:5.5vw;line-height:.88;letter-spacing:-.02em;font-feature-settings:"tnum"}
+  .ghost{font-family:var(--serif-en);font-weight:900;font-size:34vw;line-height:.8;opacity:.06;letter-spacing:-.04em;position:absolute;font-feature-settings:"tnum"}
+  em{font-style:italic;font-family:var(--serif-en)}
+  .en{font-family:var(--serif-en);font-style:italic;font-weight:500}
+
+  .col{display:flex;flex-direction:column;gap:2.4vh}
+  .row{display:flex;align-items:center;gap:3vw}
+  .grid-6{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:4vw 6vw;flex:1;align-content:center;padding:2vh 0}
+  .grid-9{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:3vh 4vw;flex:1;align-content:center}
+  .grid-4{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:4vh 6vw;flex:1;align-content:center}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:4vw;flex:1;align-content:center}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:4vw;flex:1;align-items:center}
+  .split-55{display:grid;grid-template-columns:55fr 45fr;gap:5vw;flex:1;align-items:stretch}
+  .fill{flex:1}
+  .center{align-items:center;justify-content:center;text-align:center}
+  .bottom-left{position:absolute;left:6vw;bottom:9vh;max-width:50vw}
+  .bottom-right{position:absolute;right:6vw;bottom:9vh;max-width:50vw;text-align:right}
+  .top-right{position:absolute;right:6vw;top:6vh;text-align:right}
+
+  .stat{display:flex;flex-direction:column;gap:1vh;align-items:flex-start}
+  .stat .n{font-family:var(--serif-en);font-weight:800;font-size:8vw;line-height:.88;letter-spacing:-.03em;font-feature-settings:"tnum"}
+  .stat .l{font-family:var(--sans-zh);font-size:max(13px,1.05vw);opacity:.7;margin-top:1vh;font-weight:400;line-height:1.5}
+  .stat .m{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.5;margin-bottom:.2vh}
+
+  .callout{padding:3vh 2.4vw;border-left:3px solid currentColor;position:relative;font-family:var(--serif-zh);font-size:max(15px,1.2vw);line-height:1.55;opacity:.92}
+  .slide.light .callout{background:rgba(var(--ink-rgb),.05)}
+  .slide.dark .callout{background:rgba(var(--paper-rgb),.06)}
+  .callout .cite{display:block;margin-top:1.6vh;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+  .callout .q-big{font-family:var(--serif-zh);font-weight:600;font-size:max(17px,1.6vw);line-height:1.42}
+
+  .plat{display:flex;flex-direction:column;justify-content:flex-end;padding:2vh 0;border-top:1px solid currentColor;border-color:rgba(127,127,127,.35)}
+  .plat .name{font-family:var(--serif-zh);font-weight:700;font-size:1.8vw;margin-bottom:.6vh}
+  .plat .nb{font-family:var(--serif-en);font-weight:700;font-size:3.2vw;letter-spacing:-.02em;line-height:1;font-feature-settings:"tnum"}
+  .plat .sub{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-top:.6vh}
+  .plat .fill{font-family:var(--sans-zh);font-weight:300;font-size:2.4vw;opacity:.28;letter-spacing:-.01em;line-height:1}
+
+  .rowline{display:grid;grid-template-columns:1fr 2fr 1fr;gap:2vw;padding:2.2vh 0;border-top:1px solid currentColor;align-items:center;border-color:rgba(127,127,127,.25)}
+  .rowline:last-child{border-bottom:1px solid currentColor;border-color:rgba(127,127,127,.25)}
+  .rowline .k{font-family:var(--serif-zh);font-weight:700;font-size:1.7vw}
+  .rowline .v{font-family:var(--sans-zh);font-weight:400;font-size:max(14px,1.2vw);opacity:.85;line-height:1.55}
+  .rowline .m{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;justify-self:end}
+
+  .pillar{display:flex;flex-direction:column;gap:1.8vh}
+  .pillar .ic{font-family:var(--serif-en);font-style:italic;font-size:2.6vw;opacity:.45;font-weight:400}
+  .pillar .ic svg{width:2.8vw;height:2.8vw;stroke-width:1.2;opacity:.7}
+  .pillar .t{font-family:var(--serif-zh);font-weight:700;font-size:2.4vw;line-height:1.1}
+  .pillar .d{font-family:var(--sans-zh);font-weight:400;font-size:max(14px,1.1vw);opacity:.76;line-height:1.6}
+
+  .sign{font-family:var(--serif-en);font-style:italic;font-weight:500;font-size:2vw;opacity:.7}
+  .hi{position:relative;display:inline}
+  .slide.dark .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--paper-rgb),.15);z-index:-1}
+  .slide.light .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--ink-rgb),.08);z-index:-1}
+
+  .ico{width:1em;height:1em;display:inline-block;vertical-align:-.12em;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  .ico-lg,.ico-md,.ico-sm{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+  .ico-lg{width:2.6vw;height:2.6vw;stroke-width:1.2;display:inline-block}
+  .ico-md{width:1.8vw;height:1.8vw;stroke-width:1.3;display:inline-block;vertical-align:-.4em}
+  .ico-sm{width:1.1vw;height:1.1vw;stroke-width:1.4;display:inline-block;vertical-align:-.15em;opacity:.7}
+
+  .img-slot{border:1.5px dashed rgba(127,127,127,.4);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1vh;padding:2vh 2vw;font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;opacity:.55;position:relative;aspect-ratio:16/9;width:100%;max-height:56vh;margin-inline:auto;box-sizing:border-box}
+  .img-slot::before{content:"";position:absolute;inset:8px;border:1px solid currentColor;opacity:.2}
+  .img-slot .plus{font-size:2vw;font-weight:300;opacity:.5;letter-spacing:0}
+  .img-slot .label{position:relative;z-index:2;text-align:center}
+  .img-slot.r-4x3{aspect-ratio:4/3}
+  .img-slot.r-3x2{aspect-ratio:3/2}
+  .img-slot.r-1x1{aspect-ratio:1/1}
+  .frame-img{overflow:hidden;position:relative;background:rgba(0,0,0,.04);box-sizing:border-box;width:100%;border-radius:4px}
+  .slide.dark .frame-img{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)}
+  .frame-img > img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+  .frame-cap{display:flex;justify-content:space-between;align-items:baseline;gap:1vw;margin-top:.8vh;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.72}
+  .frame-cap .pf{font-family:var(--serif-zh);font-weight:600;font-size:max(13px,1vw);letter-spacing:.04em;text-transform:none;opacity:.94}
+  .frame-cap .nb{font-family:var(--serif-en);font-style:italic;font-size:max(15px,1.2vw);letter-spacing:.02em;text-transform:none;opacity:.88}
+  .frame-cap .idx{font-family:var(--mono);opacity:.5}
+  figure.tile{display:flex;flex-direction:column;margin:0;min-width:0}
+  figure.tile > .frame-img{flex:0 0 auto}
+
+  #nav{position:fixed;left:50%;bottom:2.6vh;transform:translateX(-50%);z-index:30;display:flex;gap:10px;padding:8px 14px;border-radius:999px;background:rgba(0,0,0,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  #nav .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s ease;border:0;padding:0}
+  #nav .dot:hover{background:rgba(255,255,255,.5);transform:scale(1.15)}
+  #nav .dot.active{background:rgba(255,255,255,.95);width:22px;border-radius:999px}
+  body.light-bg #nav{background:rgba(255,255,255,.25)}
+  body.light-bg #nav .dot{background:rgba(var(--ink-rgb),.25)}
+  body.light-bg #nav .dot.active{background:rgba(var(--ink-rgb),.9)}
+  #hint{position:fixed;bottom:3vh;right:3vw;z-index:30;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.4;mix-blend-mode:difference;color:#aaa}
+
+  .frame{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+  .frame.grid-2-7-5,.frame.grid-2-6-6,.frame.grid-2-8-4,.frame.grid-3-3,.frame.grid-6{display:grid}
+  .h-hero{font-family:var(--serif-zh);font-weight:900;font-size:10vw;line-height:.96;letter-spacing:-.02em}
+  .h-xl{font-family:var(--serif-zh);font-weight:700;font-size:6.2vw;line-height:1.08;letter-spacing:-.01em}
+  .h-sub{font-family:var(--serif-zh);font-weight:500;font-size:3.1vw;line-height:1.25;letter-spacing:0;opacity:.7}
+  .h-md{font-family:var(--serif-zh);font-weight:600;font-size:2.3vw;line-height:1.3}
+  .h-hero-en,.h-xl-en{font-family:var(--serif-en);letter-spacing:-.025em}
+  .lead{font-family:var(--serif-zh);font-weight:400;font-size:1.75vw;line-height:1.5;opacity:.86}
+  .meta-row{display:flex;gap:1.2em;align-items:baseline;flex-wrap:wrap;font-family:var(--mono);font-size:max(12px,.92vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+  .stat-card{display:flex;flex-direction:column;gap:.8vh;align-items:flex-start;padding-top:1.6vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)}
+  .stat-card .stat-label{font-family:var(--mono);font-size:max(10px,.78vw);letter-spacing:.24em;text-transform:uppercase;opacity:.55}
+  .stat-card .stat-nb{font-family:var(--serif-en);font-weight:800;font-size:5.8vw;line-height:.9;letter-spacing:-.03em;font-feature-settings:"tnum";margin-top:.4vh}
+  .stat-card .stat-nb .stat-unit{font-family:var(--serif-zh);font-weight:500;font-size:.38em;letter-spacing:0;opacity:.72;margin-left:.14em}
+  .stat-card .stat-note{font-family:var(--sans-zh);font-weight:400;font-size:max(13px,1.05vw);line-height:1.5;opacity:.72;margin-top:.6vh}
+  .grid-4 .stat-card .stat-nb{font-size:5vw}
+  .grid-3 .stat-card .stat-nb{font-size:6.8vw}
+  .pipeline-section{margin-top:4.4vh;padding-top:2.8vh;border-top:1px dashed rgba(127,127,127,.32)}
+  .pipeline-section:first-of-type{border-top:0;padding-top:0;margin-top:3vh}
+  .pipeline-label{font-family:var(--mono);font-size:max(11px,.85vw);letter-spacing:.24em;text-transform:uppercase;opacity:.62;margin-bottom:2.2vh}
+  .pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2vw}
+  .pipeline[data-cols="3"]{grid-template-columns:repeat(3,1fr)}
+  .pipeline[data-cols="4"]{grid-template-columns:repeat(4,1fr)}
+  .pipeline[data-cols="6"]{grid-template-columns:repeat(6,1fr)}
+  .step{display:flex;flex-direction:column;gap:.8vh;padding-top:1.4vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.35)}
+  .step-nb{font-family:var(--serif-en);font-style:italic;font-weight:500;font-size:1.15vw;opacity:.45}
+  .step-title{font-family:var(--sans-zh);font-weight:700;font-size:1.55vw;letter-spacing:.01em;line-height:1.2}
+  .step-desc{font-family:var(--sans-zh);font-weight:400;font-size:max(12px,.95vw);line-height:1.45;opacity:.72}
+  .grid-2-7-5{display:grid;grid-template-columns:7fr 5fr;gap:3vw 4vh;align-items:start}
+  .grid-2-6-6{display:grid;grid-template-columns:1fr 1fr;gap:3vw 4vh;align-items:start}
+  .grid-2-8-4{display:grid;grid-template-columns:8fr 4fr;gap:3vw 4vh;align-items:start}
+  .grid-3-3{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:minmax(0,1fr);gap:2.4vh 2vw}
+  figure.frame-img{margin:0;display:flex;flex-direction:column;min-width:0}
+  .img-cap{display:block;margin-top:.8vh;font-family:var(--mono);font-size:max(10px,.8vw);letter-spacing:.22em;text-transform:uppercase;opacity:.6}
+  .callout-src{display:block;margin-top:1.6vh;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+  .chrome{font-family:var(--mono);font-size:max(11px,.78vw);letter-spacing:.2em;text-transform:uppercase;opacity:.62}
+  .foot{font-family:var(--mono);font-size:max(11px,.78vw);letter-spacing:.18em;text-transform:uppercase;opacity:.5}
+
+  @media (max-width:900px){
+    .display{font-size:16vw}
+    .display-zh{font-size:12vw}
+    .h1-zh{font-size:7vw}
+    .h-hero{font-size:14vw}
+    .h-xl{font-size:9vw}
+    .pipeline{grid-template-columns:repeat(2,1fr)}
+    .grid-2-7-5,.grid-2-6-6,.grid-2-8-4{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-dark" class="bg"></canvas>
+<canvas id="bg-light" class="bg"></canvas>
+<div id="hint">← → 翻页 · ESC 索引</div>
+
+<div id="deck">
+
+<!-- ================================================
+     SLIDE 1: COVER
+     ================================================ -->
+<section class="slide hero dark">
+  <div class="chrome">
+    <div>天新福 · Tianxinfu Medical</div>
+    <div>Vol.01</div>
+  </div>
+  <div class="frame" style="display:grid;gap:3vh;align-content:center;min-height:80vh">
+    <div class="kicker">陈萱宜 · 2026年4月</div>
+    <h1 class="h-hero" style="font-size:9.5vw;line-height:.93">天新福<br>医美产品<br>上市规划</h1>
+    <p class="lead" style="max-width:55vw;margin-top:2vh">胶原蛋白植入剂 · 品牌战略 · 销售路径 · 团队规划</p>
+    <div class="meta-row" style="margin-top:3vh">
+      <span>面向：董事长 / 高管面试</span>
+      <span>·</span>
+      <span>2026年4月29日</span>
+    </div>
+  </div>
+  <div class="foot">
+    <div>天新福 · 医美事业部战略规划</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ================================================
+     SLIDE 2: MARKET DATA
+     ================================================ -->
+<section class="slide light">
+  <div class="chrome">
+    <div>市场数据 · Market Data</div>
+    <div>02 / 12</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">行业数据 · 来自前瞻研究院（2025）</div>
+    <h2 class="h-xl" style="margin-bottom:3vh">中国注射材料市场</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3vh 4vw;margin-bottom:4vh">
+      <div class="stat-card">
+        <div class="stat-label">2024年市场规模</div>
+        <div class="stat-nb">346<span class="stat-unit">亿元</span></div>
+        <div class="stat-note">注射材料整体市场</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">2030年预测</div>
+        <div class="stat-nb">937<span class="stat-unit">亿元</span></div>
+        <div class="stat-note">前瞻研究院预测</div>
+      </div>
+    </div>
+    <div class="kicker" style="margin-bottom:2vh">市场结构（2024年）</div>
+    <div class="rowline">
+      <div class="k" style="font-size:1.5vw">玻尿酸</div>
+      <div class="v">成熟品类，复购率>70%，构成机构现金流</div>
+      <div class="m">≈125亿 36%</div>
+    </div>
+    <div class="rowline">
+      <div class="k" style="font-size:1.5vw">肉毒素</div>
+      <div class="v">双雄格局（保妥适+吉适占60%份额）</div>
+      <div class="m">≈99亿 29%</div>
+    </div>
+    <div class="rowline">
+      <div class="k" style="font-size:1.5vw">胶原+再生材料</div>
+      <div class="v">增速最快，含胶原蛋白、再生针剂（PLLA/PCL）、重组胶原等</div>
+      <div class="m">≈122亿 35%</div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>数据来源：前瞻产业研究院，2025年7月</div>
+    <div>市场数据 · Market</div>
+  </div>
+</section>
+
+<!-- ================================================
+     SLIDE 3: COMPETITORS
+     ================================================ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div>竞品格局 · Competitive Landscape</div>
+    <div>03 / 12</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">竞争格局 · 2026年视角</div>
+    <h2 class="h-xl" style="margin-bottom:4vh">六强竞争格局</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2vh 2vw">
+      <div style="padding:2vh 1.8vw;border-left:2px solid currentColor;opacity:.85">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-bottom:1vh">双美·肤柔美</div>
+        <div style="font-size:1.4vw;opacity:.7">猪皮SPF · GA交联</div>
+        <div style="font-size:1.1vw;opacity:.65;margin-top:1.2vh;line-height:1.5">台资头部，渠道最深。<br>弱点：猪皮过敏率高于牛跟腱</div>
+      </div>
+      <div style="padding:2vh 1.8vw;border-left:2px solid currentColor;opacity:.85">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-bottom:1vh">弗缦</div>
+        <div style="font-size:1.4vw;opacity:.7">牛皮（小黄牛）</div>
+        <div style="font-size:1.1vw;opacity:.65;margin-top:1.2vh;line-height:1.5">学术路线。<br>弱点：牛皮Ⅲ型胶原比例较高</div>
+      </div>
+      <div style="padding:2vh 1.8vw;border-left:2px solid currentColor;opacity:.85">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-bottom:1vh">胶幂</div>
+        <div style="font-size:1.4vw;opacity:.7">猪源胶原 · ≤¥1000</div>
+        <div style="font-size:1.1vw;opacity:.65;margin-top:1.2vh;line-height:1.5">价格破坏者。<br>弱点：DNA残留指标最高</div>
+      </div>
+      <div style="padding:2vh 1.8vw;border-left:2px solid currentColor;opacity:.85">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-bottom:1vh">艾佰瑞</div>
+        <div style="font-size:1.4vw;opacity:.7">猪皮 · 无交联 · 2025新证</div>
+        <div style="font-size:1.1vw;opacity:.65;margin-top:1.2vh;line-height:1.5">学术积极，销量尚未起量。<br>非当前主要威胁</div>
+      </div>
+      <div style="padding:2vh 1.8vw;border-left:2px solid currentColor;opacity:.85">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-bottom:1vh">崇山/妃泰</div>
+        <div style="font-size:1.4vw;opacity:.7">牛跟腱 · 无化学交联</div>
+        <div style="font-size:1.1vw;opacity:.65;margin-top:1.2vh;line-height:1.5">天然路线，专利至2041年。<br>差异化路线，非直接竞争</div>
+      </div>
+      <div style="padding:2vh 1.8vw;border-left:2px solid currentColor;opacity:.85">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-bottom:1vh">重组胶原</div>
+        <div style="font-size:1.4vw;opacity:.7">锦波 · 巨子</div>
+        <div style="font-size:1.1vw;opacity:.65;margin-top:1.2vh;line-height:1.5">消费者叙事强。<br>弱点：12个月以上数据空白</div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:3vh">
+      <div class="q-big">核心判断：胶原赛道整体仍处于早期教育阶段，<strong>没有任何品牌真正建立起医生使用习惯。</strong>艾尔建用了16年把HA做成行业标准——胶原赛道现在就是16年前的HA。</div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>竞品格局 · Competitive Landscape</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ================================================
+     SLIDE 4: DIFFERENTIATION
+     ================================================ -->
+<section class="slide light">
+  <div class="chrome">
+    <div>差异化定位 · Differentiation</div>
+    <div>04 / 12</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">五维竞争优势</div>
+    <h2 class="h-xl" style="margin-bottom:3vh">天新福的差异化壁垒</h2>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1.5vw">
+      <div class="stat-card">
+        <div class="stat-label">来源</div>
+        <div style="font-family:var(--serif-zh);font-weight:700;font-size:2vw;margin-top:1vh;line-height:1.2">牛跟腱<br>I型胶原</div>
+        <div class="stat-note" style="margin-top:1.2vh">同源性98% · 优于猪皮92-94%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">交联</div>
+        <div style="font-family:var(--serif-zh);font-weight:700;font-size:2vw;margin-top:1vh;line-height:1.2">EDC/NHS<br>可控交联</div>
+        <div class="stat-note" style="margin-top:1.2vh">零钙化 · 零细胞毒 · 4周炎症消退</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">专利</div>
+        <div style="font-family:var(--serif-zh);font-weight:700;font-size:2vw;margin-top:1vh;line-height:1.2">CN117<br>899268B</div>
+        <div class="stat-note" style="margin-top:1.2vh">至2044年 · 三档可控交联</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">规格</div>
+        <div style="font-family:var(--serif-zh);font-weight:700;font-size:2vw;margin-top:1vh;line-height:1.2">四规格<br>最全</div>
+        <div class="stat-note" style="margin-top:1.2vh">0.5/1.0/1.5/2.0ml · 分层注射</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">团队</div>
+        <div style="font-family:var(--serif-zh);font-weight:700;font-size:2vw;margin-top:1vh;line-height:1.2">外科<br>基因</div>
+        <div class="stat-note" style="margin-top:1.2vh">手足外科+神经外科 · 难以复制</div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:4vh">
+      <div class="q-big"><strong>品牌定位：天新福——胶原重建，不是填充。</strong><br>填充是借来的效果，胶原重建是真正的生长。天新福是"外科组织修复技术的医美转化"。</div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>差异化定位 · Differentiation</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ================================================
+     SLIDE 5: PRODUCT
+     ================================================ -->
+<section class="slide hero dark">
+  <div class="chrome">
+    <div>产品规划 · Product</div>
+    <div>05 / 12</div>
+  </div>
+  <div class="frame" style="display:grid;gap:5vh;align-content:center;min-height:80vh">
+    <div class="kicker">两款产品 · 双引擎体系</div>
+    <h2 class="h-hero" style="font-size:7.5vw;line-height:1.05">植入剂建网<br>填充剂闭环</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3vw">
+      <div style="padding:2.5vh 2vw;border:1px solid rgba(241,239,234,.15);border-radius:4px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-bottom:1.5vh">🚪 破门产品</div>
+        <div style="font-family:var(--serif-zh);font-weight:700;font-size:2.2vw;margin-bottom:1.5vh">植入剂 DF系列</div>
+        <div style="font-size:1.3vw;opacity:.75;line-height:1.7">
+          预计拿证：<strong>2026年9月</strong><br>
+          适应症：改善面部细纹 + 改善面部平滑度<br>
+          规格：0.5 / 1.0 / 1.5 / 2.0 ml
+        </div>
+      </div>
+      <div style="padding:2.5vh 2vw;border:1px solid rgba(241,239,234,.15);border-radius:4px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-bottom:1.5vh">🏗️ 建壁垒</div>
+        <div style="font-family:var(--serif-zh);font-weight:700;font-size:2.2vw;margin-bottom:1.5vh">填充剂 XL系列</div>
+        <div style="font-size:1.3vw;opacity:.75;line-height:1.7">
+          预计拿证：<strong>2027年Q2-Q3</strong><br>
+          适应症：鼻唇沟填充<br>
+          交联：EDC/NHS 30-50%（待确认）
+        </div>
+      </div>
+    </div>
+    <div class="meta-row">
+      <span>四规格分层逻辑：浅层0.5ml → 中层1.0ml → 深层1.5ml → 超深层2.0ml</span>
+    </div>
+  </div>
+  <div class="foot">
+    <div>产品规划 · Product</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ================================================
+     SLIDE 6: STRATEGY
+     ================================================ -->
+<section class="slide light">
+  <div class="chrome">
+    <div>销售打法 · Sales Strategy</div>
+    <div>06 / 12</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">三阶段打法 · 对标艾尔建MD Codes™</div>
+    <h2 class="h-xl" style="margin-bottom:3vh">建网络 → 建体系 → 建壁垒</h2>
+    <div class="pipeline-section" style="margin-top:2vh">
+      <div class="pipeline-label">Phase 1 · 2026年9月 - 2027年3月</div>
+      <div class="pipeline">
+        <div class="step">
+          <div class="step-nb">01</div>
+          <div class="step-title">学术KOL首发</div>
+          <div class="step-desc">1场全国会+3场卫星会</div>
+        </div>
+        <div class="step">
+          <div class="step-nb">02</div>
+          <div class="step-title">15家A类标杆</div>
+          <div class="step-desc">首批进货10%赠品支持</div>
+        </div>
+        <div class="step">
+          <div class="step-nb">03</div>
+          <div class="step-title">40家B类签约</div>
+          <div class="step-desc">区域头部机构</div>
+        </div>
+        <div class="step">
+          <div class="step-nb">04</div>
+          <div class="step-title">胶原+HA切入</div>
+          <div class="step-desc">打HA增量市场，非竞品替换</div>
+        </div>
+      </div>
+    </div>
+    <div class="pipeline-section">
+      <div class="pipeline-label">Phase 2 · 2027年Q2起</div>
+      <div class="pipeline" data-cols="4">
+        <div class="step">
+          <div class="step-nb">05</div>
+          <div class="step-title">第二款上市</div>
+          <div class="step-desc">交联填充 · 鼻唇沟</div>
+        </div>
+        <div class="step">
+          <div class="step-nb">06</div>
+          <div class="step-title">认证医生体系</div>
+          <div class="step-desc">三级培训认证</div>
+        </div>
+        <div class="step">
+          <div class="step-nb">07</div>
+          <div class="step-title">原料溯源码</div>
+          <div class="step-desc">AGEs质控透明化</div>
+        </div>
+        <div class="step">
+          <div class="step-nb">08</div>
+          <div class="step-title">完整疗程方案</div>
+          <div class="step-desc">客单价¥16000+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>销售打法 · Sales Strategy</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ================================================
+     SLIDE 7: TEAM
+     ================================================ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div>人员规划 · Team</div>
+    <div>07 / 12</div>
+  </div>
+  <div class="frame grid-2-7-5" style="padding-top:5vh">
+    <div style="display:flex;flex-direction:column;justify-content:space-between;gap:3vh">
+      <div>
+        <div class="kicker">团队搭建 · 路径</div>
+        <h2 class="h-xl" style="margin-top:1vh;margin-bottom:3vh">25人核心<br>→ 80人规模</h2>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2vh 1.5vw">
+          <div style="padding-top:1.5vh;border-top:1px solid currentColor">
+            <div style="font-family:var(--serif-en);font-weight:800;font-size:3.5vw;line-height:1">25</div>
+            <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-top:.5vh">2026.9<br>核心团队</div>
+          </div>
+          <div style="padding-top:1.5vh;border-top:1px solid currentColor">
+            <div style="font-family:var(--serif-en);font-weight:800;font-size:3.5vw;line-height:1">40-50</div>
+            <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-top:.5vh">2027<br>扩张期</div>
+          </div>
+          <div style="padding-top:1.5vh;border-top:1px solid currentColor">
+            <div style="font-family:var(--serif-en);font-weight:800;font-size:3.5vw;line-height:1">60-80</div>
+            <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-top:.5vh">2028<br>生态期</div>
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="q-big">招募策略：招有大区销售经验的医美老兵，不要求有胶原经验。有机构关系的人，三个月内可上手产品知识。</div>
+      </div>
+    </div>
+    <div style="padding-top:1vh">
+      <div class="kicker" style="margin-bottom:2vh">核心岗位（Phase 1 · 25人）</div>
+      <div class="rowline"><div class="k">市场总监</div><div class="v">战略、品牌、竞品、KOL</div><div class="m">1人</div></div>
+      <div class="rowline"><div class="k">医学培训经理（MMgr）</div><div class="v">分层注射规范、培训框架、医学策略</div><div class="m">1-2人</div></div>
+      <div class="rowline"><div class="k">学术推广经理（MAM）</div><div class="v">KOL维护、学术内容、培训落地</div><div class="m">3人</div></div>
+      <div class="rowline"><div class="k">大区销售经理</div><div class="v">华北/华东/华南，A类账户</div><div class="m">3人</div></div>
+      <div class="rowline"><div class="k">地区销售代表</div><div class="v">B/C类机构开发</div><div class="m">12人</div></div>
+      <div class="rowline"><div class="k">医学信息经理（MIM）</div><div class="v">不良事件、临床数据</div><div class="m">1人</div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>人员规划 · Team</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ================================================
+     SLIDE 8: BUDGET
+     ================================================ -->
+<section class="slide light">
+  <div class="chrome">
+    <div>费用预估 · Budget</div>
+    <div>08 / 12</div>
+  </div>
+  <div class="frame grid-2-6-6" style="padding-top:5vh">
+    <div>
+      <div class="kicker">2026年（9月启动 · 约4个月）</div>
+      <h2 class="h-xl" style="font-size:5vw;margin-bottom:3vh">610-830<span class="stat-unit" style="font-size:.3em">万元</span></h2>
+      <div style="display:flex;flex-direction:column;gap:1.5vh">
+        <div class="rowline"><div class="k">人员薪酬</div><div class="v">25人×4个月</div><div class="m">400-500万</div></div>
+        <div class="rowline"><div class="k">上市学术发布会</div><div class="v">全国会+3场卫星会</div><div class="m">80-120万</div></div>
+        <div class="rowline"><div class="k">标杆机构支持</div><div class="v">10家赠品/物料</div><div class="m">50-80万</div></div>
+        <div class="rowline"><div class="k">医生培训（认证班×3场）</div><div class="v">场地+讲师+材料</div><div class="m">30-50万</div></div>
+        <div class="rowline"><div class="k">内容+物料</div><div class="v">小红书/抖音科普+展会</div><div class="m">50-80万</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="kicker">2027年（全年度）</div>
+      <h2 class="h-xl" style="font-size:5vw;margin-bottom:3vh">2580-3350<span class="stat-unit" style="font-size:.3em">万元</span></h2>
+      <div style="display:flex;flex-direction:column;gap:1.5vh">
+        <div class="rowline"><div class="k">人员薪酬</div><div class="v">40人×12个月</div><div class="m">2000-2500万</div></div>
+        <div class="rowline"><div class="k">第二款上市学术活动</div><div class="v">全国巡讲6城</div><div class="m">200-300万</div></div>
+        <div class="rowline"><div class="k">天新福学苑建设</div><div class="v">轻量化版</div><div class="m">100-150万</div></div>
+        <div class="rowline"><div class="k">数字化+品牌建设</div><div class="v">小程序+行业报告</div><div class="m">130-200万</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>费用预估 · Budget</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ================================================
+     SLIDE 9: KPI
+     ================================================ -->
+<section class="slide hero dark">
+  <div class="chrome">
+    <div>核心KPI · KPI</div>
+    <div>09 / 12</div>
+  </div>
+  <div class="frame" style="display:grid;gap:5vh;align-content:center;min-height:80vh">
+    <div class="kicker">三年目标</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3vw">
+      <div style="text-align:center;padding:3vh 2vw;border:1px solid rgba(241,239,234,.15);border-radius:4px">
+        <div style="font-family:var(--serif-en);font-weight:800;font-size:8vw;line-height:.9;letter-spacing:-.03em;font-feature-settings:'tnum'">2000万</div>
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-top:1.5vh">2026年Q4</div>
+        <div style="font-size:1.2vw;opacity:.75;margin-top:1.5vh;line-height:1.6">15A类+40B类机构<br>≥1500万回款</div>
+      </div>
+      <div style="text-align:center;padding:3vh 2vw;border:1px solid rgba(241,239,234,.15);border-radius:4px">
+        <div style="font-family:var(--serif-en);font-weight:800;font-size:8vw;line-height:.9;letter-spacing:-.03em;font-feature-settings:'tnum'">1.2亿</div>
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-top:1.5vh">2027年</div>
+        <div style="font-size:1.2vw;opacity:.75;margin-top:1.5vh;line-height:1.6">两款产品+疗程体系<br>盈亏平衡</div>
+      </div>
+      <div style="text-align:center;padding:3vh 2vw;border:1px solid rgba(241,239,234,.15);border-radius:4px">
+        <div style="font-family:var(--serif-en);font-weight:800;font-size:8vw;line-height:.9;letter-spacing:-.03em;font-feature-settings:'tnum'">2.5亿</div>
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-top:1.5vh">2028年</div>
+        <div style="font-size:1.2vw;opacity:.75;margin-top:1.5vh;line-height:1.6">三款+年卡+学苑<br>胶原TOP3品牌</div>
+      </div>
+    </div>
+    <div class="meta-row">
+      <span>认证医生：2026年≥100人 · 2027年≥500人 · 2028年≥1500人</span>
+      <span>·</span>
+      <span>机构复购率：2027年≥60% · 2028年≥75%</span>
+    </div>
+  </div>
+  <div class="foot">
+    <div>核心KPI · KPI</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ================================================
+     SLIDE 10: RISK
+     ================================================ -->
+<section class="slide light">
+  <div class="chrome">
+    <div>风险预判 · Risk</div>
+    <div>10 / 12</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">风险与应对</div>
+    <h2 class="h-xl" style="margin-bottom:4vh">Top 3 风险</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2vh 3vw">
+      <div style="padding:2.5vh 2vw;border-top:3px solid rgba(192,57,43,.6)">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-bottom:1.5vh">风险 1 · 概率高 · 影响高</div>
+        <div style="font-family:var(--serif-zh);font-weight:700;font-size:1.8vw;margin-bottom:1.5vh">第二款拿证延期</div>
+        <div style="font-size:1.2vw;opacity:.78;line-height:1.6">应对：让第一款独立站稳，不依赖第二款话术；提前完成申报材料。</div>
+      </div>
+      <div style="padding:2.5vh 2vw;border-top:3px solid rgba(250,140,22,.6)">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-bottom:1.5vh">风险 2 · 概率高 · 影响中</div>
+        <div style="font-family:var(--serif-zh);font-weight:700;font-size:1.8vw;margin-bottom:1.5vh">竞品快速铺货</div>
+        <div style="font-size:1.2vw;opacity:.78;line-height:1.6">应对：差异化叙事+标杆机构深度绑定；速度上以"标杆深度"对抗"渠道广度"。</div>
+      </div>
+      <div style="padding:2.5vh 2vw;border-top:3px solid rgba(142,68,173,.6)">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-bottom:1.5vh">风险 3 · 概率中 · 影响中</div>
+        <div style="font-family:var(--serif-zh);font-weight:700;font-size:1.8vw;margin-bottom:1.5vh">重组胶原价格战</div>
+        <div style="font-size:1.2vw;opacity:.78;line-height:1.6">应对：坚守"动物源三螺旋+长维持"叙事。重组产品12个月数据空白是天然护城河。</div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:3vh">
+      <div class="q-big">艾尔建MD Codes™护城河逻辑：医生掌握后，换产品意味着放弃全部学习投入。天新福的同样逻辑：<strong>四规格分层注射方案，用其他品牌单一规格直接失效。</strong></div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>风险预判 · Risk</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ================================================
+     SLIDE 11: CLOSING
+     ================================================ -->
+<section class="slide hero dark">
+  <div class="chrome">
+    <div>Closing</div>
+    <div>11 / 12</div>
+  </div>
+  <div class="frame" style="display:grid;gap:5vh;align-content:center;min-height:80vh;text-align:center">
+    <div></div>
+    <div>
+      <blockquote style="font-family:var(--serif-zh);font-weight:700;font-size:6.5vw;line-height:1.15;letter-spacing:-.01em;max-width:80vw;margin:0 auto">
+        "我来，是雕玉的。"
+      </blockquote>
+      <p style="font-size:1.8vw;opacity:.65;margin-top:3vh;line-height:1.7;max-width:60vw;margin-left:auto;margin-right:auto">
+        天新福——外科组织修复技术的医美转化<br>
+        胶原重建，不是填充
+      </p>
+    </div>
+    <div class="meta-row" style="justify-content:center;gap:3em">
+      <span>目标：1.2亿（2027）</span>
+      <span>·</span>
+      <span>认证医生：500人</span>
+      <span>·</span>
+      <span>胶原TOP3品牌</span>
+    </div>
+  </div>
+  <div class="foot" style="justify-content:center">
+    <div>陈萱宜 · Tianxinfu Medical</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ================================================
+     SLIDE 12: APPENDIX
+     ================================================ -->
+<section class="slide light">
+  <div class="chrome">
+    <div>附录 · Appendix</div>
+    <div>12 / 12</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">附录 · 定价参考（基于弗缦新氧数据）</div>
+    <h2 class="h-xl" style="margin-bottom:3vh">开票价与机构利润空间</h2>
+    <div class="rowline">
+      <div class="k">0.5ml 植入剂</div>
+      <div class="v">机构零售价：¥2800-3200 · 建议开票价：¥880-980</div>
+      <div class="m">机构利润率≥67%</div>
+    </div>
+    <div class="rowline">
+      <div class="k">1.0ml 植入剂</div>
+      <div class="v">机构零售价：¥4500-5200 · 建议开票价：¥1400-1550</div>
+      <div class="m">机构利润率≥68%</div>
+    </div>
+    <div class="rowline">
+      <div class="k">1.5ml 植入剂</div>
+      <div class="v">机构零售价：¥6000-6800 · 建议开票价：¥1900-2100</div>
+      <div class="m">机构利润率≥68%</div>
+    </div>
+    <div class="rowline">
+      <div class="k">2.0ml 植入剂</div>
+      <div class="v">机构零售价：¥7500-8500 · 建议开票价：¥2400-2700</div>
+      <div class="m">机构利润率≥68%</div>
+    </div>
+    <div class="callout" style="margin-top:3vh">
+      <div class="q-big">合作模式：押金体验（首批20支）+ 动销达标后转疗程代理。机构零库存风险，卖好了一起赚。</div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>附录 · Appendix</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+</div>
+
+<div id="nav"></div>
+<script>
+const VS = `attribute vec2 position;void main(){gl_Position=vec4(position,0.0,1.0);}`;
+const FS_DARK = `precision highp float;uniform vec2 u_resolution;uniform float u_time;uniform vec2 u_mouse;vec3 palette(float t,vec3 a,vec3 b,vec3 c,vec3 d){return a+b*cos(6.28318*(c*t+d));}void main(){vec2 uv=gl_FragCoord.xy/u_resolution.xy;vec2 p=uv*2.0-1.0;p.x*=u_resolution.x/u_resolution.y;vec2 m=u_mouse*2.0-1.0;m.x*=u_resolution.x/u_resolution.y;float md=length(p-m);float mr=sin(md*15.0-u_time*4.0)*exp(-md*3.0);p+=mr*0.08;vec2 p0=p;for(float i=1.0;i<4.0;i++){p.x+=0.1/i*sin(i*3.0*p.y+u_time*0.4)+0.05;p.y+=0.1/i*cos(i*2.0*p.x+u_time*0.3)-0.05;}float r=length(p);float ang=atan(p.y,p.x);vec3 a=vec3(0.12,0.12,0.13);vec3 b=vec3(0.03,0.04,0.05);vec3 c=vec3(1.0,1.0,1.0);vec3 d=vec3(0.1,0.2,0.4);vec3 col=palette(r*1.5+p0.x*0.5+u_time*0.1,a,b,c,d);float disp=sin(r*25.0-u_time*1.5+ang*2.0)*0.5+0.5;col+=vec3(disp*0.015,disp*0.01,disp*0.02);float hi=pow(sin(p.x*4.0+p.y*3.0+u_time)*0.5+0.5,8.0);col+=hi*0.08;vec3 base=vec3(0.05,0.05,0.06);col=mix(base,col,0.85);gl_FragColor=vec4(col,1.0);}`;
+const FS_LIGHT = `precision highp float;uniform vec2 u_resolution;uniform float u_time;uniform vec2 u_mouse;float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}float noise(vec2 p){vec2 i=floor(p),f=fract(p);float a=hash(i),b=hash(i+vec2(1,0)),c=hash(i+vec2(0,1)),d=hash(i+vec2(1,1));vec2 u=f*f*(3.0-2.0*f);return mix(a,b,u.x)+(c-a)*u.y*(1.0-u.x)+(d-b)*u.x*u.y;}float fbm(vec2 p){float v=0.0,a=0.5;mat2 m=mat2(0.80,0.60,-0.60,0.80);for(int i=0;i<5;i++){v+=a*noise(p);p=m*p*2.02;a*=0.5;}return v;}void main(){vec2 uv=gl_FragCoord.xy/u_resolution.xy;vec2 p=uv;p.x*=u_resolution.x/u_resolution.y;vec2 m=u_mouse;m.x*=u_resolution.x/u_resolution.y;vec2 md=p-m;float dl=length(md);p+=normalize(md+vec2(0.0001))*exp(-dl*5.0)*0.03;vec2 q=vec2(fbm(p*1.8+u_time*0.07),fbm(p*1.8+vec2(5.2,1.3)+u_time*0.06));vec2 r=vec2(fbm(p*2.0+q*1.3+vec2(1.7,9.2)+u_time*0.05),fbm(p*2.0+q*1.3+vec2(8.3,2.8)+u_time*0.04));float f=fbm(p*2.2+r*1.5);vec3 silverDark=vec3(0.86,0.85,0.84);vec3 paper=vec3(0.955,0.945,0.925);vec3 col=mix(silverDark,paper,f);float ph=r.x*2.2+u_time*0.35;col+=vec3(0.78,0.62,0.92)*sin(ph)*0.055;col+=vec3(0.55,0.72,0.95)*sin(ph*0.8+2.0)*0.05;float hl=smoothstep(0.48,0.92,f);col+=hl*0.06;gl_FragColor=vec4(col,1.0);}`;
+const mouse={x:0.5,y:0.5};addEventListener('mousemove',e=>{mouse.x=e.clientX/innerWidth;mouse.y=e.clientY/innerHeight});
+function bootGL(canvasId,fsSrc){const canvas=document.getElementById(canvasId);const gl=canvas.getContext('webgl',{alpha:false,antialias:true});if(!gl)return()=>false;const mk=(t,s)=>{const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh;};const prog=gl.createProgram();gl.attachShader(prog,mk(gl.VERTEX_SHADER,VS));gl.attachShader(prog,mk(gl.FRAGMENT_SHADER,fsSrc));gl.linkProgram(prog);gl.useProgram(prog);const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);const pos=gl.getAttribLocation(prog,'position');gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);const lRes=gl.getUniformLocation(prog,'u_resolution');const lT=gl.getUniformLocation(prog,'u_time');const lM=gl.getUniformLocation(prog,'u_mouse');const resize=()=>{const d=Math.min(window.devicePixelRatio||1,2);canvas.width=innerWidth*d;canvas.height=innerHeight*d;gl.viewport(0,0,canvas.width,canvas.height);};addEventListener('resize',resize);resize();return(tSec)=>{gl.uniform2f(lRes,canvas.width,canvas.height);gl.uniform1f(lT,tSec);gl.uniform2f(lM,mouse.x,1-mouse.y);gl.drawArrays(gl.TRIANGLES,0,6);return true;};}
+const drawDark=bootGL('bg-dark',FS_DARK);const drawLight=bootGL('bg-light',FS_LIGHT);const t0=Date.now();(function loop(){const t=(Date.now()-t0)/1000;drawDark(t);drawLight(t);requestAnimationFrame(loop);})();
+const deck=document.getElementById('deck');const slides=deck.querySelectorAll('.slide');const nav=document.getElementById('nav');let idx=0,total=slides.length,lock=false;deck.style.width=(total*100)+'vw';slides.forEach((s,i)=>{const b=document.createElement('button');b.className='dot';b.dataset.i=i;b.setAttribute('aria-label','Page '+(i+1));b.onclick=()=>go(i);nav.appendChild(b);});function go(n){if(lock)return;idx=Math.max(0,Math.min(total-1,n));deck.style.transform=`translateX(${-idx*100}vw)`;nav.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===idx));const el=slides[idx];const th=el.dataset.theme||(el.classList.contains('light')?'light':(el.classList.contains('dark')?'dark':'dark'));document.body.classList.toggle('light-bg',th==='light');lock=true;setTimeout(()=>lock=false,700);}let overviewOn=false;const ov=document.createElement('div');ov.id='overview';ov.style.cssText='position:fixed;inset:0;z-index:100;background:rgba(10,10,11,.92);backdrop-filter:blur(12px);display:none;overflow-y:auto;padding:4vh 4vw';document.body.appendChild(ov);function buildOverview(){ov.innerHTML='';const grid=document.createElement('div');grid.style.cssText='display:grid;grid-template-columns:repeat(4,1fr);gap:2vh 1.6vw;max-width:90vw;margin:0 auto';slides.forEach((s,i)=>{const card=document.createElement('div');card.style.cssText='cursor:pointer;border-radius:6px;overflow:hidden;border:2px solid '+(i===idx?'rgba(241,239,234,.8)':'rgba(241,239,234,.15)')+';transition:border-color .2s';card.onmouseenter=()=>card.style.borderColor='rgba(241,239,234,.6)';card.onmouseleave=()=>card.style.borderColor=i===idx?'rgba(241,239,234,.8)':'rgba(241,239,234,.15)';const wrap=document.createElement('div');wrap.style.cssText='width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;pointer-events:none;background:'+(s.classList.contains('light')?'var(--paper)':'var(--ink)');const clone=s.cloneNode(true);clone.style.cssText='width:100vw;height:100vh;transform:scale('+(1/4.5)+');transform-origin:top left;position:absolute;top:0;left:0;pointer-events:none';wrap.appendChild(clone);const label=document.createElement('div');label.style.cssText='padding:6px 10px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--paper);opacity:.7';label.textContent=(i+1)+' / '+total;card.appendChild(wrap);card.appendChild(label);card.onclick=()=>{toggleOverview();go(i)};grid.appendChild(card);});ov.appendChild(grid);}function toggleOverview(){overviewOn=!overviewOn;if(overviewOn){buildOverview();ov.style.display='block';}else{ov.style.display='none';}}addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();toggleOverview();return;}if(overviewOn)return;if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '||e.key==='ArrowDown')go(idx+1);if(e.key==='ArrowLeft'||e.key==='PageUp'||e.key==='ArrowUp')go(idx-1);if(e.key==='Home')go(0);if(e.key==='End')go(total-1);});let wheelTO=null,wheelAcc=0;addEventListener('wheel',e=>{wheelAcc+=e.deltaY+e.deltaX;if(Math.abs(wheelAcc)>50){go(idx+(wheelAcc>0?1:-1));wheelAcc=0;}clearTimeout(wheelTO);wheelTO=setTimeout(()=>wheelAcc=0,150);},{passive:true});let tx=0,ty=0;addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});addEventListener('touchend',e=>{const dx=(e.changedTouches[0].clientX-tx);if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs((e.changedTouches[0].clientY-ty)))go(idx+(dx<0?1:-1));},{passive:true});go(0);
+</script>
+</body>
+</html>
