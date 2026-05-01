@@ -492,6 +492,9 @@ Options:
   --color <name|hex>  Primary color (blue, green, vermilion, etc. or hex)
   --cover <path>      Cover image path (local or URL)
   --account <alias>   Select account by alias (for multi-account setups)
+  --template <name>    Template: auto (default), v29 (01/02/03编号), ny (纽约客插画版)
+                       auto = 根据内容自动匹配适合的模板
+  --cite             Enable bottom citations for external links (default)
   --no-cite           Disable bottom citations for ordinary external links in markdown mode
   --dry-run           Parse and render only, don't publish
   --help              Show this help
@@ -539,6 +542,7 @@ interface CliArgs {
   account?: string;
   citeStatus: boolean;
   dryRun: boolean;
+  template: string; // 'auto' | 'v29' | 'ny'
 }
 
 function parseArgs(argv: string[]): CliArgs {
@@ -553,6 +557,7 @@ function parseArgs(argv: string[]): CliArgs {
     theme: "default",
     citeStatus: true,
     dryRun: false,
+    template: "auto",
   };
 
   for (let i = 0; i < argv.length; i++) {
@@ -582,6 +587,13 @@ function parseArgs(argv: string[]): CliArgs {
       args.citeStatus = false;
     } else if (arg === "--dry-run") {
       args.dryRun = true;
+    } else if (arg === "--template" && argv[i + 1]) {
+      const t = argv[++i]!.toLowerCase();
+      if (t === "auto" || t === "v29" || t === "ny") {
+        args.template = t;
+      } else {
+        console.error(`[wechat-api] Unknown template: ${t}. Use auto, v29, or ny.`);
+      }
     } else if (arg.startsWith("--") && argv[i + 1] && !argv[i + 1]!.startsWith("-")) {
       i++;
     } else if (!arg.startsWith("-")) {
@@ -605,6 +617,103 @@ function extractHtmlTitle(html: string): string {
   const h1Match = html.match(/<h1[^>]*>([^<]+)<\/h1>/i);
   if (h1Match) return h1Match[1]!.replace(/<[^>]+>/g, "").trim();
   return "";
+}
+
+/**
+ * Auto-detect which template suits the content.
+ * v29  → numbered steps/sections (方法论/教程/框架类)，适合3-5节短文
+ * ny   → narrative/opinion (随笔/观察/观点类)，或5节以上的长文
+ */
+function detectTemplate(markdown: string): string {
+  // Count TOP-LEVEL H2 sections (lines that start with ## and are not inside a list/block)
+  // Strategy: find all ## lines, filter out ones that appear inside code blocks or list items
+  const allH2Lines = markdown.match(/^##\s+\S.*$/gm) || [];
+  // Filter: reject headings that are inside ``` code blocks or are clearly list-item subheadings
+  const topLevelH2 = allH2Lines.filter(line => {
+    // Skip if preceded by > (blockquote) or ``` (code block) in same line vicinity
+    if (line.includes('```')) return false;
+    // Skip if it's clearly a list item heading like "## 一、[xxx]" pattern (common in nested frameworks)
+    if (/^##\s+[零一二三四五六七八九十百千\d]+[.、][^a-zA-Z]/.test(line)) {
+      // This might be a list sub-heading, not a real section — only count if it looks like a real section title
+      // Real section titles are longer than 10 chars
+      return line.length > 15;
+    }
+    return true;
+  });
+  const h2Count = topLevelH2.length;
+  const charCount = markdown.length;
+
+  // v29 signals: numbered headings or step/phase/method keywords
+  const v29Headings = /^##\s*[\d零一二三四五六七八九十百千]+[.、，、]/m.test(markdown);
+  const v29Steps = /第[一二三四五六七八九十百千]+[节步阶段]/.test(markdown);
+  const v29Keywords = /##\s*(步|阶段|法则|攻略|手册|框架|模型|公式|清单|目录)/.test(markdown);
+  const v29ListNumbers = /^\d+[.、]\s+\S/m.test(markdown);
+  const v29Score = [v29Headings, v29Steps, v29Keywords, v29ListNumbers].filter(Boolean).length;
+
+  // ny signals: first-person narrative, essay style, or long-form
+  const nyEssayTitle = /^#\s+[^(]*[（(][^)）]*[)）]/.test(markdown);
+  const nyNoNumbers = !v29Headings && !v29Steps;
+
+  // Decision: v29 only for short articles (2-5 sections) with step/framework structure
+  // 5+ sections → ny (even if structured, it's too long for v29's 01/02/03 format)
+  const isV29Fit = h2Count >= 2 && h2Count <= 5 && v29Score >= 1;
+  if (isV29Fit) return "v29";
+  return "ny"; // everything else → ny
+}
+
+/**
+ * Wraps md-to-wechat HTML output into the v29 template.
+ * Extracts the inner content from md-to-wechat output and injects into v29 CSS wrapper.
+ */
+function wrapV29Simple(template: string, fullHtml: string, articleTitle: string): string {
+  // Extract the <section class="container"> inner HTML from md-to-wechat output
+  // This is the actual article content (without the outer <section class="container"> wrapper)
+  const containerMatch = fullHtml.match(/<section class="container"[^>]*>([\s\S]*?)<\/section>\s*<\/div>/);
+  const articleBody = containerMatch ? containerMatch[1]! : fullHtml;
+
+  // Strip the author block from article body (to avoid duplication)
+  const lastHrIdx = articleBody.lastIndexOf("<hr");
+  const cleanBody = (lastHrIdx > 0 && articleBody.substring(lastHrIdx).includes("萱宜"))
+    ? articleBody.substring(0, lastHrIdx).trim()
+    : articleBody;
+
+  // Estimate word count
+  const wordCount = Math.round(cleanBody.replace(/<[^>]+>/g, "").length / 2);
+
+  // Extract first paragraph as opening
+  let openingText = "";
+  const paraMatch = cleanBody.match(/<p[^>]*>([^<]{20,100})<\/p>/);
+  if (paraMatch) openingText = paraMatch[1].replace(/<[^>]+>/g, "");
+
+  // Extract highlighted quote (longest paragraph with strong)
+  let quoteText = "";
+  let maxLen = 0;
+  const allParas = cleanBody.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/g);
+  for (const m of allParas) {
+    const para = m[1] || "";
+    if (para.includes("<strong") && para.length > maxLen) {
+      const clean = para.replace(/<[^>]+>/g, "").trim();
+      if (clean.length > 30) { quoteText = clean; maxLen = para.length; }
+    }
+  }
+
+  // Build result: template with extracted content
+  let result = template;
+  result = result.replace("{{TITLE}}", articleTitle);
+  result = result.replace("{{WORD_COUNT}}", `共 ${wordCount} 字 · 阅读约 ${Math.max(1, Math.round(wordCount / 300))} 分钟`);
+  result = result.replace("{{OPENING}}", openingText || "判断力、审美、系统——这三点，才是真正不可替代的竞争力。");
+  result = result.replace("{{QUOTE}}", quoteText || "你的判断力、审美、系统——这三点，才是真正不可替代的竞争力。");
+
+  // Inject the clean article body into {{CONTENT}} of the v29 template
+  result = result.replace("{{CONTENT}}", cleanBody);
+
+  // Remove all section placeholders (S01-S03, EXTRA, etc.) since we're using full body injection
+  result = result
+    .replace(/<!-- ==================== S01[\s\S]*?<!-- ==================== S03[\s\S]*?-->/g, "")
+    .replace(/<section style="padding:34px 28px;position:relative;z-index:1;" id="s\d">[\s\S]*?<\/section>\s*(<!-- 分隔细线 -->)?/g, "")
+    .replace(/<div id="extra-sections">[\s\S]*?<\/div>/g, "");
+
+  return result;
 }
 
 async function main(): Promise<void> {
@@ -665,6 +774,193 @@ async function main(): Promise<void> {
     console.error(`[wechat-api] HTML generated: ${htmlPath}`);
     console.error(`[wechat-api] Placeholder images: ${contentImages.length}`);
     htmlContent = extractHtmlContent(htmlPath);
+
+    // Strip author/footer block from rendered HTML to avoid duplication with wrapper's author section.
+    // The author block always starts with the last <hr> at the end of the article content.
+    // Strategy: find the last <hr> in the content, remove it and everything after it.
+    // This handles the common pattern: ...content<hr class="hr">...author block...</section></div></body></html>
+    const lastHrIdx = htmlContent.lastIndexOf("<hr");
+    if (lastHrIdx > 0) {
+      // Only strip if the content after hr contains known author-block patterns
+      const afterHr = htmlContent.substring(lastHrIdx);
+      if (afterHr.includes("萱宜") || afterHr.includes("声明")) {
+        htmlContent = htmlContent.substring(0, lastHrIdx).trim();
+      }
+    }
+
+    // Normalize md-to-wechat heading styles for v29 template
+    // Strip the blue-pill display:table style from h2, replace with clean block style
+    htmlContent = htmlContent
+      .replace(/<h2([^>]*?)data-heading="true"([^>]*?)>/gi, (match, before, after) => {
+        // Extract inner text from inside the h2 tags
+        const innerMatch = match.match(/>([^<]+)</);
+        const text = innerMatch ? innerMatch[1] : "";
+        return `<h2 style="display:block;padding:0;margin:2em 0 1em;font-size:18px;font-weight:bold;color:#111;letter-spacing:0.5px;line-height:1.4;background:none;">${text}</h2>`;
+      })
+      .replace(/<h3([^>]*?)data-heading="true"([^>]*?)>/gi, (match) => {
+        const innerMatch = match.match(/>([^<]+)</);
+        const text = innerMatch ? innerMatch[1] : "";
+        return `<h3 style="display:block;padding:0;margin:1.5em 0 0.75em;font-size:16px;font-weight:bold;color:#222;letter-spacing:0.3px;border-left:none;line-height:1.4;">${text}</h3>`;
+      });
+
+    // Wrap in HTML template if specified (auto = detect from content)
+    if (args.template) {
+      let template = args.template;
+      if (template === "auto") {
+        const rawMarkdown = fs.readFileSync(filePath, "utf-8");
+        template = detectTemplate(rawMarkdown);
+        console.error(`[wechat-api] Template auto-detected: ${template}`);
+      }
+      const wrapperDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "wrappers");
+      if (template === "v29") {
+        // v29: read wrapper with 01/02/03 numbered sections, inject article H2 headings as section titles
+        const wrapperPath = path.join(wrapperDir, "v29.html");
+        let wrapper = fs.readFileSync(wrapperPath, "utf-8");
+
+        // Strip author block: find the last hr that precedes "萱宜" or "声明"
+        let cleanHtml: string;
+        const lastHrBeforeAuthor = htmlContent.lastIndexOf("<hr");
+        if (lastHrBeforeAuthor > 0) {
+          const tail = htmlContent.substring(lastHrBeforeAuthor);
+          if (tail.includes("萱宜") || tail.includes("声明")) {
+            cleanHtml = htmlContent.substring(0, lastHrBeforeAuthor).trim();
+          } else {
+            cleanHtml = htmlContent;
+          }
+        } else {
+          cleanHtml = htmlContent;
+        }
+
+        // Extract all H2 sections using indexOf (reliable, no regex issues)
+        const sections: { heading: string; body: string }[] = [];
+        const h2Marker = '<h2';
+        let searchFrom = 0;
+        while (true) {
+          const h2Start = cleanHtml.indexOf(h2Marker, searchFrom);
+          if (h2Start === -1) break;
+          // Find the opening tag's closing '>'
+          // The > may be HTML-encoded as &gt; (e.g. calc(16px * 1.2) → &gt;) — skip those
+          let firstGtAfterH2 = cleanHtml.indexOf('>', h2Start);
+          while (firstGtAfterH2 !== -1 && firstGtAfterH2 > 0 && cleanHtml.charAt(firstGtAfterH2 - 1) === '&') {
+            firstGtAfterH2 = cleanHtml.indexOf('>', firstGtAfterH2 + 1);
+          }
+          if (firstGtAfterH2 === -1) break;
+          // Find the closing </h2>: search from after the opening tag's >
+          // If the first </h2> found is too close to the opening tag (inside the malformed opening tag),
+          // skip it and find the NEXT </h2> (which will be the real section closing tag)
+          let h2End = cleanHtml.indexOf('</h2>', firstGtAfterH2 + 1);
+          while (h2End !== -1 && h2End - firstGtAfterH2 < 10) {
+            // This </h2> is part of the malformed opening tag attribute — skip it
+            h2End = cleanHtml.indexOf('</h2>', h2End + 5);
+          }
+          if (h2End === -1) break;
+          // innerStart = position after the opening tag's >
+          const innerStart = firstGtAfterH2 + 1;
+          const rawTitle = cleanHtml.substring(innerStart, h2End).replace(/<[^>]+>/g, "").trim()
+            .replace(/^[零一二三四五六七八九十百千\d]+[.、\s]+/, "").trim();
+          // Find next h2 or end of content
+          const contentStart = h2End + 5; // after </h2>
+          const nextH2 = cleanHtml.indexOf(h2Marker, contentStart);
+          const contentEnd = nextH2 === -1 ? cleanHtml.length : nextH2;
+          const body = cleanHtml.substring(contentStart, contentEnd).trim();
+          if (rawTitle && body) sections.push({ heading: rawTitle, body });
+          searchFrom = contentEnd;
+        }
+
+        // Extract word count
+        const wordCount = Math.round(cleanHtml.replace(/<[^>]+>/g, "").length / 2);
+
+        // Extract opening (first paragraph before first H2, or first paragraph of article)
+        let openingText = "";
+        if (sections.length > 0) {
+          // Everything before the first h2 is the opening/preface
+          const firstH2Pos = cleanHtml.indexOf('<h2');
+          const preface = cleanHtml.substring(0, firstH2Pos);
+          const paraMatch = preface.match(/<p[^>]*>([^<]{20,120})<\/p>/);
+          if (paraMatch) openingText = paraMatch[1].replace(/<[^>]+>/g, "").trim();
+        } else {
+          // No h2 found, use first paragraph
+          const paraMatch = cleanHtml.match(/<p[^>]*>([^<]{20,120})<\/p>/);
+          if (paraMatch) openingText = paraMatch[1].replace(/<[^>]+>/g, "").trim();
+        }
+
+        // Extract quote (longest paragraph with <strong>)
+        let quoteText = "";
+        let maxLen = 0;
+        for (const m of cleanHtml.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/g)) {
+          const para = m[1] || "";
+          if (para.includes("<strong") && para.length > maxLen) {
+            const clean = para.replace(/<[^>]+>/g, "").trim();
+            if (clean.length > 30) { quoteText = clean; maxLen = para.length; }
+          }
+        }
+
+        // Fill basic placeholders
+        wrapper = wrapper.replace("{{TITLE}}", title || "");
+        wrapper = wrapper.replace("{{WORD_COUNT}}", `共 ${wordCount} 字 · 阅读约 ${Math.max(1, Math.round(wordCount / 300))} 分钟`);
+        wrapper = wrapper.replace("{{OPENING}}", openingText || "判断力、审美、系统——这三点，才是真正不可替代的竞争力。");
+        wrapper = wrapper.replace("{{QUOTE}}", quoteText || "你的判断力、审美、系统——这三点，才是真正不可替代的竞争力。");
+
+        // Inject up to 3 sections into S01/S02/S03
+        const sectionSubs = ["THE CORE INSIGHT", "THE METHOD", "THE FRAMEWORK"];
+        for (let i = 1; i <= 3; i++) {
+          const sd = sections[i - 1];
+          const num = String(i).padStart(2, "0");
+          if (sd) {
+            wrapper = wrapper.replace(`{{S0${i}_NUM}}`, num);
+            wrapper = wrapper.replace(`{{S0${i}_TITLE}}`, sd.heading);
+            wrapper = wrapper.replace(`{{S0${i}_SUB}}`, sectionSubs[i - 1] || "THE SECTION");
+            wrapper = wrapper.replace(`{{S0${i}_BODY}}`, sd.body);
+          } else {
+            // Hide unused section and its divider with simple string replacement
+            wrapper = wrapper.replace(
+              `\n<div style="padding:34px 28px;" id="sec-0${i}">\n  <div style="display:flex;align-items:flex-end;margin-bottom:24px;">\n    <div style="font-size:82px;font-weight:bold;color:rgba(62,62,62,0.1);line-height:1;margin-right:18px;letter-spacing:-3px;flex-shrink:0;">{{S0${i}_NUM}}</div>\n    <div style="padding-bottom:7px;">\n      <p style="font-size:20px;font-weight:bold;color:#111111;letter-spacing:0.5px;margin:0;line-height:1.3;">{{S0${i}_TITLE}}</p>\n      <p style="font-size:11px;color:#B8A898;margin:6px 0 0;letter-spacing:1px;">{{S0${i}_SUB}}</p>\n    </div>\n  </div>\n  <div>{{S0${i}_BODY}}</div>\n</div>`,
+              ""
+            );
+          }
+        }
+
+        // Extra sections beyond 3 go into {{EXTRA_SECTIONS}}
+        const extraSections = sections.slice(3);
+        if (extraSections.length > 0) {
+          const extraHtml = extraSections.map((s, idx) => {
+            const num = String(idx + 4).padStart(2, "0");
+            return `<div style="padding:34px 28px;">
+  <div style="display:flex;align-items:flex-end;margin-bottom:24px;">
+    <div style="font-size:82px;font-weight:bold;color:rgba(62,62,62,0.1);line-height:1;margin-right:18px;letter-spacing:-3px;flex-shrink:0;">${num}</div>
+    <div style="padding-bottom:7px;">
+      <p style="font-size:20px;font-weight:bold;color:#111111;letter-spacing:0.5px;margin:0;line-height:1.3;">${s.heading}</p>
+    </div>
+  </div>
+  ${s.body}
+</div><div style="padding:10px 28px;"><div style="height:1px;background:rgba(62,62,62,0.12);margin:0 auto;width:60px;"></div></div>`;
+          }).join("");
+          wrapper = wrapper.replace("{{EXTRA_SECTIONS}}", extraHtml);
+        } else {
+          wrapper = wrapper.replace("{{EXTRA_SECTIONS}}", "");
+        }
+
+        htmlContent = wrapper;
+        // Strip blue color from md-to-wechat injected inline styles before final publish
+        htmlContent = htmlContent.replace(/color:\s*#1E50A2[^;]*;?/gi, "color:#3D3D3D!important;")
+          .replace(/color:\s*rgb\(30[,\s]+80[,\s]+162\)[^;]*;?/gi, "color:#3D3D3D!important;")
+          .replace(/color:\s*#[0-9A-Fa-f]{6}[^;]*;?/gi, (m) =>
+            m.includes("3D3D3D") || m.includes("888888") || m.includes("B8A898") || m.includes("BBBBBB") || m.includes("C8956C") ? m : "color:#3D3D3D!important;");
+        console.error(`[wechat-api] Template applied: v29 (${sections.length} sections)`);
+      } else {
+        // ny: use wrapper template
+        const wrapperPath = path.join(wrapperDir, `${template}.html`);
+        if (fs.existsSync(wrapperPath)) {
+          let wrapper = fs.readFileSync(wrapperPath, "utf-8");
+          wrapper = wrapper.replace("{{TITLE}}", title || "");
+          wrapper = wrapper.replace("{{CONTENT}}", htmlContent);
+          htmlContent = wrapper;
+          console.error(`[wechat-api] Template applied: ${template}`);
+        } else {
+          console.error(`[wechat-api] Template not found: ${wrapperPath}`);
+        }
+      }
+    }
   }
 
   if (!title) {

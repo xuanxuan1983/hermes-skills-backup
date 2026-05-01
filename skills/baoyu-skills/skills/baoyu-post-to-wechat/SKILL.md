@@ -1,7 +1,7 @@
 ---
 name: baoyu-post-to-wechat
 description: Posts content to WeChat Official Account (微信公众号) via API or Chrome CDP. Supports article posting (文章) with HTML, markdown, or plain text input, and image-text posting (贴图, formerly 图文) with multiple images. Markdown article workflows default to converting ordinary external links into bottom citations for WeChat-friendly output. Use when user mentions "发布公众号", "post to wechat", "微信公众号", or "贴图/图文/文章".
-version: 1.56.1
+version: 1.57.0
 metadata:
   openclaw:
     homepage: https://github.com/JimLiu/baoyu-skills#baoyu-post-to-wechat
@@ -155,6 +155,37 @@ Ask method unless specified in EXTEND.md or CLI:
 
 ### Step 3: Resolve Theme/Color and Validate Metadata
 
+**`--template` option**: when publishing via API with markdown input, you may wrap the rendered content in an HTML template shell. Three modes:
+
+| Template | File | Description |
+|---------|------|-------------|
+| `auto` (default) | — | Analyze content and auto-select v29 or ny |
+| `v29` | `wrappers/v29.html` | 牛皮纸纹理背景 + 01/02/03大编号章节 + 横向作者区 |
+| `ny` | `wrappers/ny.html` | 暖白 `#FAF5EF` 底色 + 衬线标题 + 居中作者区 |
+
+```bash
+${BUN_X} {baseDir}/scripts/wechat-api.ts article.md --template auto ...   # default
+${BUN_X} {baseDir}/scripts/wechat-api.ts article.md --template v29 ...   # force
+${BUN_X} {baseDir}/scripts/wechat-api.ts article.md --template ny ...    # force
+```
+
+**Auto-detection logic** (`detectTemplate()` in `wechat-api.ts`):
+
+| Template | Trigger signals (score ≥ 2 → v29, else → ny) |
+|---------|----------------------------------------------|
+| v29 | `## 01.` / `## 一、` 等编号标题；`第X步`/`第X阶段`；`# 步`/`# 法则`/`# 攻略`/`# 框架`；`\d+. ` 编号列表 |
+| ny | 第一人称叙事；括号标题（如 `（深度观察）`）；无明确编号的随笔/观点文 |
+
+Without `--template`, content is published as-is (no wrapper).
+
+**Important — wrapper pitfall**: do NOT include `{{AUTHOR_IMG}}` or any `{{...}}` image placeholders in wrapper HTML. The upload logic treats `src="..."` attributes as image paths, so placeholder URLs will cause upload failures. Use real local paths or omit author portrait entirely.
+
+**Important — author block deduplication**: markdown articles that include an author/byline section at the end (e.g., `**萱宜**` + bio + `*声明*`) are rendered by `md-to-wechat` as HTML ending with `<hr>` followed by author content. When `--template` wraps the content, this native author block would appear **twice** (once from the article, once from the wrapper's author section).
+
+The fix: before wrapping, `wechat-api.ts` finds the last `<hr` in the rendered HTML and — if the content after it contains `萱宜` or `声明` — strips it and everything after. This is a `lastIndexOf("<hr")` + `includes()` check, NOT a fragile regex, because the rendered HTML structure varies.
+
+**Key implementation fact**: `extractHtmlContent()` returns the **full HTML document** (with `<html><head>...`), not just the article `<body>` or content `<div>`. This affects any post-processing on `htmlContent`.
+
 1. **Theme**: CLI `--theme` → EXTEND.md `default_theme` → `default` (first match wins; do NOT ask if resolved).
 2. **Color**: CLI `--color` → EXTEND.md `default_color` → omit (theme default applies).
 3. **Validate metadata** (frontmatter for markdown, meta tags for HTML):
@@ -178,7 +209,7 @@ Auto-generation: title = first H1/H2 or first sentence; summary = first paragrap
 **API method** (accepts `.md` or `.html`):
 
 ```bash
-${BUN_X} {baseDir}/scripts/wechat-api.ts <file> --theme <theme> [--color <color>] [--title <title>] [--summary <summary>] [--author <author>] [--cover <cover_path>] [--no-cite]
+${BUN_X} {baseDir}/scripts/wechat-api.ts <file> --theme <theme> [--color <color>] [--template v29|ny] [--title <title>] [--summary <summary>] [--author <author>] [--cover <cover_path>] [--no-cite]
 ```
 
 Always pass `--theme` even if it's `default`. Only pass `--color` when explicitly set by the user or EXTEND.md.
