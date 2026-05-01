@@ -160,8 +160,8 @@ Ask method unless specified in EXTEND.md or CLI:
 | Template | File | Description |
 |---------|------|-------------|
 | `auto` (default) | — | Analyze content and auto-select v29 or ny |
-| `v29` | `wrappers/v29.html` | 牛皮纸纹理背景 + 01/02/03大编号章节 + 横向作者区 |
-| `ny` | `wrappers/ny.html` | 暖白 `#FAF5EF` 底色 + 衬线标题 + 居中作者区 |
+| `v29` | `wrappers/v29.html` | 牛皮纸纹理背景 + 01/02/03大编号ghost number + 横向章节标题 + 英文副标题。适合2-5节结构化短文（方法论/教程/框架类）。发布前自动去掉 md-to-wechat 注入的蓝色内联字体（#1E50A2）。 |
+| `ny` | `wrappers/ny.html` | 暖白 `#FAF5EF` 底色 + 衬线标题 + 居中作者区。适合随笔/观点/5节以上长文。 |
 
 ```bash
 ${BUN_X} {baseDir}/scripts/wechat-api.ts article.md --template auto ...   # default
@@ -171,10 +171,24 @@ ${BUN_X} {baseDir}/scripts/wechat-api.ts article.md --template ny ...    # force
 
 **Auto-detection logic** (`detectTemplate()` in `wechat-api.ts`):
 
-| Template | Trigger signals (score ≥ 2 → v29, else → ny) |
-|---------|----------------------------------------------|
-| v29 | `## 01.` / `## 一、` 等编号标题；`第X步`/`第X阶段`；`# 步`/`# 法则`/`# 攻略`/`# 框架`；`\d+. ` 编号列表 |
-| ny | 第一人称叙事；括号标题（如 `（深度观察）`）；无明确编号的随笔/观点文 |
+Key signal: **number of top-level H2 sections** (not all `##` lines — nested list headings like `## 一、[问题现状]` are filtered out).
+
+| H2 count | Template | Reason |
+|----------|----------|--------|
+| 2–5 sections + any v29 signal | `v29` | 01/02/03 format fits short structured articles |
+| 6+ sections | `ny` | Too long for v29's 3-section layout |
+| Any count, no v29 signal | `ny` | Narrative/essay style |
+
+v29 signals: numbered headings (`## 一、` / `## 01.`), step phrases (`第X步`/`第X阶段`), or keywords (`步`/`法则`/`攻略`/`框架`/`模型`/`公式`/`清单`/`目录`).
+
+```
+isV29Fit = h2Count >= 2 && h2Count <= 5 && v29Score >= 1
+→ v29 if true, else ny
+```
+
+**Important — v29 HTML parsing pitfalls**: md-to-wechat generates malformed HTML where CSS `>` in attribute values (e.g. `calc(16px * 1.2)`) is encoded as `&gt;`, followed by an orphan `</h2>`. The parser handles this by:
+1. Skipping `>` chars preceded by `&` (HTML entities)
+2. Finding the first `</h2>` that is ≥10 chars after the opening tag's `>` (avoiding the orphan inside the opening tag attribute)
 
 Without `--template`, content is published as-is (no wrapper).
 
@@ -282,6 +296,8 @@ Files created:
 | No cover image | Add frontmatter cover or place `imgs/cover.png` in article directory |
 | Wrong comment defaults | Check `need_open_comment` / `only_fans_can_comment` in EXTEND.md |
 | Paste fails | Check system clipboard permissions |
+| v29 sections show 0 or wrong title | H2 parsing failed — likely md-to-wechat HTML entity `&gt;` confusion; check `wechat-api.ts` H2 parser logic |
+| v29 template has blue text in body | md-to-wechat injected blue inline color not stripped — verify color replacement regex in v29 handler |
 
 ## References
 
