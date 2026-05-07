@@ -74,6 +74,24 @@ ${BUN_X} {baseDir}/scripts/weibo-post.ts "Watch this" --video ./clip.mp4
 
 **Note**: Script opens browser with content filled in. User reviews and publishes manually.
 
+### Auto-Submit Mode
+
+Add `--submit` flag to automatically click the publish button and exit without manual review:
+
+```bash
+npx -y bun weibo-post.ts "Auto post!" --submit
+```
+
+Works with images and videos too:
+
+```bash
+npx -y bun weibo-post.ts "With image" --image ./photo.png --submit
+```
+
+The script will attempt multiple Weibo publish button selectors, auto-click the first valid one, then close the browser and exit. Useful for programmatic/cron workflows.
+
+> **Trial-and-error finding**: Auto-submit mode requires `process.exit(0)` to terminate immediately after clicking publish. Without it, the `finally` block keeps the CDP connection and Chrome process alive, causing the command to hang. Also requires `killChromeByProfile()` to fully terminate Chrome spawned by the profile.
+
 ---
 
 ## Headline Articles (头条文章)

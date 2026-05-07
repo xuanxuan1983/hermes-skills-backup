@@ -88,17 +88,17 @@ bun run ~/.hermes/skills/baoyu-skills/skills/baoyu-post-to-wechat/scripts/wechat
 ## 已知 Bug & Fix（必读）
 
 ### md-to-wechat H2 解析失败
-
 md-to-wechat 生成的 HTML 中 `>` 被编码为 `&gt;`，导致解析器把 `</h2>` 错误匹配到开标签内部。
-
 **已修复**：wechat-api.ts 中跳过 `&` 后面的 `>`，并跳过紧贴开标签的 `</h2>`（<10字符间隔）。
 
 ### md-to-wechat 蓝色字体
-
 h2 里注入蓝色 `color:#1E50A2`。已在 wechat-api.ts 中 strip 三种蓝色格式。
 
-### WeChat API 403/1010
+### md-to-wechat 白色 section 覆盖 v29 背景
+md-to-wechat 生成的 HTML 包在 `<section class="container" style="background:#fff">` 里，白色背景覆盖了 v29 的牛皮纸纹理。
+**已修复（2026-05-01）**：v29 模板直接写完整 HTML，不走 md-to-wechat 管道。wechat-api.ts 支持直接推送 `.html` 文件（自动检测文件后缀）。
 
+### WeChat API 403/1010
 用 `bun run wechat-api.ts`，不用 Python urllib（Cloudflare 拦截）。
 
 ## 推送命令

@@ -190,13 +190,26 @@ BAOYU_CHROME_PROFILE_DIR=~/Library/Application\ Support/baoyu-skills/chrome-prof
 
 For threads: post each tweet separately with `🧵/N` numbering prefix.
 
-### Chrome debug port not ready
+### Chrome debug port not ready / Session conflicts
 
-If a script fails with "Chrome debug port not ready" or "Unable to connect", kill existing Chrome CDP instances first, then retry:
+If a script fails with "Chrome debug port not ready", "Unable to connect", "Session with given id not found":
 
 ```bash
-pkill -f "Chrome.*remote-debugging-port" 2>/dev/null; pkill -f "Chromium.*remote-debugging-port" 2>/dev/null; sleep 2
+# Kill all Chrome CDP instances first — this is the #1 cause of failures
+pkill -f "Chrome.*remote-debugging-port" 2>/dev/null; sleep 3
 ```
+
+If the script still times out waiting for the X editor, Chrome is already running with a conflicting profile. Kill Chrome completely then retry:
+
+```bash
+pkill -f "Google Chrome" 2>/dev/null; sleep 4
+```
+
+### x-browser.ts times out at "Waiting for X editor"
+
+x-browser.ts launches its own Chrome which can conflict with an already-running Chrome session using the same profile. Symptoms: timeout at "Waiting for X editor" or "Session with given id not found".
+
+**Fix**: Kill existing Chrome first (see above), then retry. If it still fails, use opencli fallback.
 
 ### weibo-article Paste Fails → Content Still Inserted
 

@@ -22,6 +22,21 @@ Read when the user picks `--provider minimax` or sets `default_model.minimax`. D
 - Official docs say `image_file` supports public URLs or Base64 Data URLs; baoyu-imagine sends local refs as Data URLs
 - Recommended refs: front-facing portraits, JPG/JPEG/PNG, under 10MB
 
+## API Key
+
+**Important**: MiniMax image generation (`image-01`) requires a separate API key from the chat/chat completion key. A key that works for `MiniMax-M2.7` or `MiniMax-M2.1` chat models does NOT work for image generation.
+
+Get your image-specific key at: https://platform.minimax.io/ → API Keys → Create a new key with Image Generation permissions.
+
+**Endpoint**: `https://api.minimaxi.com/v1` (not `api.minimax.com`)
+
+**Verify key works for images**:
+```bash
+curl -s "https://api.minimaxi.com/v1/models" \
+  -H "Authorization: Bearer YOUR_KEY"
+```
+Look for `image-01` or `image-01-live` in the response. If only chat models appear, the key lacks image permissions.
+
 ## Official References
 
 - [Image Generation Guide](https://platform.minimax.io/docs/guides/image-generation)

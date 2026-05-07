@@ -80,12 +80,20 @@ curl -X POST https://blog.filldmy.com/api/posts \
 
 ### Step 4: 微信公众号发布
 
+**优先用 API 方式**（稳定，自动处理图片URL上传）：
 ```bash
 SKILL_DIR=~/.hermes/skills/baoyu-skills/skills/baoyu-post-to-wechat
 BAOYU_CHROME_PROFILE_DIR=~/Library/Application\ Support/baoyu-skills/chrome-profile \
   bun "$SKILL_DIR/scripts/wechat-api.ts" /path/to/article.html \
   --title "标题" --author "萱宜" --summary "摘要" --account zxy-growth
 ```
+
+图片处理流程：
+1. 先把图片上传到博客（`POST https://blog.filldmy.com/api/uploads`）获取公开URL
+2. HTML里的图片src直接用博客的公开URL
+3. `wechat-api.ts` 会自动把URL图片下载并上传到微信服务器
+
+**不要用浏览器方式**（`wechat-article.ts`）——Chrome daemon经常断，连接不稳定，需要手动介入。
 
 ### Step 5: X线程发布
 

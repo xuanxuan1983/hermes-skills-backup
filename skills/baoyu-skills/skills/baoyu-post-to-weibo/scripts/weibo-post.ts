@@ -24,6 +24,7 @@ interface WeiboPostOptions {
   timeoutMs?: number;
   profileDir?: string;
   chromePath?: string;
+  autoSubmit?: boolean;
 }
 
 export async function postToWeibo(options: WeiboPostOptions): Promise<void> {
@@ -201,8 +202,48 @@ export async function postToWeibo(options: WeiboPostOptions): Promise<void> {
       }
     }
 
-    console.log('[weibo-post] Post composed. Please review and click the publish button in the browser.');
-    console.log('[weibo-post] Browser remains open for manual review.');
+    if (options.autoSubmit) {
+      console.log('[weibo-post] Auto-submitting...');
+      const selectors = [
+        '[node-type="submit"][class*="btn"]:not([class*="disable"])',
+        '[class*="publish"]:not([class*="disable"])',
+        '[class*="send"]:not([class*="disable"])',
+        '[action-type="submit"]',
+        'a[class*="btn_publish"]',
+        '[class*="W_btn_a"][class*="submit"]',
+      ];
+      for (const sel of selectors) {
+        try {
+          const btn = await cdp.send<{ result: { value: number } }>('Runtime.evaluate', {
+            expression: `document.querySelectorAll('${sel}').length`,
+            returnByValue: true,
+          }, { sessionId });
+          if (btn.result.value > 0) {
+            await cdp.send('Runtime.evaluate', {
+              expression: `document.querySelector('${sel}').click()`,
+            }, { sessionId });
+            console.log('[weibo-post] Publish button clicked!');
+            await sleep(2000);
+            break;
+          }
+        } catch {}
+      }
+      // Close browser after auto-submit
+      if (cdp) {
+        cdp.close();
+        cdp = null;
+      }
+      // Kill Chrome process
+      try {
+        const { killChromeByProfile } = await import('./weibo-utils.js');
+        killChromeByProfile(profileDir);
+      } catch {}
+      console.log('[weibo-post] Done!');
+      process.exit(0);
+    } else {
+      console.log('[weibo-post] Post composed. Please review and click the publish button in the browser.');
+      console.log('[weibo-post] Browser remains open for manual review.');
+    }
 
   } finally {
     if (cdp) {
@@ -241,6 +282,7 @@ async function main(): Promise<void> {
   const images: string[] = [];
   const videos: string[] = [];
   let profileDir: string | undefined;
+  let autoSubmit = false;
   const textParts: string[] = [];
 
   for (let i = 0; i < args.length; i++) {
@@ -251,6 +293,8 @@ async function main(): Promise<void> {
       videos.push(args[++i]!);
     } else if (arg === '--profile' && args[i + 1]) {
       profileDir = args[++i];
+    } else if (arg === '--submit') {
+      autoSubmit = true;
     } else if (!arg.startsWith('-')) {
       textParts.push(arg);
     }
@@ -263,7 +307,7 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  await postToWeibo({ text, images, videos, profileDir });
+  await postToWeibo({ text, images, videos, profileDir, autoSubmit });
 }
 
 await main().catch((err) => {

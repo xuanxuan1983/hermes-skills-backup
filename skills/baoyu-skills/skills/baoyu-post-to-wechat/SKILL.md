@@ -171,24 +171,26 @@ ${BUN_X} {baseDir}/scripts/wechat-api.ts article.md --template ny ...    # force
 
 **Auto-detection logic** (`detectTemplate()` in `wechat-api.ts`):
 
-Key signal: **number of top-level H2 sections** (not all `##` lines — nested list headings like `## 一、[问题现状]` are filtered out).
+Key signal: **number of top-level H2 sections**. The parser filters out nested list headings (lines like `## 一、[问题现状]` that are short ≤15 chars — these are framework sub-items, not real sections).
 
-| H2 count | Template | Reason |
-|----------|----------|--------|
-| 2–5 sections + any v29 signal | `v29` | 01/02/03 format fits short structured articles |
-| 6+ sections | `ny` | Too long for v29's 3-section layout |
-| Any count, no v29 signal | `ny` | Narrative/essay style |
+| Condition | Template |
+|-----------|---------|
+| 2–5 top-level H2 + ≥1 v29 signal | `v29` |
+| 6+ top-level H2 | `ny` |
+| Any count, no v29 signal | `ny` |
 
 v29 signals: numbered headings (`## 一、` / `## 01.`), step phrases (`第X步`/`第X阶段`), or keywords (`步`/`法则`/`攻略`/`框架`/`模型`/`公式`/`清单`/`目录`).
 
 ```
+h2Count = top-level H2 lines (filter: reject ≤15-char "## 一、[xxx]" patterns and lines containing ```)
 isV29Fit = h2Count >= 2 && h2Count <= 5 && v29Score >= 1
 → v29 if true, else ny
 ```
 
-**Important — v29 HTML parsing pitfalls**: md-to-wechat generates malformed HTML where CSS `>` in attribute values (e.g. `calc(16px * 1.2)`) is encoded as `&gt;`, followed by an orphan `</h2>`. The parser handles this by:
-1. Skipping `>` chars preceded by `&` (HTML entities)
-2. Finding the first `</h2>` that is ≥10 chars after the opening tag's `>` (avoiding the orphan inside the opening tag attribute)
+**Critical — H2 parsing pitfall**: md-to-wechat generates malformed HTML where `>` inside CSS `style` attributes (e.g., `calc(16px * 1.2)`) is encoded as `&gt;`. The first `</h2>` after the opening `<h2...>` tag lands inside the malformed opening tag attribute — creating a title-less section. The parser fixes this by:
+1. Skipping `>` preceded by `&` (HTML entities)
+2. Skipping any `</h2>` found <10 chars after the opening tag's `>` (it's inside the attribute)
+3. Finding the next `</h2>` as the real content boundary
 
 Without `--template`, content is published as-is (no wrapper).
 
@@ -296,8 +298,8 @@ Files created:
 | No cover image | Add frontmatter cover or place `imgs/cover.png` in article directory |
 | Wrong comment defaults | Check `need_open_comment` / `only_fans_can_comment` in EXTEND.md |
 | Paste fails | Check system clipboard permissions |
-| v29 sections show 0 or wrong title | H2 parsing failed — likely md-to-wechat HTML entity `&gt;` confusion; check `wechat-api.ts` H2 parser logic |
-| v29 template has blue text in body | md-to-wechat injected blue inline color not stripped — verify color replacement regex in v29 handler |
+| v29 sections show 0 or wrong title | H2 parsing failed — md-to-wechat HTML encodes `>` as `&gt;`, causing `</h2>` to appear immediately after opening tag's `>`, tricking the parser. Fix: skip `</h2>` found within 10 chars of `>`. See `wechat-api.ts` H2 parser — `firstGtAfterH2 + 10` guard. |
+| v29 template has blue text in body | md-to-wechat injects `background:#0F4C81` on h2 and `color:#1E50A2` in body text. Fix: color replacement chain in wechat-api.ts strips these (and other non-template colors) before publish. |
 
 ## References
 

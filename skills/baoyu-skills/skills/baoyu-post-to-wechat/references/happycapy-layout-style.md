@@ -2,12 +2,14 @@
 
 ## 两套模板
 
-| 模板 | 文件 | 适用场景 |
-|------|------|---------|
-| 模板一（Competence型） | `article_template.html` | 认知型文章，三个观点并列，有大编号装饰 |
-| 模板二（Training型） | `article_template_v2.html` | 观点型文章，逻辑严密，有讽刺感，含纽约客插画 |
+发布时用 `--template` 参数指定：
 
-模板文件位置：`~/.baoyu-skills/baoyu-post-to-wechat/`
+| CLI参数 | 模板文件 | 风格 | 适用场景 |
+|---------|---------|------|---------|
+| `--template v29` | `wrappers/v29.html` | 牛皮纸纹理背景 + 01/02/03大编号章节 + 横向作者区 | 认知型文章，三个观点并列 |
+| `--template ny` | `wrappers/ny.html` | 暖白 `#FAF5EF` 底色 + 衬线标题 + 居中作者区 | 观点型文章，逻辑严密，有讽刺感，含纽约客插画 |
+
+wrapper 文件位置：`{skill_dir}/wrappers/`
 
 ---
 

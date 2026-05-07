@@ -942,9 +942,11 @@ async function main(): Promise<void> {
 
         htmlContent = wrapper;
         // Strip blue color from md-to-wechat injected inline styles before final publish
-        htmlContent = htmlContent.replace(/color:\s*#1E50A2[^;]*;?/gi, "color:#3D3D3D!important;")
+        htmlContent = htmlContent
+          .replace(/color:\s*#1E50A2[^;]*;?/gi, "color:#3D3D3D!important;")
+          .replace(/background:\s*#0F4C81[^;]*;?/gi, "background:transparent!important;")
           .replace(/color:\s*rgb\(30[,\s]+80[,\s]+162\)[^;]*;?/gi, "color:#3D3D3D!important;")
-          .replace(/color:\s*#[0-9A-Fa-f]{6}[^;]*;?/gi, (m) =>
+          .replace(/color:\s*#[0-9A-Fa-f]{6}[^;]*;?/gi, (m: string) =>
             m.includes("3D3D3D") || m.includes("888888") || m.includes("B8A898") || m.includes("BBBBBB") || m.includes("C8956C") ? m : "color:#3D3D3D!important;");
         console.error(`[wechat-api] Template applied: v29 (${sections.length} sections)`);
       } else {
