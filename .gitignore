@@ -5,6 +5,7 @@
 
 # Credential caches and auth files
 auth.json
+auth.lock
 credentials.json
 secrets.json
 *.pem
@@ -12,11 +13,23 @@ secrets.json
 *.p12
 *.p8
 
-# Local runtime/cache files
+# Local Hermes/runtime state
 .hermes/
-.cache/
+.hermes_history
+.skills_prompt_snapshot.json
+.update_check
+checkpoints/
+state.db
+state.db-*
 logs/
 *.log
+.cache/
+
+# Browser/session artifacts
+browser_screenshots/
+screenshots/
+*.sqlite
+*.sqlite-*
 
 # OS/editor noise
 .DS_Store
