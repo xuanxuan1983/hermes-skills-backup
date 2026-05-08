@@ -1,0 +1,24 @@
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Credential caches and auth files
+auth.json
+credentials.json
+secrets.json
+*.pem
+*.key
+*.p12
+*.p8
+
+# Local runtime/cache files
+.hermes/
+.cache/
+logs/
+*.log
+
+# OS/editor noise
+.DS_Store
+.vscode/
+.idea/
